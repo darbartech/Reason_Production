@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --primary-color: #0A2540;
+    --accent-color: #E66E00;
+  }
+
+  body {
+    @apply font-sans bg-white text-primary antialiased overflow-x-hidden;
+  }
+
+  /* Global Focus Styles for WCAG 2.2 AA */
+  :focus-visible {
+    @apply outline-none ring-2 ring-accent ring-offset-2;
+  }
+
+  /* Professional Typography Hierarchy */
+  h1 {
+    @apply font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight;
+  }
+
+  h2 {
+    @apply font-heading text-3xl sm:text-4xl md:text-5xl font-bold leading-snug tracking-tight;
+  }
+
+  h3 {
+    @apply font-heading text-2xl sm:text-3xl md:text-4xl font-semibold leading-normal tracking-tight;
+  }
+
+  h4 {
+    @apply font-heading text-xl sm:text-2xl md:text-3xl font-semibold leading-normal;
+  }
+
+  h5 {
+    @apply font-heading text-lg sm:text-xl md:text-2xl font-semibold leading-normal;
+  }
+
+  h6 {
+    @apply font-heading text-base sm:text-lg md:text-xl font-semibold leading-normal;
+  }
+
+  p {
+    @apply font-sans text-base sm:text-lg leading-relaxed;
+  }
+
+  .text-small {
+    @apply font-sans text-sm leading-relaxed;
+  }
+
+  .text-xsmall {
+    @apply font-sans text-xs leading-relaxed;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-3 bg-accent text-white px-7 py-4 rounded-xl font-semibold 
+           hover:bg-accent/90 active:bg-accent/80 transition-all duration-300 shadow-lg shadow-accent/15 
+           hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-0.5 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-3 bg-white text-primary border border-primary/10 px-7 py-4 
+           rounded-xl font-semibold hover:bg-primary hover:text-white hover:border-primary 
+           transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-0.5 
+           active:translate-y-0;
+  }
+
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-3 bg-transparent text-primary border border-primary/20 px-7 py-4 
+           rounded-xl font-semibold hover:bg-primary/5 hover:border-primary/40 
+           transition-all duration-300;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-3 bg-transparent text-primary px-7 py-4 
+           rounded-xl font-semibold hover:bg-primary/5 transition-all duration-300;
+  }
+
+  .section-padding {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12;
+  }
+
+  .card-hover {
+    @apply transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1;
+  }
+
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-md border border-white/20;
+  }
+}
+
+@layer utilities {
+  .content-auto {
+    content-visibility: auto;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+}
