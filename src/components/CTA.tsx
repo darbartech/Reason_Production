@@ -72,7 +72,7 @@ const CTA = () => {
               </div>
               <div className="text-left">
                 <p className="text-xs sm:text-xs text-white/50 font-black uppercase tracking-widest mb-1">Visit Us</p>
-                <p className="text-lg sm:text-xl font-extrabold text-white leading-tight">New Baneswor, Kathmandu</p>
+                <p className="text-lg sm:text-xl font-extrabold text-white leading-tight">New Baneshwor, Kathmandu</p>
               </div>
             </div>
           </div>

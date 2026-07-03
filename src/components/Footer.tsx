@@ -118,7 +118,7 @@ const Footer = () => {
                 </div>
                 <div>
                   <p className="text-xs text-white/50 uppercase tracking-wider mb-1">Visit Us</p>
-                  <p className="text-white/80 group-hover:text-white transition-colors font-medium">New Baneswor, Kathmandu</p>
+                  <p className="text-white/80 group-hover:text-white transition-colors font-medium">New Baneshwor, Kathmandu</p>
                 </div>
               </div>
               

@@ -17,7 +17,7 @@ const testimonials = [
     rating: 5,
   },
   {
-    name: "Barsa",
+    name: "Barsa Sharma",
     destination: "Study in Australia",
     content: "Reason Education's IELTS classes are top-notch. I achieved an excellent band score, and their counselor helped me secure my admission in Australia with ease.",
     image: "/students/barsa.jpg",

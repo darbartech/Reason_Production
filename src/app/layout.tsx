@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Leading study abroad consultancy in New Baneswor, Kathmandu. Expert counseling for USA, Canada, UK, Australia, New Zealand, Europe, and Japan. Join IELTS/PTE classes today.",
+    "Leading study abroad consultancy in New Baneshwor, Kathmandu. Expert counseling for USA, Canada, UK, Australia, New Zealand, Europe, and Japan. Join IELTS/PTE classes today.",
 
   keywords: [
     "study abroad nepal",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
     siteName: "Reason Education Consultancy",
     title: "Reason Education Consultancy | Best Study Abroad Experts in Nepal",
     description:
-      "Achieve your dreams of global education with the most trusted consultancy in New Baneswor, Kathmandu. Expert visa and admission support.",
+      "Achieve your dreams of global education with the most trusted consultancy in New Baneshwor, Kathmandu. Expert visa and admission support.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop",

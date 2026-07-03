@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { PhoneCall, FileText, Globe, GraduationCap, ArrowRight, ShieldCheck, Heart, Award, CheckCircle2, Star, Users, MapPin, Search, ClipboardCheck, Plane, Home, Sparkles, Building2, Handshake } from "lucide-react";
+import { PhoneCall, FileText, Globe, GraduationCap, ArrowRight, ShieldCheck, Heart, Award, CheckCircle2, Star, Users, MapPin, Search, ClipboardCheck, Plane, Home, Building2, Handshake } from "lucide-react";
 import CTA from "@/components/CTA";
 
 const ServicesClient = () => {
@@ -82,34 +82,12 @@ const ServicesClient = () => {
         className="relative min-h-[60vh] lg:min-h-[70vh] flex items-center pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden bg-primary"
         aria-label="Services Hero"
       >
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[70%] bg-accent/20 rounded-full blur-[120px] opacity-40" />
-          <div className="absolute bottom-[-10%] left-[-5%] w-[50%] h-[60%] bg-secondary/10 rounded-full blur-[100px] opacity-20" />
-          <div 
-            className="absolute inset-0 opacity-[0.05]" 
-            style={{ 
-              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', 
-              backgroundSize: '40px 40px' 
-            }} 
-          />
-        </div>
-
-        <div className="container-custom relative z-10">
+        <div className="container-custom">
           <div className="grid lg:grid-cols-12 lg:gap-16 items-center">
             <div className="lg:col-span-7 text-center lg:text-left">
-              <div className="inline-flex items-center space-x-2 bg-white/10 text-white px-4 py-1.5 rounded-full text-xs font-bold mb-6 backdrop-blur-md border border-white/10 uppercase tracking-widest">
-                <Sparkles size={14} className="text-accent" aria-hidden="true" />
-                <span>Our Professional Expertise</span>
-              </div>
               
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.05] tracking-tight">
-                Comprehensive <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-600 relative inline-block">
-                  Education Solutions
-                  <svg className="absolute -bottom-2 left-0 w-full h-4 text-accent/20" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="6" />
-                  </svg>
-                </span>
+                Comprehensive Education Solutions
               </h1>
               
               <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0 font-medium">
@@ -143,18 +121,6 @@ const ServicesClient = () => {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/80 via-primary/20 to-transparent" />
-                
-                <div className="absolute bottom-6 left-6 right-6 p-4 bg-white/95 backdrop-blur-sm rounded-xl border border-white/20 shadow-xl" aria-hidden="true">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white shadow-lg">
-                      <ShieldCheck size={20} />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-primary leading-tight">Trusted by 10,000+ Students</p>
-                      <p className="text-[10px] text-primary/60 font-bold uppercase tracking-widest mt-0.5">98% Visa Success Rate</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

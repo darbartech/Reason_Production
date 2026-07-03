@@ -16,7 +16,7 @@ const FAQPage = () => {
       category: "General",
       items: [
         { q: "How much do your counseling services cost?", a: "Our initial counseling services are completely free of charge. We believe in providing accessible information to all students." },
-        { q: "Where is your office located?", a: "Our main office is located in New Baneswor, (Indreni Complex), Kathmandu, Nepal." },
+        { q: "Where is your office located?", a: "Our main office is located in New Baneshwor, (Indreni Complex), Kathmandu, Nepal." },
         { q: "Which countries do you help with?", a: "We specialize in UK, USA, Canada, Australia, New Zealand, Japan, and several European countries." },
       ],
     },

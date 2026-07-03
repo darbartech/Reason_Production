@@ -24,7 +24,8 @@ const darkBackgroundPages = [
   "/ielts",
   "/blog",
   "/services",
-  "/b2b"
+  "/b2b",
+  "/contact"
 ];
 
 const Navbar = () => {
@@ -62,91 +63,97 @@ const Navbar = () => {
   const isActive = (path: string) => pathname === path;
 
   return (
-    <nav 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled 
-          ? "bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-gray-100" 
-          : isDarkPage 
-          ? "bg-primary/80 backdrop-blur-md py-4 lg:py-5 border-b border-white/10"
-          : "bg-white/90 backdrop-blur-sm py-4 lg:py-5 border-b border-gray-100"
-      }`}
-    >
-      <div className="container-custom">
-        <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center group shrink-0">
-            <div className={`relative w-40 h-12 sm:w-44 sm:h-14 group-hover:scale-105 transition-transform ${
-              (isDarkPage && !scrolled) ? "" : ""
-            }`}>
-              <Image 
-                src="/logo/NEW.png" 
-                alt="Reason Education Consultancy" 
-                fill 
-                className={`object-contain transition-all duration-300 ${
-                  (isDarkPage && !scrolled) ? "brightness-0 invert" : ""
-                }`}
-                priority
-              />
-            </div>
-          </Link>
+    <>
+      <nav 
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          scrolled 
+            ? "bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-gray-100" 
+            : isDarkPage 
+            ? "bg-primary/80 backdrop-blur-md py-4 lg:py-5 border-b border-white/10"
+            : "bg-white/90 backdrop-blur-sm py-4 lg:py-5 border-b border-gray-100"
+        }`}
+      >
+        <div className="container-custom">
+          <div className="flex items-center justify-between">
+            <Link href="/" className="flex items-center group shrink-0">
+              <div className={`relative w-40 h-12 sm:w-44 sm:h-14 group-hover:scale-105 transition-transform ${
+                (isDarkPage && !scrolled) ? "" : ""
+              }`}>
+                <Image 
+                  src="/logo/NEW.png" 
+                  alt="Reason Education Consultancy" 
+                  fill 
+                  className={`object-contain transition-all duration-300 ${
+                    (isDarkPage && !scrolled) ? "brightness-0 invert" : ""
+                  }`}
+                  priority
+                />
+              </div>
+            </Link>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                href={link.href}
-                className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                  isActive(link.href)
-                    ? scrolled || !isDarkPage
-                      ? "text-accent bg-accent-50" 
-                      : "text-accent bg-white/10"
-                    : scrolled || !isDarkPage
-                    ? "text-primary-700 hover:text-accent hover:bg-primary-50"
-                    : "text-white hover:text-accent hover:bg-white/10"
-                }`}
-              >
-                {link.name}
-              </Link>
-            ))}
-            
-            <div className="ml-4">
-              <Link
-                href="/contact"
-                className="btn-primary px-6 py-3 text-sm"
-              >
-                Free Counseling
-              </Link>
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center gap-1">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
+                    isActive(link.href)
+                      ? scrolled || !isDarkPage
+                        ? "text-accent bg-accent-50" 
+                        : "text-accent bg-white/10"
+                      : scrolled || !isDarkPage
+                      ? "text-primary-700 hover:text-accent hover:bg-primary-50"
+                      : "text-white hover:text-accent hover:bg-white/10"
+                  }`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+              
+              <div className="ml-4">
+                <Link
+                  href="/contact"
+                  className="btn-primary px-6 py-3 text-sm"
+                >
+                  Free Counseling
+                </Link>
+              </div>
             </div>
-          </div>
 
-          {/* Mobile Controls */}
-          <div className="flex items-center gap-2 lg:hidden">
-            <a 
-              href="tel:015316680" 
-              className="p-3 text-white bg-accent hover:bg-accent/90 transition-all rounded-xl shadow-lg active:scale-95"
-              aria-label="Call Us"
-            >
-              <Phone size={18} />
-            </a>
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className={`p-3 transition-all rounded-xl active:scale-95 ${
-                scrolled || !isDarkPage 
-                  ? "text-primary bg-gray-100 hover:bg-gray-200" 
-                  : "text-white bg-white/10 hover:bg-white/20"
-              }`}
-              aria-label={isOpen ? "Close menu" : "Open menu"}
-              aria-expanded={isOpen}
-            >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
-            </button>
+            {/* Mobile Controls */}
+            <div className="flex items-center gap-2 lg:hidden">
+              <a 
+                href="tel:015316680" 
+                className={`p-3 transition-all rounded-xl shadow-lg active:scale-95 ${
+                  scrolled || !isDarkPage 
+                    ? "text-white bg-accent hover:bg-accent/90" 
+                    : "text-white bg-accent hover:bg-accent/90"
+                }`}
+                aria-label="Call Us"
+              >
+                <Phone size={18} />
+              </a>
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className={`p-3 transition-all rounded-xl active:scale-95 ${
+                  scrolled || !isDarkPage 
+                    ? "text-primary bg-gray-100 hover:bg-gray-200" 
+                    : "text-white bg-white/10 hover:bg-white/20"
+                }`}
+                aria-label={isOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isOpen}
+              >
+                {isOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      </nav>
 
       {/* Mobile Menu Overlay */}
       <div 
-        className={`fixed inset-0 bg-primary/30 backdrop-blur-sm transition-opacity duration-300 lg:hidden ${
+        className={`fixed inset-0 bg-primary/30 backdrop-blur-sm transition-opacity duration-300 lg:hidden z-[9998] ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={() => setIsOpen(false)}
@@ -155,7 +162,7 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div 
-        className={`fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-2xl z-[60] transform transition-transform duration-300 lg:hidden ${
+        className={`fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-2xl z-[9999] transform transition-transform duration-300 lg:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -230,7 +237,7 @@ const Navbar = () => {
           </div>
         </div>
       </div>
-    </nav>
+    </>
   );
 };
 

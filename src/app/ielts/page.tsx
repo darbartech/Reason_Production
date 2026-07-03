@@ -171,24 +171,12 @@ const IELTSPage = () => {
         className="relative min-h-[80vh] lg:min-h-[70vh] flex items-center pt-24 pb-16 lg:pt-32 overflow-hidden bg-primary"
         aria-label="IELTS and PTE Hero Section"
       >
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[70%] bg-accent/10 rounded-full blur-[120px] opacity-30" />
-          <div className="absolute bottom-[-10%] left-[-5%] w-[50%] h-[60%] bg-secondary/10 rounded-full blur-[100px] opacity-20" />
-          <div className="absolute inset-0 opacity-[0.03]" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} />
-        </div>
-
-        <div className="container-custom relative z-10 text-white">
+        <div className="container-custom text-white">
           <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
             <div className="lg:col-span-7 text-center lg:text-left">
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.05] tracking-tight">
-                Master Your <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-600 relative inline-block">
-                  IELTS &amp; PTE
-                  <svg className="absolute -bottom-2 left-0 w-full h-4 text-accent/20" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="6" />
-                  </svg>
-                </span>
+                Master Your IELTS &amp; PTE
               </h1>
               
               <p className="text-base sm:text-lg md:text-xl text-white/60 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
@@ -243,18 +231,6 @@ const IELTSPage = () => {
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-primary/20 to-transparent" />
-                
-                <div className="absolute bottom-6 left-6 right-6 p-4 bg-white/95 backdrop-blur-sm rounded-xl border border-white/20 shadow-xl">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white">
-                      <Award size={18} aria-hidden="true" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-primary">Certified IELTS Coaching</p>
-                      <p className="text-xs text-primary/60">Since 2015</p>
-                    </div>
-                  </div>
-                </div>
               </div>
             </div>
           </div>

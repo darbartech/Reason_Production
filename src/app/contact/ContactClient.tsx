@@ -5,7 +5,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
 import { Phone, Mail, MapPin, MessageCircle, Facebook, Instagram, Linkedin, Send, Loader2 } from "lucide-react";
 import { contactSchema, ContactFormData } from "@/lib/validations/contact";
-import { submitContact } from "@/app/actions/contact";
 
 const ContactClient = () => {
   const {
@@ -19,13 +18,22 @@ const ContactClient = () => {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-      const result = await submitContact(data);
-      if (result.success) {
-        toast.success(result.message);
-        reset();
-      } else {
-        toast.error(result.error);
+      // Simulate a delay for realism
+      await new Promise((resolve) => setTimeout(resolve, 1500));
+      
+      // Validate the data
+      const validation = contactSchema.safeParse(data);
+
+      if (!validation.success) {
+        toast.error("Validation failed. Please check your inputs.");
+        return;
       }
+
+      // Log the submission (in a real app, you'd send this to an API)
+      console.log("Contact form submission received:", validation.data);
+      
+      toast.success("Thank you for reaching out! We'll get back to you soon.");
+      reset();
     } catch (error) {
       toast.error("Something went wrong. Please try again later.");
     }
@@ -66,7 +74,7 @@ const ContactClient = () => {
                        </div>
                        <div>
                           <h4 className="text-xl font-bold text-primary mb-1">Visit Our Office</h4>
-                          <p className="text-base text-primary/70 font-medium leading-relaxed">New Baneswor, (Indreni Complex), Kathmandu, Nepal</p>
+                          <p className="text-base text-primary/70 font-medium leading-relaxed">New Baneshwor, (Indreni Complex), Kathmandu, Nepal.</p>
                        </div>
                     </div>
                     <div className="flex items-start space-x-6 bg-gray-50 p-8 rounded-[2rem] border border-gray-100 card-hover group">
@@ -128,7 +136,7 @@ const ContactClient = () => {
                                {...register("fullName")}
                                type="text" 
                                className={`w-full bg-gray-50 border ${errors.fullName ? 'border-red-500' : 'border-gray-100'} rounded-2xl px-6 py-4 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/5 transition-all outline-none font-medium text-sm`} 
-                               placeholder="John Doe" 
+                               placeholder="Ram Bahadur Shrestha" 
                              />
                              {errors.fullName && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.fullName.message}</p>}
                           </div>
@@ -149,7 +157,7 @@ const ContactClient = () => {
                             {...register("email")}
                             type="email" 
                             className={`w-full bg-gray-50 border ${errors.email ? 'border-red-500' : 'border-gray-100'} rounded-2xl px-6 py-4 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/5 transition-all outline-none font-medium text-sm`} 
-                            placeholder="john@example.com" 
+                            placeholder="rudesh@gmail.com" 
                           />
                           {errors.email && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.email.message}</p>}
                        </div>

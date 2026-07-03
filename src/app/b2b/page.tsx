@@ -129,9 +129,8 @@ const B2BPage = () => {
       </section>
 
       {/* Core Strengths */}
-      <section className="section-padding bg-primary text-white overflow-hidden relative">
-        <div className="absolute bottom-0 left-0 w-full h-1/2 bg-accent/5 -skew-y-6 translate-y-1/2"></div>
-        <div className="container-custom relative z-10">
+      <section className="section-padding bg-primary text-white">
+        <div className="container-custom">
            <div className="grid lg:grid-cols-2 gap-16 items-center">
               <div>
                  <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tighter">Why Partner with Us?</h2>
@@ -153,16 +152,11 @@ const B2BPage = () => {
               <div className="relative">
                  <div className="relative rounded-[3rem] overflow-hidden aspect-[4/5] shadow-2xl">
                     <Image 
-                       src="https://images.unsplash.com/photo-1552664730-d307ca884978?q=80&w=1470&auto=format&fit=crop" 
+                       src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1470&auto=format&fit=crop" 
                        alt="B2B team meeting and collaboration at Reason Education Consultancy" 
                        fill
                        className="object-cover"
                     />
-                 </div>
-                 {/* Floating Card */}
-                 <div className="absolute -bottom-10 -left-10 bg-accent p-8 rounded-[2rem] shadow-2xl hidden md:block max-w-xs animate-bounce-slow">
-                    <p className="text-white font-black text-2xl mb-2">98%</p>
-                    <p className="text-white/80 text-xs font-bold uppercase tracking-widest">Partner Retention Rate</p>
                  </div>
               </div>
            </div>
@@ -222,7 +216,7 @@ const B2BPage = () => {
                         </div>
                         <div>
                            <p className="text-xs font-bold text-primary/40 uppercase tracking-widest">Office</p>
-                           <p className="text-lg font-bold text-primary">New Baneswor, Kathmandu</p>
+                           <p className="text-lg font-bold text-primary">New Baneshwor, Kathmandu</p>
                         </div>
                      </div>
                   </div>
@@ -232,7 +226,7 @@ const B2BPage = () => {
                      <div className="grid sm:grid-cols-2 gap-6">
                         <div className="space-y-2">
                            <label className="text-xs font-black uppercase tracking-widest text-primary/40">Full Name</label>
-                           <input type="text" className="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-accent transition-colors font-medium" placeholder="John Doe" />
+                           <input type="text" className="w-full px-6 py-4 rounded-2xl bg-gray-50 border border-gray-100 focus:outline-none focus:border-accent transition-colors font-medium" placeholder="Ram Bahadur Shrestha" />
                         </div>
                         <div className="space-y-2">
                            <label className="text-xs font-black uppercase tracking-widest text-primary/40">Organization</label>

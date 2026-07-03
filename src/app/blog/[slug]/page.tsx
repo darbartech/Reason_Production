@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
   const post = blogPosts.find((p) => p.slug === params.slug);
   if (!post) return {};
 
-  const title = `${post.title} | Study Abroad Blog | Reason Education`;
+  const title = `${post.title} | Study Abroad Blog`;
   const description = post.excerpt;
   const url = `https://studynepal.edu.np/blog/${post.slug}`;
 
@@ -64,8 +64,37 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
   const url = `https://studynepal.edu.np/blog/${post.slug}`;
   const title = post.title;
 
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "description": post.excerpt,
+    "image": post.image,
+    "author": {
+      "@type": "Person",
+      "name": post.author
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Reason Education Consultancy",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://studynepal.edu.np/logo.png"
+      }
+    },
+    "datePublished": post.date,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": url
+    }
+  };
+
   return (
     <div className="bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+      />
       {/* Header */}
       <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/4 h-full bg-accent/5 -skew-x-12 translate-x-1/2"></div>
@@ -97,34 +126,32 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               />
            </div>
 
-           <div className="lg:grid lg:grid-cols-12 lg:gap-12">
-              {/* Share Sidebar (Desktop) */}
-              <aside className="hidden lg:block lg:col-span-1">
-                 <div className="sticky top-24 space-y-4">
-                    <span className="text-[10px] font-bold text-primary/30 uppercase tracking-widest vertical-text mb-2 block">Share</span>
-                    {[
-                      { Icon: Facebook, href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, label: "Facebook" },
-                      { Icon: Twitter, href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, label: "Twitter" },
-                      { Icon: Linkedin, href: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, label: "Linkedin" },
-                      { Icon: MessageCircle, href: `https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' ' + url)}`, label: "WhatsApp" }
-                    ].map(({ Icon, href, label }, i) => (
-                      <a 
-                        key={i} 
-                        href={href} 
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="bg-primary/5 p-3 rounded-xl text-primary hover:bg-accent hover:text-white transition-all flex items-center justify-center" 
-                        aria-label={`Share on ${label}`}
-                      >
-                         <Icon size={18} />
-                      </a>
-                    ))}
-                 </div>
-              </aside>
-
-              {/* Post Content */}
-              <div className="lg:col-span-11 prose prose-lg prose-primary max-w-none text-primary/80 leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: post.content }}>
+           {/* Share Section (Visible on all devices) */}
+           <div className="mb-12 flex items-center gap-4">
+              <span className="text-xs font-bold text-primary/60 uppercase tracking-widest">Share</span>
+              <div className="flex items-center gap-3">
+                 {[
+                   { Icon: Facebook, href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, label: "Facebook" },
+                   { Icon: Twitter, href: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, label: "Twitter" },
+                   { Icon: Linkedin, href: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, label: "Linkedin" },
+                   { Icon: MessageCircle, href: `https://api.whatsapp.com/send?text=${encodeURIComponent(title + ' ' + url)}`, label: "WhatsApp" }
+                 ].map(({ Icon, href, label }, i) => (
+                   <a 
+                     key={i} 
+                     href={href} 
+                     target="_blank"
+                     rel="noopener noreferrer"
+                     className="bg-primary/5 p-3 rounded-xl text-primary hover:bg-accent hover:text-white transition-all flex items-center justify-center" 
+                     aria-label={`Share on ${label}`}
+                   >
+                      <Icon size={20} />
+                   </a>
+                 ))}
               </div>
+           </div>
+
+           {/* Post Content */}
+           <div className="prose prose-lg prose-primary max-w-none text-primary/80 leading-relaxed font-medium" dangerouslySetInnerHTML={{ __html: post.content }}>
            </div>
 
            {/* Author Bio */}

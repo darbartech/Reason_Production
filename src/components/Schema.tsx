@@ -12,7 +12,7 @@ export default function Schema() {
       "email": "info@reasons.edu.np",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "New Baneswor, Indreni Complex",
+        "streetAddress": "New Baneshwor, Indreni Complex",
         "addressLocality": "Kathmandu",
         "postalCode": "44600",
         "addressCountry": {

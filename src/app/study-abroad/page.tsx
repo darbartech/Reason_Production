@@ -189,11 +189,8 @@ const StudyAbroadPage = () => {
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.05] tracking-tight animate-slide-up" style={{ animationDelay: '0.2s' }}>
                 Your Path to <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-600 relative inline-block">
+                <span className="text-accent relative inline-block">
                   Global Success
-                  <svg className="absolute -bottom-2 left-0 w-full h-4 text-accent/20" viewBox="0 0 100 10" preserveAspectRatio="none" aria-hidden="true">
-                    <path d="M0 5 Q 25 0, 50 5 T 100 5" fill="none" stroke="currentColor" strokeWidth="6" />
-                  </svg>
                 </span>
               </h1>
               
@@ -247,18 +244,6 @@ const StudyAbroadPage = () => {
                     className="object-cover transition-transform duration-1000 group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-transparent to-transparent opacity-40 transition-opacity group-hover:opacity-50" />
-                </div>
-                
-                <div className="absolute bottom-8 left-8 right-8 p-5 bg-white/10 backdrop-blur-md rounded-2xl border border-white/20 shadow-xl group-hover:bg-white/15 transition-all">
-                  <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white">
-                      <Globe size={18} />
-                    </div>
-                    <div>
-                      <p className="text-[10px] font-bold text-white/60 uppercase tracking-widest mb-0.5">Destinations</p>
-                      <p className="text-xs font-bold text-white tracking-wide uppercase">Canada • Australia • UK • USA • Japan</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
