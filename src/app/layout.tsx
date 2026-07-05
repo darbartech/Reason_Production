@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Inter, Lora } from "next/font/google";
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -13,23 +13,23 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-const poppins = Poppins({
-  weight: ["400", "500", "600", "700", "800", "900"],
+const lora = Lora({
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-poppins",
+  variable: "--font-lora",
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://studynepal.edu.np"),
+  metadataBase: new URL("https://reasons.edu.np"),
 
   title: {
-    default: "Reason Education Consultancy | Best Study Abroad Experts in Nepal",
+    default: "Best Study Abroad Experts in Nepal | Reason Education Consultancy",
     template: "%s | Reason Education Consultancy",
   },
 
   description:
-    "Leading study abroad consultancy in New Baneshwor, Kathmandu. Expert counseling for USA, Canada, UK, Australia, New Zealand, Europe, and Japan. Join IELTS/PTE classes today.",
+    "Leading study abroad consultancy in New Baneshwor, Kathmandu. Expert counseling for USA, Canada, UK, Australia, New Zealand, Europe, Japan. Join IELTS/PTE classes.",
 
   keywords: [
     "study abroad nepal",
@@ -45,7 +45,7 @@ export const metadata: Metadata = {
   authors: [
     {
       name: "Reason Education Consultancy",
-      url: "https://studynepal.edu.np",
+      url: "https://reasons.edu.np",
     },
   ],
 
@@ -61,14 +61,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://studynepal.edu.np",
+    url: "https://reasons.edu.np",
     siteName: "Reason Education Consultancy",
-    title: "Reason Education Consultancy | Best Study Abroad Experts in Nepal",
+    title: "Best Study Abroad Experts in Nepal | Reason Education Consultancy",
     description:
-      "Achieve your dreams of global education with the most trusted consultancy in New Baneshwor, Kathmandu. Expert visa and admission support.",
+      "Trusted study abroad consultancy in Kathmandu. Expert counseling for USA, Canada, UK, Australia, New Zealand, Europe, Japan.",
     images: [
       {
-        url: "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop",
+        url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200&h=630",
         width: 1200,
         height: 630,
         alt: "Students studying abroad - Reason Education Consultancy",
@@ -79,11 +79,11 @@ export const metadata: Metadata = {
 
   twitter: {
     card: "summary_large_image",
-    title: "Reason Education Consultancy | Study Abroad from Nepal",
+    title: "Best Study Abroad Experts in Nepal | Reason Education Consultancy",
     description:
-      "Expert study abroad counseling and visa assistance for Nepalese students. Canada, Australia, UK, USA, and more.",
+      "Expert study abroad counseling and visa assistance for Nepalese students.",
     images: [
-      "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200&h=630",
     ],
     creator: "@reasoneducation",
   },
@@ -102,8 +102,8 @@ export const metadata: Metadata = {
   },
 
  icons: {
-  icon: "/favicon.ico",
-  apple: "/apple-touch-icon.png",
+  icon: "/logo/NEW.png",
+  apple: "/logo/NEW.png",
 },
 };
 
@@ -111,7 +111,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
+    <html lang="en" className={`${inter.variable} ${lora.variable}`}>
       <body className="font-sans antialiased text-primary selection:bg-accent/20 overflow-x-hidden">
         <Schema />
         <Toaster position="top-center" richColors />

@@ -1,21 +1,36 @@
+import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
 
-export const metadata = {
-  title: "Study in Australia from Nepal | GTE Requirements & Visa 2026",
+export const metadata: Metadata = {
+  title: "Study in Australia from Nepal",
   description: "Dreaming of studying in Australia from Nepal? Learn about CRICOS courses, GTE requirements, visa process, and top Australian universities.",
+  keywords: [
+    "study in australia from nepal",
+    "australia student visa nepal",
+    "gte requirements nepal",
+    "cricos courses nepal",
+    "australia universities nepal",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/countries/australia",
+    canonical: "https://reasons.edu.np/countries/australia",
   },
   openGraph: {
     title: "Study in Australia from Nepal | Complete Guide 2026",
-    description: "Everything you need to know about studying in Australia from Nepal. Admission, visa, and GTE guidance.",
+    description: "Everything you need to know about studying in Australia from Nepal.",
     images: ["https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=1200&h=630&auto=format&fit=crop"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Study in Australia from Nepal | Complete Guide 2026",
-    description: "Everything you need to know about studying in Australia from Nepal. Admission, visa, and GTE guidance.",
+    description: "Everything you need to know about studying in Australia from Nepal.",
     images: ["https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?q=80&w=1200&h=630&auto=format&fit=crop"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

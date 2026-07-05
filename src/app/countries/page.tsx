@@ -1,18 +1,46 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import CountryCard from "@/components/CountryCard";
 import CTA from "@/components/CTA";
 import { GraduationCap, MapPin, Globe } from "lucide-react";
 
-export const metadata = {
-  title: "Study Abroad Destinations | Explore Countries for Nepalese Students",
-  description: "Find the best countries to study abroad from Nepal. Explore detailed guides for USA, Canada, UK, Australia, New Zealand, Europe, and Japan. Expert visa and admission support.",
+export const metadata: Metadata = {
+  title: "Study Abroad Destinations",
+  description: "Explore top study abroad destinations for Nepalese students. USA, Canada, UK, Australia, New Zealand, Europe, Japan. Expert guidance available.",
+  keywords: [
+    "study abroad destinations nepal",
+    "top countries for nepali students",
+    "international study destinations",
+    "canada study nepal",
+    "usa study nepal",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/countries",
+    canonical: "https://reasons.edu.np/countries",
   },
   openGraph: {
-    title: "Study Abroad Destinations | Explore Countries for Nepalese Students",
-    description: "Detailed guides for top study destinations including USA, Canada, UK, Australia, New Zealand, Europe, and Japan for students from Nepal.",
+    title: "Study Abroad Destinations | Reason Education Consultancy",
+    description: "Top study destinations for Nepalese students including USA, Canada, UK, Australia, and more.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop",
+        width: 1200,
+        height: 630,
+        alt: "Study Abroad Destinations - Reason Education Consultancy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Study Abroad Destinations | Reason Education Consultancy",
+    description: "Top study destinations for Nepalese students including USA, Canada, UK, Australia, and more.",
     images: ["https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -72,31 +100,16 @@ export default function CountriesPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-[55vh] flex items-center pt-24 pb-16 lg:pt-32 overflow-hidden bg-primary text-white">
-        {/* Dynamic Background Elements */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[70%] bg-accent/10 rounded-full blur-[120px] opacity-30" />
-          <div className="absolute bottom-[-10%] left-[-5%] w-[50%] h-[60%] bg-secondary/10 rounded-full blur-[100px] opacity-20" />
-          
-          {/* Grid Pattern overlay */}
-          <div 
-            className="absolute inset-0 opacity-[0.03]" 
-            style={{ 
-              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', 
-              backgroundSize: '40px 40px' 
-            }} 
-          />
-        </div>
-
-        <div className="container-custom relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 leading-[1.05] tracking-tight animate-slide-up">
+      <section className="min-h-[55vh] flex items-center pt-24 pb-16 lg:pt-32 bg-primary text-white">
+        <div className="container-custom text-center">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight">
             Discover Your Perfect <br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-600 relative inline-block">
+            <span className="text-accent relative inline-block">
               Destination
             </span>
           </h1>
           
-          <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed font-medium animate-slide-up" style={{ animationDelay: '0.1s' }}>
+          <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed font-medium">
             Choose from top global education hubs. Each country offers unique opportunities, high-quality life, and world-class academic excellence.
           </p>
         </div>
@@ -114,10 +127,10 @@ export default function CountriesPage() {
       </section>
 
       {/* Comparison or Why Choose Section */}
-      <section className="py-16 bg-gray-50 overflow-hidden relative">
+      <section className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tighter">How to Choose Your <span className="text-accent">Destination?</span></h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tighter">How to Choose Your <span className="text-accent">Destination?</span></h2>
             <p className="text-lg text-primary/60 max-w-2xl mx-auto font-medium">
               Consider these key factors when deciding where to pursue your international education journey.
             </p>
@@ -145,7 +158,7 @@ export default function CountriesPage() {
                 <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-all duration-500">
                   <factor.icon size={28} />
                 </div>
-                <h3 className="text-xl font-black text-primary mb-4 group-hover:text-accent transition-colors">{factor.title}</h3>
+                <h3 className="text-xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">{factor.title}</h3>
                 <p className="text-base text-primary/70 leading-relaxed font-medium">
                   {factor.desc}
                 </p>

@@ -5,44 +5,44 @@ const steps = [
     title: "Counseling",
     description: "Our experts understand your profile and help you choose the right destination and course.",
     icon: Search,
-    color: "bg-blue-500",
+    color: "bg-primary",
   },
   {
     title: "Test Preparation",
     description: "Get top-notch IELTS/PTE training from certified trainers to achieve your target score.",
     icon: GraduationCap,
-    color: "bg-purple-500",
+    color: "bg-accent",
   },
   {
     title: "Documentation",
     description: "Professional help with university applications, SOP writing, and document verification.",
     icon: FileText,
-    color: "bg-amber-500",
+    color: "bg-primary",
   },
   {
     title: "Visa Application",
     description: "Expert guidance for your visa interview and preparation of all necessary financial documents.",
     icon: Send,
-    color: "bg-green-500",
+    color: "bg-accent",
   },
   {
     title: "Departure",
     description: "Pre-departure briefings to help you prepare for your new life and academic journey abroad.",
     icon: Plane,
-    color: "bg-blue-600",
+    color: "bg-primary",
   },
   {
     title: "Settle In",
     description: "We provide post-landing support to ensure you're comfortable and ready to succeed.",
     icon: Home,
-    color: "bg-rose-500",
+    color: "bg-accent",
   },
 ];
 
 const Process = () => {
   return (
     <section className="section-padding bg-white relative overflow-hidden" aria-labelledby="process-heading">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-gray-100"></div>
       
       <div className="container-custom relative z-10">
         <div className="text-center mb-10 lg:mb-16">
@@ -50,7 +50,7 @@ const Process = () => {
             <MapPin size={16} className="text-accent" aria-hidden="true" />
             <span>Our Methodology</span>
           </div>
-          <h2 id="process-heading" className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-4 sm:mb-6 tracking-tight">
+          <h2 id="process-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 sm:mb-6 tracking-tight">
             Your Journey to <span className="text-accent">Global Success</span>
           </h2>
           <p className="text-lg md:text-xl text-primary/60 font-medium leading-relaxed max-w-2xl mx-auto px-4">
@@ -59,7 +59,7 @@ const Process = () => {
         </div>
 
         <div className="relative">
-          <div className="absolute top-10 left-0 w-full h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-amber-500 rounded-full hidden lg:block opacity-20" aria-hidden="true"></div>
+          <div className="absolute top-10 left-0 w-full h-1 bg-gray-100 rounded-full hidden lg:block opacity-20" aria-hidden="true"></div>
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-4 relative z-10">
             {steps.map((step, index) => (
@@ -69,7 +69,7 @@ const Process = () => {
                   aria-hidden="true"
                 >
                   <step.icon size={28} className="text-white" />
-                  <div className="absolute -top-2 -right-2 w-7 h-7 sm:w-8 sm:h-8 bg-white border-2 border-gray-50 rounded-lg sm:rounded-xl flex items-center justify-center text-primary font-black shadow-lg text-xs sm:text-sm">
+                  <div className="absolute -top-2 -right-2 w-7 h-7 sm:w-8 sm:h-8 bg-white border-2 border-gray-100 rounded-lg sm:rounded-xl flex items-center justify-center text-primary font-bold shadow-lg text-xs sm:text-sm">
                     {index + 1}
                   </div>
                 </div>

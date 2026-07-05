@@ -1,21 +1,36 @@
+import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
 
-export const metadata = {
-  title: "Study in USA from Nepal | I-20 & F-1 Student Visa 2026",
+export const metadata: Metadata = {
+  title: "Study in USA from Nepal",
   description: "Plan your study in USA from Nepal with expert guidance. Learn about I-20, F-1 student visa requirements, costs, and top US universities.",
+  keywords: [
+    "study in USA from nepal",
+    "f1 student visa nepal",
+    "i20 application nepal",
+    "us universities nepal",
+    "scholarships for nepali students usa",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/countries/usa",
+    canonical: "https://reasons.edu.np/countries/usa",
   },
   openGraph: {
     title: "Study in USA from Nepal | I-20 & F-1 Student Visa 2026",
-    description: "Expert guidance for Nepalese students planning to study in the USA. I-20, F-1 visa, and scholarships.",
+    description: "Expert guidance for Nepalese students planning to study in the USA.",
     images: ["https://images.unsplash.com/photo-1500916434205-0c7742ddb658?q=80&w=1200&h=630&auto=format&fit=crop"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Study in USA from Nepal | I-20 & F-1 Student Visa 2026",
-    description: "Expert guidance for Nepalese students planning to study in the USA. I-20, F-1 visa, and scholarships.",
+    description: "Expert guidance for Nepalese students planning to study in the USA.",
     images: ["https://images.unsplash.com/photo-1500916434205-0c7742ddb658?q=80&w=1200&h=630&auto=format&fit=crop"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

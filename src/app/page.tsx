@@ -10,11 +10,8 @@ import FAQ from "@/components/FAQ";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Reason Education Consultancy | Best Study Abroad Experts in Nepal",
-    template: "%s | Reason Education Consultancy Nepal",
-  },
-  description: "Start your global education journey with Nepal's leading study abroad consultancy. Expert visa guidance for Australia, Canada, USA, UK, New Zealand, Japan, and Europe. Certified ICEF experts with 98% visa success rate.",
+  title: "Best Study Abroad Experts in Nepal",
+  description: "Leading study abroad consultancy in Kathmandu. Expert counseling for USA, Canada, UK, Australia, New Zealand, Europe, Japan. 98% visa success rate.",
   keywords: [
     "study abroad nepal",
     "best consultancy in nepal",
@@ -30,17 +27,16 @@ export const metadata: Metadata = {
   authors: [{ name: "Reason Education Consultancy" }],
   creator: "Reason Education Consultancy",
   publisher: "Reason Education Consultancy",
-  metadataBase: new URL("https://studynepal.edu.np"),
   alternates: {
-    canonical: "/",
+    canonical: "https://reasons.edu.np/",
   },
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://studynepal.edu.np",
+    url: "https://reasons.edu.np",
     siteName: "Reason Education Consultancy",
-    title: "Reason Education Consultancy | Best Study Abroad Experts in Nepal",
-    description: "Start your global education journey with Nepal's leading study abroad consultancy. Expert visa guidance with 98% success rate.",
+    title: "Best Study Abroad Experts in Nepal | Reason Education Consultancy",
+    description: "Trusted study abroad consultancy in Kathmandu. Expert counseling and visa assistance with 98% success rate.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200&h=630",
@@ -52,8 +48,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Reason Education Consultancy | Study Abroad Experts Nepal",
-    description: "Expert study abroad counseling and visa assistance for Nepalese students. Canada, Australia, UK, USA, and more.",
+    title: "Best Study Abroad Experts in Nepal | Reason Education Consultancy",
+    description: "Expert study abroad counseling and visa assistance for Nepalese students.",
     images: ["https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200&h=630"],
   },
   robots: {
@@ -66,9 +62,6 @@ export const metadata: Metadata = {
       "max-image-preview": "large",
       "max-snippet": -1,
     },
-  },
-  verification: {
-    google: "google-site-verification-code",
   },
 };
 

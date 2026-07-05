@@ -4,11 +4,6 @@ import { MessageCircle, Phone, Clock, MapPin, Sparkles, ArrowRight } from "lucid
 const CTA = () => {
   return (
     <section className="section-padding bg-primary relative overflow-hidden">
-      {/* Background Decorations */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-accent-900/30 -skew-x-12 translate-x-1/4 blur-3xl opacity-80"></div>
-      <div className="absolute bottom-0 left-0 w-1/2 h-full bg-secondary-900/30 skew-x-12 -translate-x-1/4 blur-3xl opacity-80"></div>
-      <div className="absolute inset-0 opacity-[0.04] pointer-events-none" style={{ backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px' }} aria-hidden="true"></div>
-
       <div className="container-custom relative z-10">
         <div className="max-w-5xl mx-auto text-center px-4">
           <div className="inline-flex items-center gap-2 bg-white/10 text-white px-5 py-2.5 rounded-full text-sm font-semibold mb-6 sm:mb-8 backdrop-blur-sm border border-white/20">
@@ -16,7 +11,7 @@ const CTA = () => {
             <span>Your Future Starts Here</span>
           </div>
           
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold text-white mb-6 sm:mb-8 leading-tight tracking-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight tracking-tight">
             Ready to Start Your
             <span className="text-accent"> Global</span> Journey Today?
           </h2>
@@ -53,8 +48,8 @@ const CTA = () => {
                 <Phone size={24} />
               </div>
               <div className="text-left">
-                <p className="text-xs sm:text-xs text-white/50 font-black uppercase tracking-widest mb-1">Call Us Now</p>
-                <p className="text-lg sm:text-xl font-extrabold text-white leading-tight">01-5316680</p>
+                <p className="text-xs sm:text-xs text-white/50 font-bold uppercase tracking-widest mb-1">Call Us Now</p>
+                <p className="text-lg sm:text-xl font-bold text-white leading-tight">01-5316680</p>
               </div>
             </a>
             <div className="flex items-center gap-3 sm:gap-4 group">
@@ -62,8 +57,8 @@ const CTA = () => {
                 <Clock size={24} />
               </div>
               <div className="text-left">
-                <p className="text-xs sm:text-xs text-white/50 font-black uppercase tracking-widest mb-1">Office Hours</p>
-                <p className="text-lg sm:text-xl font-extrabold text-white leading-tight">Sun - Fri, 7:00 AM - 5 PM</p>
+                <p className="text-xs sm:text-xs text-white/50 font-bold uppercase tracking-widest mb-1">Office Hours</p>
+                <p className="text-lg sm:text-xl font-bold text-white leading-tight">Sun - Fri, 7:00 AM - 5 PM</p>
               </div>
             </div>
             <div className="flex items-center gap-3 sm:gap-4 group">
@@ -71,8 +66,8 @@ const CTA = () => {
                 <MapPin size={24} />
               </div>
               <div className="text-left">
-                <p className="text-xs sm:text-xs text-white/50 font-black uppercase tracking-widest mb-1">Visit Us</p>
-                <p className="text-lg sm:text-xl font-extrabold text-white leading-tight">New Baneshwor, Kathmandu</p>
+                <p className="text-xs sm:text-xs text-white/50 font-bold uppercase tracking-widest mb-1">Visit Us</p>
+                <p className="text-lg sm:text-xl font-bold text-white leading-tight">New Baneshwor, Kathmandu</p>
               </div>
             </div>
           </div>

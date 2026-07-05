@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: BlogPostPageProps) {
 
   const title = `${post.title} | Study Abroad Blog`;
   const description = post.excerpt;
-  const url = `https://studynepal.edu.np/blog/${post.slug}`;
+  const url = `https://reasons.edu.np/blog/${post.slug}`;
 
   return {
     title,
@@ -61,7 +61,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
     notFound();
   }
 
-  const url = `https://studynepal.edu.np/blog/${post.slug}`;
+  const url = `https://reasons.edu.np/blog/${post.slug}`;
   const title = post.title;
 
   const articleSchema = {
@@ -79,7 +79,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
       "name": "Reason Education Consultancy",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://studynepal.edu.np/logo.png"
+        "url": "https://reasons.edu.np/logo/NEW.png"
       }
     },
     "datePublished": post.date,

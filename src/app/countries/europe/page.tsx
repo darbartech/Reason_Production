@@ -1,21 +1,36 @@
+import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
 
-export const metadata = {
-  title: "Study in Europe from Nepal | Schengen Visa & Costs 2026",
+export const metadata: Metadata = {
+  title: "Study in Europe from Nepal",
   description: "Plan your study in Europe from Nepal with expert guidance. Learn about Schengen visa, tuition-free options, costs, and top European universities.",
+  keywords: [
+    "study in europe from nepal",
+    "schengen student visa nepal",
+    "tuition free europe nepal",
+    "germany study nepal",
+    "france study nepal",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/countries/europe",
+    canonical: "https://reasons.edu.np/countries/europe",
   },
   openGraph: {
     title: "Study in Europe from Nepal | Schengen Visa & Costs 2026",
-    description: "Expert guidance for Nepalese students planning to study in Europe. Schengen visa, costs, and scholarships.",
+    description: "Expert guidance for Nepalese students planning to study in Europe.",
     images: ["https://images.unsplash.com/photo-1473946377622-73b54f855779?q=80&w=1200&h=630&auto=format&fit=crop"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Study in Europe from Nepal | Schengen Visa & Costs 2026",
-    description: "Expert guidance for Nepalese students planning to study in Europe. Schengen visa, costs, and scholarships.",
+    description: "Expert guidance for Nepalese students planning to study in Europe.",
     images: ["https://images.unsplash.com/photo-1473946377622-73b54f855779?q=80&w=1200&h=630&auto=format&fit=crop"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

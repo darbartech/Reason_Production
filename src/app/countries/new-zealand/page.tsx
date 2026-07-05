@@ -1,14 +1,24 @@
+import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
 
-export const metadata = {
-  title: "Study in New Zealand from Nepal | Visa Requirements & Process 2026",
+export const metadata: Metadata = {
+  title: "Study in New Zealand from Nepal",
   description: "Planning to study in New Zealand from Nepal? Get expert guidance on admission requirements, visa process, costs, and top universities. 98% success rate.",
+  keywords: [
+    "study in new zealand from nepal",
+    "new zealand student visa nepal",
+    "nz universities nepal",
+    "new zealand scholarships nepal",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/countries/new-zealand",
+    canonical: "https://reasons.edu.np/countries/new-zealand",
   },
   openGraph: {
     title: "Study in New Zealand from Nepal | Complete Guide 2026",
-    description: "Expert guidance for Nepalese students planning to study in New Zealand. Admission, visa, costs, and top universities.",
+    description: "Expert guidance for Nepalese students planning to study in New Zealand.",
     images: ["https://images.unsplash.com/photo-1589802829985-817e51181b92?q=80&w=1200&h=630&auto=format&fit=crop"],
   },
   twitter: {
@@ -16,6 +26,10 @@ export const metadata = {
     title: "Study in New Zealand from Nepal | Complete Guide 2026",
     description: "Planning to study in New Zealand from Nepal? Expert guidance on admission, visa, and more.",
     images: ["https://images.unsplash.com/photo-1589802829985-817e51181b92?q=80&w=1200&h=630&auto=format&fit=crop"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

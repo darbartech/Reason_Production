@@ -3,11 +3,11 @@ export default function Schema() {
     {
       "@context": "https://schema.org",
       "@type": "LocalBusiness",
-      "@id": "https://studynepal.edu.np/#organization",
+      "@id": "https://reasons.edu.np/#organization",
       "name": "Reason Education Consultancy",
-      "image": "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop",
-      "logo": "https://studynepal.edu.np/logo.png",
-      "url": "https://studynepal.edu.np",
+      "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200&h=630",
+      "logo": "https://reasons.edu.np/logo/NEW.png",
+      "url": "https://reasons.edu.np",
       "telephone": "+977-15316680",
       "email": "info@reasons.edu.np",
       "address": {
@@ -50,30 +50,7 @@ export default function Schema() {
         "@type": "Country",
         "name": "Nepal"
       },
-      "serviceType": ["Education Consultancy", "Study Abroad Services", "IELTS Training", "Visa Assistance"]
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://studynepal.edu.np/#website",
-      "url": "https://studynepal.edu.np",
-      "name": "Reason Education Consultancy",
-      "publisher": {
-        "@id": "https://studynepal.edu.np/#organization"
-      },
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": "https://studynepal.edu.np/search?q={search_term_string}",
-        "query-input": "required name=search_term_string"
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "@id": "https://studynepal.edu.np/#organization",
-      "name": "Reason Education Consultancy",
-      "url": "https://studynepal.edu.np",
-      "logo": "https://studynepal.edu.np/logo.png",
+      "serviceType": ["Education Consultancy", "Study Abroad Services", "IELTS Training", "Visa Assistance"],
       "description": "Leading study abroad consultancy in Nepal helping students achieve their dreams of global education.",
       "foundingDate": "2015",
       "numberOfEmployees": {
@@ -83,10 +60,20 @@ export default function Schema() {
     },
     {
       "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://reasons.edu.np/#website",
+      "url": "https://reasons.edu.np",
+      "name": "Reason Education Consultancy",
+      "publisher": {
+        "@id": "https://reasons.edu.np/#organization"
+      }
+    },
+    {
+      "@context": "https://schema.org",
       "@type": "Service",
       "serviceType": "Education Consultancy",
       "provider": {
-        "@id": "https://studynepal.edu.np/#organization"
+        "@id": "https://reasons.edu.np/#organization"
       },
       "areaServed": [
         {
@@ -108,10 +95,6 @@ export default function Schema() {
         {
           "@type": "Country",
           "name": "New Zealand"
-        },
-        {
-          "@type": "Country",
-          "name": "Europe"
         },
         {
           "@type": "Country",
@@ -141,6 +124,13 @@ export default function Schema() {
             "itemOffered": {
               "@type": "Service",
               "name": "Visa Assistance"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "PTE Preparation"
             }
           }
         ]

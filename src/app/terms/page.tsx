@@ -2,8 +2,45 @@ import { Metadata } from "next";
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
-  title: "Terms of Service | Reason Education Consultancy",
+  title: "Terms of Service",
   description: "Terms and conditions for using the services of Reason Education Consultancy, Kathmandu, Nepal.",
+  keywords: [
+    "terms of service nepal",
+    "reason education terms",
+    "service agreement nepal",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
+  alternates: {
+    canonical: "https://reasons.edu.np/terms",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://reasons.edu.np/terms",
+    siteName: "Reason Education Consultancy",
+    title: "Terms of Service | Reason Education Consultancy",
+    description: "Terms and conditions for using our services.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200&h=630",
+        width: 1200,
+        height: 630,
+        alt: "Terms of Service - Reason Education Consultancy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Terms of Service | Reason Education Consultancy",
+    description: "Terms and conditions for using our services.",
+    images: ["https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200&h=630"],
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 const TermsPage = () => {

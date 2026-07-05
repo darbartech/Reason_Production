@@ -5,11 +5,8 @@ import CTA from "@/components/CTA";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Best IELTS & PTE Classes in Kathmandu | Expert Training 2026",
-    template: "%s | Reason Education Consultancy",
-  },
-  description: "Join the best IELTS and PTE preparation classes in Kathmandu, Nepal. Expert trainers, mock tests, and flexible schedules. Achieve your target band score with Reason Education.",
+  title: "Best IELTS & PTE Classes in Kathmandu | Reason Education",
+  description: "Join top-rated IELTS and PTE preparation classes in Kathmandu. Expert trainers, weekly mock tests, flexible schedules. Achieve your target band score.",
   keywords: [
     "ielts classes kathmandu",
     "ielts preparation nepal",
@@ -22,17 +19,17 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Reason Education Consultancy" }],
   publisher: "Reason Education Consultancy",
-  metadataBase: new URL("https://studynepal.edu.np"),
+  metadataBase: new URL("https://reasons.edu.np"),
   alternates: {
-    canonical: "/ielts",
+    canonical: "https://reasons.edu.np/ielts",
   },
   openGraph: {
     type: "article",
     locale: "en_US",
-    url: "https://studynepal.edu.np/ielts",
+    url: "https://reasons.edu.np/ielts",
     siteName: "Reason Education Consultancy",
-    title: "Best IELTS & PTE Classes in Kathmandu | Expert Training 2026",
-    description: "Join the best IELTS and PTE preparation classes in Kathmandu. Expert trainers with proven results.",
+    title: "Best IELTS & PTE Classes in Kathmandu | Reason Education",
+    description: "Expert IELTS and PTE preparation classes in Kathmandu with proven results.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=1200&h=630&auto=format&fit=crop",
@@ -45,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Best IELTS & PTE Classes in Kathmandu | Reason Education",
-    description: "Expert IELTS and PTE coaching in Kathmandu. Achieve your target score with certified trainers.",
+    description: "Expert IELTS and PTE coaching in Kathmandu. Achieve your target score.",
     images: ["https://images.unsplash.com/photo-1513258496099-48168024aec0?q=80&w=1200&h=630&auto=format&fit=crop"],
   },
   robots: {
@@ -66,25 +63,25 @@ const features = [
     title: "Expert Trainers",
     description: "Certified instructors with years of experience in IELTS/PTE coaching and proven track records.",
     icon: Users,
-    color: "bg-blue-500",
+    color: "bg-accent",
   },
   {
     title: "Weekly Mock Tests",
     description: "Full-length practice tests every Sunday to track progress and build test-taking confidence.",
     icon: FileCheck,
-    color: "bg-green-500",
+    color: "bg-primary",
   },
   {
     title: "Updated Materials",
     description: "Comprehensive and up-to-date study materials, practice books, and online resources included.",
     icon: BookOpen,
-    color: "bg-purple-500",
+    color: "bg-accent",
   },
   {
     title: "Flexible Batches",
     description: "Morning, afternoon, and evening batches available to fit your schedule perfectly.",
     icon: Clock,
-    color: "bg-amber-500",
+    color: "bg-primary",
   },
 ];
 
@@ -138,29 +135,29 @@ const examModules = [
     title: "Listening",
     description: "Practice diverse accents and question types with our audio training sessions.",
     icon: Headphones,
-    color: "text-blue-600",
-    bg: "bg-blue-50",
+    color: "text-accent",
+    bg: "bg-accent/10",
   },
   {
     title: "Reading",
     description: "Master skimming, scanning, and detailed reading techniques for high scores.",
     icon: BookOpen,
-    color: "text-green-600",
-    bg: "bg-green-50",
+    color: "text-primary",
+    bg: "bg-primary/10",
   },
   {
     title: "Writing",
     description: "Learn structured writing approaches with personalized feedback on your essays.",
     icon: PenTool,
-    color: "text-purple-600",
-    bg: "bg-purple-50",
+    color: "text-accent",
+    bg: "bg-accent/10",
   },
   {
     title: "Speaking",
     description: "Build confidence with regular one-on-one practice sessions and mock interviews.",
     icon: Mic,
-    color: "text-amber-600",
-    bg: "bg-amber-50",
+    color: "text-primary",
+    bg: "bg-primary/10",
   },
 ];
 
@@ -175,7 +172,7 @@ const IELTSPage = () => {
           <div className="lg:grid lg:grid-cols-12 lg:gap-16 items-center">
             <div className="lg:col-span-7 text-center lg:text-left">
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.05] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.05] tracking-tight">
                 Master Your IELTS &amp; PTE
               </h1>
               
@@ -244,7 +241,7 @@ const IELTSPage = () => {
               <Award size={16} aria-hidden="true" />
               <span>Why Choose Us</span>
             </div>
-            <h2 id="features-heading" className="text-2xl sm:text-3xl md:text-4xl font-black text-primary mb-4">
+            <h2 id="features-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4">
               What Sets Us Apart
             </h2>
             <p className="text-base sm:text-lg text-primary/60 font-medium max-w-2xl mx-auto">
@@ -276,7 +273,7 @@ const IELTSPage = () => {
               <Target size={16} aria-hidden="true" />
               <span>Exam Modules</span>
             </div>
-            <h2 id="exam-modules-heading" className="text-2xl sm:text-3xl md:text-4xl font-black text-primary mb-4">
+            <h2 id="exam-modules-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4">
               Comprehensive Test Preparation
             </h2>
             <p className="text-base sm:text-lg text-primary/60 font-medium max-w-2xl mx-auto">
@@ -308,7 +305,7 @@ const IELTSPage = () => {
               <GraduationCap size={16} aria-hidden="true" />
               <span>Our Courses</span>
             </div>
-            <h2 id="courses-heading" className="text-2xl sm:text-3xl md:text-4xl font-black text-primary mb-4">
+            <h2 id="courses-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary mb-4">
               Choose Your Preparation Path
             </h2>
             <p className="text-base sm:text-lg text-primary/60 font-medium max-w-2xl mx-auto">

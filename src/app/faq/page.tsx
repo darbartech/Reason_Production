@@ -1,12 +1,49 @@
+import { Metadata } from "next";
 import { HelpCircle, Plus, Minus, Search } from "lucide-react";
 import Link from "next/link";
 import CTA from "@/components/CTA";
 
-export const metadata = {
-  title: "Frequently Asked Questions | Reason Education Consultancy",
-  description: "Find answers to commonly asked questions about studying abroad, IELTS/PTE classes, visa processing, and more at Reason Education Consultancy.",
+export const metadata: Metadata = {
+  title: "Frequently Asked Questions",
+  description: "Find answers to commonly asked questions about studying abroad, IELTS/PTE classes, visa processing, and more from our expert counselors.",
+  keywords: [
+    "study abroad faq nepal",
+    "ielts preparation questions",
+    "student visa faq",
+    "reason education faq",
+    "study abroad questions nepal",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/faq",
+    canonical: "https://reasons.edu.np/faq",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://reasons.edu.np/faq",
+    siteName: "Reason Education Consultancy",
+    title: "Frequently Asked Questions | Reason Education Consultancy",
+    description: "Find answers to commonly asked questions about studying abroad, IELTS/PTE classes, and visa processing.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=1200&h=630",
+        width: 1200,
+        height: 630,
+        alt: "FAQ - Study Abroad Questions and Answers",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ | Reason Education Consultancy",
+    description: "Find answers about studying abroad, IELTS/PTE classes, and visa processing.",
+    images: ["https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=1200&h=630"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -61,10 +98,9 @@ const FAQPage = () => {
       />
 
       {/* Header */}
-      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 -skew-x-12 translate-x-1/2 blur-3xl opacity-30"></div>
-        <div className="container-custom relative z-10 text-center">
-           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 max-w-4xl mx-auto leading-[1.05] tracking-tight">
+      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white">
+        <div className="container-custom text-center">
+           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-4xl mx-auto leading-[1.05] tracking-tight">
              Everything You Need to Know
            </h1>
            <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-medium">

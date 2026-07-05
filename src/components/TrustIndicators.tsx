@@ -5,36 +5,36 @@ const features = [
     title: "Expert Mentorship",
     description: "Our counselors are certified experts with over 10 years of experience in global education and student visa processing.",
     icon: Users,
-    color: "text-blue-600",
-    bg: "bg-blue-50",
+    color: "text-primary",
+    bg: "bg-primary/10",
   },
   {
     title: "High Success Rate",
     description: "With a 98% visa success rate, we ensure your application is processed with maximum precision and care.",
     icon: TrendingUp,
-    color: "text-amber-600",
-    bg: "bg-amber-50",
+    color: "text-accent",
+    bg: "bg-accent/10",
   },
   {
     title: "Transparent Process",
     description: "No hidden costs. We provide a clear roadmap for your education journey and financial planning.",
     icon: ShieldCheck,
-    color: "text-green-600",
-    bg: "bg-green-50",
+    color: "text-primary",
+    bg: "bg-primary/10",
   },
   {
     title: "Student-First Approach",
     description: "Your dreams are our priority. We provide personalized support until you're fully settled abroad.",
     icon: HeartHandshake,
-    color: "text-rose-600",
-    bg: "bg-rose-50",
+    color: "text-accent",
+    bg: "bg-accent/10",
   },
 ];
 
 const TrustIndicators = () => {
   return (
     <section className="section-padding bg-white relative overflow-hidden" aria-labelledby="trust-heading">
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-gray-100"></div>
       
       <div className="container-custom">
         <div className="text-center mb-10 lg:mb-12">
@@ -42,7 +42,7 @@ const TrustIndicators = () => {
             <Sparkles size={16} className="text-accent" aria-hidden="true" />
             <span>Why Choose Reason</span>
           </div>
-          <h2 id="trust-heading" className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-4 tracking-tight">
+          <h2 id="trust-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 tracking-tight">
             We&apos;re Not Just a Consultancy, <span className="text-accent">We&apos;re Your Partners</span>
           </h2>
           <p className="text-lg md:text-xl text-primary/60 font-medium leading-relaxed max-w-2xl mx-auto">

@@ -2,8 +2,46 @@ import { Metadata } from "next";
 import CTA from "@/components/CTA";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Reason Education Consultancy",
+  title: "Privacy Policy",
   description: "Our commitment to protecting your privacy and personal data. Learn how Reason Education Consultancy handles your information.",
+  keywords: [
+    "privacy policy nepal",
+    "reason education privacy",
+    "data protection nepal",
+    "personal data policy",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
+  alternates: {
+    canonical: "https://reasons.edu.np/privacy",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://reasons.edu.np/privacy",
+    siteName: "Reason Education Consultancy",
+    title: "Privacy Policy | Reason Education Consultancy",
+    description: "Our commitment to protecting your privacy and personal data.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200&h=630",
+        width: 1200,
+        height: 630,
+        alt: "Privacy Policy - Reason Education Consultancy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Privacy Policy | Reason Education Consultancy",
+    description: "Our commitment to protecting your privacy and personal data.",
+    images: ["https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=1200&h=630"],
+  },
+  robots: {
+    index: false,
+    follow: true,
+  },
 };
 
 const PrivacyPage = () => {

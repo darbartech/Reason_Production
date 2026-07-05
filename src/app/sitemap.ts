@@ -2,11 +2,11 @@ import { MetadataRoute } from "next";
 import { blogPosts } from "@/lib/blog-data";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://studynepal.edu.np";
+  const baseUrl = "https://reasons.edu.np";
 
   const posts = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(),
+    lastModified: new Date(post.date),
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
@@ -25,27 +25,27 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${baseUrl}/countries/${country}`,
     lastModified: new Date(),
     changeFrequency: "monthly" as const,
-    priority: 0.8,
+    priority: 0.9,
   }));
 
   const routes = [
-    "",
-    "/about",
-    "/contact",
-    "/services",
-    "/b2b",
-    "/study-abroad",
-    "/ielts",
-    "/faq",
-    "/blog",
-    "/countries",
-    "/privacy",
-    "/terms",
-  ].map((route) => ({
-    url: `${baseUrl}${route}`,
+    { path: "", priority: 1.0, changeFreq: "daily" },
+    { path: "/about", priority: 0.8, changeFreq: "monthly" },
+    { path: "/contact", priority: 0.8, changeFreq: "monthly" },
+    { path: "/services", priority: 0.9, changeFreq: "weekly" },
+    { path: "/b2b", priority: 0.7, changeFreq: "monthly" },
+    { path: "/study-abroad", priority: 0.95, changeFreq: "weekly" },
+    { path: "/ielts", priority: 0.95, changeFreq: "weekly" },
+    { path: "/faq", priority: 0.8, changeFreq: "monthly" },
+    { path: "/blog", priority: 0.85, changeFreq: "weekly" },
+    { path: "/countries", priority: 0.9, changeFreq: "monthly" },
+    { path: "/privacy", priority: 0.5, changeFreq: "yearly" },
+    { path: "/terms", priority: 0.5, changeFreq: "yearly" },
+  ].map(({ path, priority, changeFreq }) => ({
+    url: `${baseUrl}${path}`,
     lastModified: new Date(),
-    changeFrequency: "monthly" as const,
-    priority: route === "" ? 1 : 0.8,
+    changeFrequency: changeFreq as any,
+    priority,
   }));
 
   return [...routes, ...countryRoutes, ...posts];

@@ -57,7 +57,6 @@ const destinations = [
 const StudyDestinations = () => {
   return (
     <section className="section-padding bg-white relative overflow-hidden" aria-labelledby="destinations-heading">
-      <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-accent/5 rounded-full blur-3xl" aria-hidden="true"></div>
       
       <div className="container-custom">
         <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 lg:mb-16 gap-6">
@@ -66,7 +65,7 @@ const StudyDestinations = () => {
               <MapPin size={16} aria-hidden="true" />
               <span>Top Destinations</span>
             </div>
-            <h2 id="destinations-heading" className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-4 sm:mb-6 tracking-tight leading-[1.1]">
+            <h2 id="destinations-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 sm:mb-6 tracking-tight leading-[1.1]">
               Explore Your <span className="text-accent">Dream Destination</span>
             </h2>
             <p className="text-lg md:text-xl text-primary/60 font-medium leading-relaxed">

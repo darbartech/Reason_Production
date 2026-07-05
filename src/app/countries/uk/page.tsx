@@ -1,21 +1,36 @@
+import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
 
-export const metadata = {
-  title: "Study in UK from Nepal | CAS & Student Visa 2026",
+export const metadata: Metadata = {
+  title: "Study in UK from Nepal",
   description: "Plan your study in UK from Nepal with expert guidance. Learn about CAS, student visa requirements, costs, and top UK universities.",
+  keywords: [
+    "study in UK from nepal",
+    "uk student visa nepal",
+    "cas letter uk nepal",
+    "uk universities nepal",
+    "scholarships nepal uk",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/countries/uk",
+    canonical: "https://reasons.edu.np/countries/uk",
   },
   openGraph: {
     title: "Study in UK from Nepal | CAS & Student Visa 2026",
-    description: "Expert guidance for Nepalese students planning to study in the UK. CAS, visa, and university admission.",
+    description: "Expert guidance for Nepalese students planning to study in the UK.",
     images: ["https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?q=80&w=1200&h=630&auto=format&fit=crop"],
   },
   twitter: {
     card: "summary_large_image",
     title: "Study in UK from Nepal | CAS & Student Visa 2026",
-    description: "Expert guidance for Nepalese students planning to study in the UK. CAS, visa, and university admission.",
+    description: "Expert guidance for Nepalese students planning to study in the UK.",
     images: ["https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?q=80&w=1200&h=630&auto=format&fit=crop"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 

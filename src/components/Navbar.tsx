@@ -100,10 +100,10 @@ const Navbar = () => {
                   className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
                     isActive(link.href)
                       ? scrolled || !isDarkPage
-                        ? "text-accent bg-accent-50" 
-                        : "text-accent bg-white/10"
+                      ? "text-accent bg-accent/10" 
+                      : "text-accent bg-white/10"
                       : scrolled || !isDarkPage
-                      ? "text-primary-700 hover:text-accent hover:bg-primary-50"
+                      ? "text-primary hover:text-accent hover:bg-primary/10"
                       : "text-white hover:text-accent hover:bg-white/10"
                   }`}
                 >
@@ -127,8 +127,8 @@ const Navbar = () => {
                 href="tel:015316680" 
                 className={`p-3 transition-all rounded-xl shadow-lg active:scale-95 ${
                   scrolled || !isDarkPage 
-                    ? "text-white bg-accent hover:bg-accent/90" 
-                    : "text-white bg-accent hover:bg-accent/90"
+                  ? "text-white bg-accent hover:bg-accent/90" 
+                  : "text-white bg-accent hover:bg-accent/90"
                 }`}
                 aria-label="Call Us"
               >
@@ -138,8 +138,8 @@ const Navbar = () => {
                 onClick={() => setIsOpen(!isOpen)}
                 className={`p-3 transition-all rounded-xl active:scale-95 ${
                   scrolled || !isDarkPage 
-                    ? "text-primary bg-gray-100 hover:bg-gray-200" 
-                    : "text-white bg-white/10 hover:bg-white/20"
+                  ? "text-primary bg-gray-100 hover:bg-gray-200" 
+                  : "text-white bg-white/10 hover:bg-white/20"
                 }`}
                 aria-label={isOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isOpen}
@@ -195,8 +195,8 @@ const Navbar = () => {
                 onClick={() => setIsOpen(false)}
                 className={`flex items-center justify-between px-5 py-4 rounded-xl transition-all ${
                   isActive(link.href)
-                    ? "bg-accent-50 text-accent"
-                    : "text-primary-700 hover:bg-gray-50"
+                    ? "bg-accent/10 text-accent"
+                    : "text-primary hover:bg-gray-50"
                 }`}
               >
                 <span className="text-lg font-semibold">{link.name}</span>

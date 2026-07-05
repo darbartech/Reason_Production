@@ -5,11 +5,8 @@ import CTA from "@/components/CTA";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Study Abroad from Nepal | Expert Guidance for International Education",
-    template: "%s | Reason Education Consultancy",
-  },
-  description: "Comprehensive guide to studying abroad from Nepal. Expert guidance for Canada, Australia, UK, USA, Japan, and Europe. 98% visa success rate. Free counseling available.",
+  title: "Study Abroad from Nepal | Reason Education Consultancy",
+  description: "Comprehensive guide to studying abroad from Nepal. Expert guidance for Canada, Australia, UK, USA, Japan, and Europe. Free counseling.",
   keywords: [
     "study abroad nepal",
     "international education nepal",
@@ -22,17 +19,17 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Reason Education Consultancy" }],
   publisher: "Reason Education Consultancy",
-  metadataBase: new URL("https://studynepal.edu.np"),
+  metadataBase: new URL("https://reasons.edu.np"),
   alternates: {
-    canonical: "/study-abroad",
+    canonical: "https://reasons.edu.np/study-abroad",
   },
   openGraph: {
     type: "article",
     locale: "en_US",
-    url: "https://studynepal.edu.np/study-abroad",
+    url: "https://reasons.edu.np/study-abroad",
     siteName: "Reason Education Consultancy",
-    title: "Study Abroad from Nepal | Expert Guidance for International Education",
-    description: "Your comprehensive guide to studying abroad. Expert visa counseling with 98% success rate for Canada, Australia, UK, USA, and more.",
+    title: "Study Abroad from Nepal | Reason Education Consultancy",
+    description: "Your comprehensive guide to studying abroad with 98% visa success rate.",
     images: [
       {
         url: "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop",
@@ -45,7 +42,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Study Abroad from Nepal | Reason Education",
-    description: "Expert guidance for international education. Canada, Australia, UK, USA, Japan, and Europe.",
+    description: "Expert guidance for international education in Canada, Australia, UK, USA, Japan, and Europe.",
     images: ["https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop"],
   },
   robots: {
@@ -66,25 +63,25 @@ const benefits = [
     title: "Global Career Opportunities",
     description: "Studying abroad exposes you to international job markets and gives you a competitive edge. Employers value cultural intelligence, adaptability, and language skills gained through overseas education.",
     icon: TrendingUp,
-    color: "bg-blue-500",
+    color: "bg-accent",
   },
   {
     title: "World-Class Education",
     description: "Access cutting-edge research facilities, renowned professors, and diverse academic perspectives. Universities in Canada, Australia, and the UK are consistently ranked among the best globally.",
     icon: GraduationCap,
-    color: "bg-purple-500",
+    color: "bg-primary",
   },
   {
     title: "Personal Growth & Independence",
     description: "Living independently in a new country builds immense self-confidence, problem-solving skills, and a global mindset that shapes your character for life.",
     icon: Users,
-    color: "bg-rose-500",
+    color: "bg-accent",
   },
   {
     title: "Cultural Immersion",
     description: "Experience new cultures, traditions, and ways of thinking. Building a global network of friends and colleagues is invaluable in today's interconnected world.",
     icon: Globe,
-    color: "bg-amber-500",
+    color: "bg-primary",
   },
 ];
 
@@ -152,33 +149,21 @@ const StudyAbroadPage = () => {
   return (
     <div className="bg-white">
       <section 
-        className="relative min-h-[80vh] lg:min-h-[70vh] flex items-center pt-24 pb-16 lg:pt-32 overflow-hidden bg-primary text-white"
+        className="min-h-[80vh] lg:min-h-[70vh] flex items-center pt-24 pb-16 lg:pt-32 bg-primary text-white"
         aria-label="Study Abroad Hero"
       >
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none" aria-hidden="true">
-          <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[70%] bg-accent/10 rounded-full blur-[120px] opacity-30" />
-          <div className="absolute bottom-[-10%] left-[-5%] w-[50%] h-[60%] bg-secondary/10 rounded-full blur-[100px] opacity-20" />
-          <div 
-            className="absolute inset-0 opacity-[0.03]" 
-            style={{ 
-              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', 
-              backgroundSize: '40px 40px' 
-            }} 
-          />
-        </div>
-
-        <div className="container-custom relative z-10">
+        <div className="container-custom">
           <div className="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
             <div className="lg:col-span-7 text-center lg:text-left">
               {/* Breadcrumbs */}
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-6 animate-slide-up">
+              <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
                 <Link href="/" className="text-white/40 hover:text-accent transition-colors text-xs font-bold uppercase tracking-widest">Home</Link>
                 <ChevronRight size={14} className="text-white/20" />
                 <span className="text-accent text-xs font-bold uppercase tracking-widest">Study Abroad Guide</span>
               </div>
 
               {/* Guide Highlights */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8 animate-slide-up" style={{ animationDelay: '0.1s' }}>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
                 <span className="px-4 py-1.5 bg-white/5 backdrop-blur-md border border-white/10 rounded-full text-[10px] font-bold text-accent uppercase tracking-widest">
                   Top Rated Guide
                 </span>
@@ -187,14 +172,14 @@ const StudyAbroadPage = () => {
                 </span>
               </div>
 
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.05] tracking-tight animate-slide-up" style={{ animationDelay: '0.2s' }}>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.05] tracking-tight">
                 Your Path to <br />
                 <span className="text-accent relative inline-block">
                   Global Success
                 </span>
               </h1>
               
-              <p className="text-base sm:text-lg md:text-xl text-white/60 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium animate-slide-up" style={{ animationDelay: '0.3s' }}>
+              <p className="text-base sm:text-lg md:text-xl text-white/60 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
                 Everything you need to know about pursuing international education from Nepal, from choosing the right destination to securing your student visa.
               </p>
 
@@ -312,7 +297,7 @@ const StudyAbroadPage = () => {
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
                     <Award size={24} aria-hidden="true" />
                   </div>
-                  <h2 id="process-heading" className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
+                  <h2 id="process-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
                     Our Proven 6-Step Process
                   </h2>
                 </div>
@@ -337,7 +322,7 @@ const StudyAbroadPage = () => {
                   <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-600">
                     <ShieldCheck size={24} aria-hidden="true" />
                   </div>
-                  <h2 id="requirements-heading" className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
+                  <h2 id="requirements-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
                     General Requirements
                   </h2>
                 </div>
@@ -364,7 +349,7 @@ const StudyAbroadPage = () => {
                   <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
                     <Globe size={24} aria-hidden="true" />
                   </div>
-                  <h2 id="destinations-heading" className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
+                  <h2 id="destinations-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
                     Top Destinations for Nepalese Students
                   </h2>
                 </div>
@@ -391,10 +376,10 @@ const StudyAbroadPage = () => {
 
               <section id="why-us" aria-labelledby="why-us-heading">
                 <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center text-amber-600">
+                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
                     <Star size={24} aria-hidden="true" />
                   </div>
-                  <h2 id="why-us-heading" className="text-2xl sm:text-3xl md:text-4xl font-black text-primary">
+                  <h2 id="why-us-heading" className="text-2xl sm:text-3xl md:text-4xl font-bold text-primary">
                     Why Choose Reason Education?
                   </h2>
                 </div>

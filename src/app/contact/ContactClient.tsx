@@ -18,9 +18,6 @@ const ContactClient = () => {
 
   const onSubmit = async (data: ContactFormData) => {
     try {
-      // Simulate a delay for realism
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
       // Validate the data
       const validation = contactSchema.safeParse(data);
 
@@ -29,11 +26,28 @@ const ContactClient = () => {
         return;
       }
 
-      // Log the submission (in a real app, you'd send this to an API)
-      console.log("Contact form submission received:", validation.data);
-      
-      toast.success("Thank you for reaching out! We'll get back to you soon.");
-      reset();
+      // Send to Web3Forms
+      const formData = new FormData();
+      formData.append("access_key", "YOUR_ACCESS_KEY_HERE"); // Replace with your Web3Forms access key
+      formData.append("fullName", validation.data.fullName);
+      formData.append("phone", validation.data.phone);
+      formData.append("email", validation.data.email);
+      formData.append("message", validation.data.message);
+      formData.append("subject", "New Contact Form Submission");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        toast.success("Thank you for reaching out! We'll get back to you soon.");
+        reset();
+      } else {
+        toast.error(result.message || "Something went wrong. Please try again later.");
+      }
     } catch (error) {
       toast.error("Something went wrong. Please try again later.");
     }
@@ -42,10 +56,9 @@ const ContactClient = () => {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 -skew-x-12 translate-x-1/2 blur-3xl opacity-30"></div>
-        <div className="container-custom relative z-10">
-           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 max-w-4xl leading-[1.05] tracking-tight">
+      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white">
+        <div className="container-custom">
+           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-4xl leading-[1.05] tracking-tight">
              Let's Start Your <span className="text-accent">Global</span> Journey
            </h1>
            <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed font-medium">
@@ -61,7 +74,7 @@ const ContactClient = () => {
               {/* Contact Info */}
               <div className="space-y-12">
                  <div className="space-y-4">
-                    <h2 className="text-3xl md:text-5xl font-black text-primary leading-tight tracking-tighter">Get in Touch</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tighter">Get in Touch</h2>
                     <p className="text-lg text-primary/60 font-medium leading-relaxed">
                       Visit our office or reach out to us through any of the channels below. We're here to support you 6 days a week.
                     </p>
@@ -99,7 +112,7 @@ const ContactClient = () => {
 
                  {/* Social Info */}
                  <div className="pt-12 border-t border-gray-100">
-                    <h4 className="text-xs font-black text-primary/30 uppercase tracking-[0.2em] mb-6">Follow Our Community</h4>
+                    <h4 className="text-xs font-bold text-primary/30 uppercase tracking-[0.2em] mb-6">Follow Our Community</h4>
                     <div className="flex flex-wrap gap-4">
                        {[
                          { Icon: Facebook, href: "https://www.facebook.com/ReasonEducationNepal", label: "Facebook" },
@@ -123,15 +136,13 @@ const ContactClient = () => {
               </div>
 
               {/* Contact Form */}
-              <div className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-gray-100 shadow-2xl relative overflow-hidden">
-                 <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/2 blur-3xl"></div>
-                 
+              <div className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-gray-100 shadow-2xl">
                  <div className="relative z-10">
-                    <h3 className="text-2xl md:text-3xl font-black text-primary mb-8 tracking-tighter">Send Us a Message</h3>
+                    <h3 className="text-2xl md:text-3xl font-bold text-primary mb-8 tracking-tighter">Send Us a Message</h3>
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                        <div className="grid md:grid-cols-2 gap-6">
                           <div className="space-y-2">
-                             <label className="text-[10px] font-black text-primary/40 uppercase tracking-widest ml-1">Full Name</label>
+                             <label className="text-[10px] font-bold text-primary/40 uppercase tracking-widest ml-1">Full Name</label>
                              <input 
                                {...register("fullName")}
                                type="text" 
@@ -141,7 +152,7 @@ const ContactClient = () => {
                              {errors.fullName && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.fullName.message}</p>}
                           </div>
                           <div className="space-y-2">
-                             <label className="text-[10px] font-black text-primary/40 uppercase tracking-widest ml-1">Phone Number</label>
+                             <label className="text-[10px] font-bold text-primary/40 uppercase tracking-widest ml-1">Phone Number</label>
                              <input 
                                {...register("phone")}
                                type="tel" 
@@ -152,7 +163,7 @@ const ContactClient = () => {
                           </div>
                        </div>
                        <div className="space-y-2">
-                          <label className="text-[10px] font-black text-primary/40 uppercase tracking-widest ml-1">Email Address</label>
+                          <label className="text-[10px] font-bold text-primary/40 uppercase tracking-widest ml-1">Email Address</label>
                           <input 
                             {...register("email")}
                             type="email" 
@@ -162,7 +173,7 @@ const ContactClient = () => {
                           {errors.email && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.email.message}</p>}
                        </div>
                        <div className="space-y-2">
-                          <label className="text-[10px] font-black text-primary/40 uppercase tracking-widest ml-1">Message</label>
+                          <label className="text-[10px] font-bold text-primary/40 uppercase tracking-widest ml-1">Message</label>
                           <textarea 
                             {...register("message")}
                             className={`w-full bg-gray-50 border ${errors.message ? 'border-red-500' : 'border-gray-100'} rounded-2xl px-6 py-4 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/5 transition-all outline-none font-medium min-h-[120px] resize-none text-sm`} 

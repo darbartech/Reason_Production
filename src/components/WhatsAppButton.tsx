@@ -11,7 +11,7 @@ const WhatsAppButton = () => {
     >
       <div className="absolute inset-0 bg-[#25D366] rounded-full animate-ping opacity-20"></div>
       <MessageCircle size={32} className="relative z-10" />
-      <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-white text-gray-800 px-4 py-2 rounded-xl text-sm font-black opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0 whitespace-nowrap shadow-2xl border border-gray-100 pointer-events-none uppercase tracking-widest">
+      <span className="absolute right-full mr-4 top-1/2 -translate-y-1/2 bg-white text-gray-800 px-4 py-2 rounded-xl text-sm font-bold opacity-0 group-hover:opacity-100 transition-all transform translate-x-4 group-hover:translate-x-0 whitespace-nowrap shadow-2xl border border-gray-100 pointer-events-none uppercase tracking-widest">
         Need Help? Chat Now!
       </span>
     </a>

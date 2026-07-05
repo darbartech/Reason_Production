@@ -3,11 +3,49 @@ import Link from "next/link";
 import { Award, Users, Globe, Target, Heart, ShieldCheck, ArrowRight, Sparkles } from "lucide-react";
 import CTA from "@/components/CTA";
 
-export const metadata = {
-  title: "About Us | Reason Education Consultancy Kathmandu",
-  description: "Learn about the mission, vision, and team of Reason Education Consultancy, the most trusted study abroad partner in Kathmandu, Nepal. Our history and commitment to students.",
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About Us",
+  description: "Discover the mission, vision, and team of Nepal's most trusted study abroad partner. 10+ years of experience helping students achieve global success.",
+  keywords: [
+    "about reason education",
+    "study abroad consultancy nepal",
+    "education consultants kathmandu",
+    "reason education team",
+    "study abroad experts nepal",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/about",
+    canonical: "https://reasons.edu.np/about",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://reasons.edu.np/about",
+    siteName: "Reason Education Consultancy",
+    title: "About Us | Reason Education Consultancy",
+    description: "Discover the mission, vision, and team of Nepal's most trusted study abroad partner.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1471&auto=format&fit=crop",
+        width: 1200,
+        height: 630,
+        alt: "About Reason Education Consultancy - Our Team and Mission",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us | Reason Education Consultancy",
+    description: "Discover the mission and team of Nepal's most trusted study abroad partner.",
+    images: ["https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=1471&auto=format&fit=crop"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -29,10 +67,9 @@ const AboutPage = () => {
   return (
     <div className="bg-white">
       {/* Header */}
-      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 -skew-x-12 translate-x-1/2 blur-3xl opacity-30"></div>
-        <div className="container-custom relative z-10">
-           <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 max-w-4xl leading-[1.05] tracking-tight">
+      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white">
+        <div className="container-custom">
+           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-4xl leading-[1.05] tracking-tight">
              Empowering Dreams, Shaping Futures
            </h1>
            <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed font-medium">
@@ -56,9 +93,9 @@ const AboutPage = () => {
                   />
                 </div>
               </div>
-              <div className="space-y-8 animate-slide-up">
+              <div className="space-y-8">
                  <div className="space-y-4">
-                    <h2 className="text-3xl md:text-5xl font-black text-primary leading-tight tracking-tighter">Our Story: From Vision to Impact</h2>
+                    <h2 className="text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tighter">Our Story: From Vision to Impact</h2>
                     <p className="text-base md:text-lg text-primary/70 leading-relaxed font-medium">
                       Founded with a vision to bridge the gap between Nepalese students and global education, Reason Education Consultancy has grown into one of the most trusted names in the industry. Over the past decade, we have helped thousands of students navigate the complexities of international admissions and visas.
                     </p>
@@ -68,11 +105,11 @@ const AboutPage = () => {
                  </div>
                  <div className="grid grid-cols-2 gap-8 pt-8 border-t border-gray-100">
                     <div>
-                       <h4 className="text-4xl font-black text-accent mb-1 tracking-tighter">10+</h4>
+                       <h4 className="text-4xl font-bold text-accent mb-1 tracking-tighter">10+</h4>
                        <p className="text-primary/40 font-bold uppercase tracking-widest text-[10px]">Years Experience</p>
                     </div>
                     <div>
-                       <h4 className="text-4xl font-black text-accent mb-1 tracking-tighter">5000+</h4>
+                       <h4 className="text-4xl font-bold text-accent mb-1 tracking-tighter">5000+</h4>
                        <p className="text-primary/40 font-bold uppercase tracking-widest text-[10px]">Students Placed</p>
                     </div>
                  </div>
@@ -82,11 +119,10 @@ const AboutPage = () => {
       </section>
 
       {/* Values Section */}
-      <section className="section-padding bg-gray-50/50 relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-primary/5 to-transparent"></div>
-        <div className="container-custom relative z-10">
+      <section className="section-padding bg-gray-50/50">
+        <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tighter">Our Core Values</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tighter">Our Core Values</h2>
             <p className="text-lg text-primary/60 font-medium max-w-2xl mx-auto leading-relaxed">
               These values guide our decisions, our actions, and our commitment to our students every single day.
             </p>
@@ -109,7 +145,7 @@ const AboutPage = () => {
       <section className="section-padding">
         <div className="container-custom">
           <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-5xl font-black text-primary mb-6 tracking-tighter">Meet Our Leadership</h2>
+            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tighter">Meet Our Leadership</h2>
             <p className="text-lg text-primary/60 font-medium max-w-2xl mx-auto leading-relaxed">
               The experts behind Reason Education who are dedicated to your success.
             </p>

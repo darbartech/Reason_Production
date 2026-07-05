@@ -8,7 +8,6 @@ const BlogPreview = () => {
 
   return (
     <section className="section-padding bg-white relative overflow-hidden" aria-labelledby="blog-heading">
-      <div className="absolute -top-24 -left-24 w-96 h-96 bg-accent/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
       
       <div className="container-custom relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 lg:mb-12 gap-6">
@@ -17,7 +16,7 @@ const BlogPreview = () => {
               <BookOpen size={16} aria-hidden="true" />
               <span>Resources & Insights</span>
             </div>
-            <h2 id="blog-heading" className="text-3xl sm:text-4xl font-black text-primary mb-4 leading-tight">
+            <h2 id="blog-heading" className="text-3xl sm:text-4xl font-bold text-primary mb-4 leading-tight">
               Latest from Our <span className="text-accent">Blog</span>
             </h2>
             <p className="text-base sm:text-lg text-primary/60 font-medium leading-relaxed">
@@ -75,7 +74,7 @@ const BlogPreview = () => {
                 <div className="mt-auto pt-4 sm:pt-6 border-t border-gray-100">
                   <Link 
                     href={`/blog/${post.slug}`}
-                    className="inline-flex items-center text-[13px] font-black uppercase tracking-widest text-primary hover:text-accent transition-colors group/link"
+                    className="inline-flex items-center text-[13px] font-bold uppercase tracking-widest text-primary hover:text-accent transition-colors group/link"
                     aria-label={`Read full article: ${post.title}`}
                   >
                     Read More <ArrowRight size={16} className="ml-2 group-hover/link:translate-x-2 transition-transform" />

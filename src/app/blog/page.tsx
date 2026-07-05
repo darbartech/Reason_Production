@@ -1,14 +1,51 @@
+import { Metadata } from "next";
 import Image from "next/image";
 import { blogPosts } from "@/lib/blog-data";
 import CTA from "@/components/CTA";
 import BlogCard from "@/components/BlogCard";
 import { Search } from "lucide-react";
 
-export const metadata = {
-  title: "Latest Study Abroad Blogs & News | Reason Education",
+export const metadata: Metadata = {
+  title: "Study Abroad Blog",
   description: "Stay updated with the latest news, guides, and success stories about studying abroad from Nepal. Expert insights from Reason Education Consultancy.",
+  keywords: [
+    "study abroad blog nepal",
+    "international education news",
+    "student visa updates nepal",
+    "ielts preparation tips",
+    "reason education blog",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/blog",
+    canonical: "https://reasons.edu.np/blog",
+  },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://reasons.edu.np/blog",
+    siteName: "Reason Education Consultancy",
+    title: "Study Abroad Blog | Reason Education Consultancy",
+    description: "Latest news, guides, and success stories about studying abroad from Nepal.",
+    images: [
+      {
+        url: "https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200&h=630",
+        width: 1200,
+        height: 630,
+        alt: "Study Abroad Blog - Reason Education Consultancy",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Study Abroad Blog | Reason Education",
+    description: "Latest news, guides, and success stories about studying abroad from Nepal.",
+    images: ["https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&q=80&w=1200&h=630"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
@@ -16,29 +53,14 @@ const BlogPage = () => {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <section className="relative min-h-[65vh] flex items-center pt-24 pb-16 lg:pt-32 overflow-hidden bg-primary text-white">
-        {/* Dynamic Background Elements */}
-        <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[-10%] right-[-5%] w-[60%] h-[70%] bg-accent/10 rounded-full blur-[120px] opacity-30" />
-          <div className="absolute bottom-[-10%] left-[-5%] w-[50%] h-[60%] bg-secondary/10 rounded-full blur-[100px] opacity-20" />
-          
-          {/* Grid Pattern overlay */}
-          <div 
-            className="absolute inset-0 opacity-[0.03]" 
-            style={{ 
-              backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', 
-              backgroundSize: '40px 40px' 
-            }} 
-          />
-        </div>
-
-        <div className="container-custom relative z-10">
+      <section className="min-h-[65vh] flex items-center pt-24 pb-16 lg:pt-32 bg-primary text-white">
+        <div className="container-custom">
           <div className="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
             {/* Left Column: Content */}
             <div className="lg:col-span-7 text-center lg:text-left">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.05] tracking-tight">
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.05] tracking-tight">
                 Stay Informed, <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accent-600 relative inline-block">
+                <span className="text-accent relative inline-block">
                   Study Smarter
                 </span>
               </h1>

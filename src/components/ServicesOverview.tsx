@@ -21,40 +21,36 @@ const services = [
     description: "Result-oriented coaching for IELTS and PTE by our certified expert trainers with years of successful track record.",
     icon: GraduationCap,
     href: "/ielts",
-    color: "secondary",
+    color: "primary",
   },
   {
     title: "Documentation Support",
     description: "Professional help with gathering, verifying, and translating necessary documents to ensure a smooth application process.",
     icon: FileText,
     href: "/services",
-    color: "blue",
+    color: "accent",
   },
   {
     title: "Visa Application",
     description: "Assistance with registering for relevant consulates and embassies for your study abroad journey and visa processes.",
     icon: ClipboardCheck,
     href: "/services",
-    color: "green",
+    color: "primary",
   },
   {
     title: "Free Counseling",
     description: "Expert guidance on choosing the right course and destination based on your unique academic profile and career aspirations.",
     icon: PhoneCall,
     href: "/contact",
-    color: "amber",
+    color: "accent",
   },
 ];
 
 const ServicesOverview = () => {
   const getColorClasses = (color: string) => {
     const colorMap: Record<string, string> = {
-      primary: "bg-primary-100 text-primary-700 hover:bg-primary hover:text-white border-primary-100",
-      accent: "bg-accent-100 text-accent-700 hover:bg-accent hover:text-white border-accent-100",
-      secondary: "bg-secondary-100 text-secondary-700 hover:bg-secondary hover:text-white border-secondary-100",
-      blue: "bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white border-blue-100",
-      green: "bg-green-100 text-green-700 hover:bg-green-600 hover:text-white border-green-100",
-      amber: "bg-amber-100 text-amber-700 hover:bg-amber-600 hover:text-white border-amber-100",
+      primary: "bg-primary/10 text-primary hover:bg-primary hover:text-white border-primary/10",
+      accent: "bg-accent/10 text-accent hover:bg-accent hover:text-white border-accent/10",
     };
     return colorMap[color] || colorMap.primary;
   };
@@ -62,20 +58,20 @@ const ServicesOverview = () => {
   return (
     <section className="section-padding bg-white relative overflow-hidden">
       {/* Background Decorations */}
-      <div className="absolute top-0 right-0 w-1/2 h-full bg-primary-50 -skew-x-12 translate-x-1/4 pointer-events-none hidden lg:block opacity-50"></div>
+      <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 -skew-x-12 translate-x-1/4 pointer-events-none hidden lg:block opacity-50"></div>
       
       <div className="container-custom relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 lg:mb-14 gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary-50 text-primary-700 rounded-full text-sm font-semibold mb-4 border border-primary-100">
+            <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 text-primary rounded-full text-sm font-semibold mb-4 border border-primary/10">
               <div className="w-2 h-2 bg-accent rounded-full animate-pulse"></div>
               <span>Our Expertise</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-4 leading-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 leading-tight">
               Comprehensive Services for Your
               <span className="text-accent"> Global Journey</span>
             </h2>
-            <p className="text-base sm:text-lg md:text-xl text-primary-600 leading-relaxed">
+            <p className="text-base sm:text-lg md:text-xl text-primary/60 leading-relaxed">
               From your first inquiry to landing in your dream country, we provide end-to-end support to ensure your success.
             </p>
           </div>
@@ -99,12 +95,7 @@ const ServicesOverview = () => {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className={`absolute top-0 right-0 w-24 h-24 opacity-0 group-hover:opacity-10 transition-all duration-500 rounded-bl-[80px] ${
-                  service.color === 'primary' ? 'bg-primary-200' :
-                  service.color === 'accent' ? 'bg-accent-200' :
-                  service.color === 'secondary' ? 'bg-secondary-200' :
-                  service.color === 'blue' ? 'bg-blue-200' :
-                  service.color === 'green' ? 'bg-green-200' :
-                  'bg-amber-200'
+                  service.color === 'primary' ? 'bg-primary/10' : 'bg-accent/10'
                 }`}></div>
                 
                 <div className="relative z-10">
@@ -118,7 +109,7 @@ const ServicesOverview = () => {
                     {service.title}
                   </h3>
                   
-                  <p className="text-primary-600 mb-6 sm:mb-7 text-sm sm:text-base leading-relaxed">
+                  <p className="text-primary/60 mb-6 sm:mb-7 text-sm sm:text-base leading-relaxed">
                     {service.description}
                   </p>
                   

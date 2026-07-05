@@ -24,18 +24,18 @@ const CountryCard = ({ name, image, href, description, students }: CountryCardPr
         className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-60 transition-all duration-1000"
       />
       
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-primary via-primary/20 to-transparent group-hover:from-primary/90 transition-all duration-500"></div>
+      {/* Gradient Overlay (for legibility only) */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/80 transition-all duration-500"></div>
       
       {/* Content */}
       <div className="absolute inset-0 p-6 flex flex-col justify-end">
         <div className="translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
-          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest text-white w-fit mb-4">
+          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest text-white w-fit mb-4">
             <GraduationCap size={12} className="text-accent" />
             {students}
           </div>
           
-          <h3 className="text-2xl font-black text-white mb-3 flex items-center justify-between">
+          <h3 className="text-2xl font-bold text-white mb-3 flex items-center justify-between">
             {name}
             <span className="p-1.5 bg-accent rounded-full opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 shadow-lg shadow-accent/50">
               <ArrowUpRight size={16} className="text-white" />

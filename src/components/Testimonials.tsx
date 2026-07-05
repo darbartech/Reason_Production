@@ -36,20 +36,20 @@ const Testimonials = () => {
   return (
     <section className="section-padding bg-white relative overflow-hidden">
       {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-accent-200 to-transparent"></div>
-      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-primary-50 rounded-full blur-3xl pointer-events-none opacity-80"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-gray-100"></div>
+      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none opacity-80"></div>
       
       <div className="container-custom relative z-10">
         <div className="text-center mb-10 lg:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent-50 text-accent-700 rounded-full text-sm font-semibold mb-4 sm:mb-6 border border-accent-100">
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-4 sm:mb-6 border border-accent/20">
             <Sparkles size={16} className="text-accent" />
             <span>Success Stories</span>
           </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-primary mb-4 sm:mb-6 leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 sm:mb-6 leading-tight">
             Hear from Our
             <span className="text-accent"> Successful Students</span>
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-primary-600 leading-relaxed max-w-2xl mx-auto px-4">
+          <p className="text-base sm:text-lg md:text-xl text-primary/60 leading-relaxed max-w-2xl mx-auto px-4">
             Join thousands of successful students who achieved their dreams with Reason Education.
           </p>
         </div>
@@ -61,7 +61,7 @@ const Testimonials = () => {
               className="group bg-gray-50/70 p-6 sm:p-8 rounded-2xl border border-gray-100 relative card-hover"
               style={{ animationDelay: `${index * 100}ms` }}
             >
-              <Quote className="absolute top-6 sm:top-8 right-6 sm:right-8 text-accent-200 w-12 h-12 sm:w-16 sm:h-16 group-hover:text-accent-300 transition-colors pointer-events-none" aria-hidden="true" />
+              <Quote className="absolute top-6 sm:top-8 right-6 sm:right-8 text-accent/20 w-12 h-12 sm:w-16 sm:h-16 group-hover:text-accent/30 transition-colors pointer-events-none" aria-hidden="true" />
               
               <div className="flex items-center gap-1 mb-6 sm:mb-8" role="img" aria-label={`${testimonial.rating} out of 5 stars`}>
                 {[...Array(testimonial.rating)].map((_, i) => (
@@ -69,7 +69,7 @@ const Testimonials = () => {
                 ))}
               </div>
               
-              <blockquote className="text-primary-700 mb-8 sm:mb-10 text-base sm:text-lg leading-relaxed relative z-10 font-medium">
+              <blockquote className="text-primary/70 mb-8 sm:mb-10 text-base sm:text-lg leading-relaxed relative z-10 font-medium">
                 "{testimonial.content}"
               </blockquote>
               

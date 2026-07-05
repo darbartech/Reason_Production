@@ -11,33 +11,33 @@ const ServicesClient = () => {
       title: "Study Abroad Counseling",
       desc: "Our expert counselors provide personalized guidance to help you choose the right course, university, and destination based on your academic background and career goals.",
       icon: GraduationCap,
-      bg: "bg-blue-50",
-      text: "text-blue-600",
-      accent: "bg-blue-600",
+      bg: "bg-accent/10",
+      text: "text-accent",
+      accent: "bg-accent",
     },
     {
       title: "University & College Admission",
       desc: "We assist with the entire application process, ensuring all documentation is accurate and submitted on time to maximize your chances of acceptance.",
       icon: Building2,
-      bg: "bg-purple-50",
-      text: "text-purple-600",
-      accent: "bg-purple-600",
+      bg: "bg-primary/10",
+      text: "text-primary",
+      accent: "bg-primary",
     },
     {
       title: "Visa Assistance",
       desc: "Comprehensive support for your visa application, including documentation verification, SOP guidance, and mock interview sessions for a high success rate.",
       icon: ShieldCheck,
-      bg: "bg-green-50",
-      text: "text-green-600",
-      accent: "bg-green-600",
+      bg: "bg-accent/10",
+      text: "text-accent",
+      accent: "bg-accent",
     },
     {
       title: "IELTS & PTE Preparation",
       desc: "Achieve your target score with our expert-led preparation classes, featuring weekly mock tests, updated study materials, and personalized feedback.",
       icon: ClipboardCheck,
-      bg: "bg-accent/10",
-      text: "text-accent",
-      accent: "bg-accent",
+      bg: "bg-primary/10",
+      text: "text-primary",
+      accent: "bg-primary",
     },
     {
       title: "Scholarship Guidance",
@@ -51,7 +51,7 @@ const ServicesClient = () => {
       title: "B2B Educational Partnership",
       desc: "Strategic collaborations with international institutions and local organizations to create seamless educational pathways for students.",
       icon: Handshake,
-      bg: "bg-primary/5",
+      bg: "bg-primary/10",
       text: "text-primary",
       accent: "bg-primary",
     },
@@ -86,7 +86,7 @@ const ServicesClient = () => {
           <div className="grid lg:grid-cols-12 lg:gap-16 items-center">
             <div className="lg:col-span-7 text-center lg:text-left">
               
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-white mb-6 leading-[1.05] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-[1.05] tracking-tight">
                 Comprehensive Education Solutions
               </h1>
               
@@ -131,7 +131,7 @@ const ServicesClient = () => {
       <section className="py-16 lg:py-24" aria-labelledby="main-services-heading">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-20">
-            <h2 id="main-services-heading" className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-6 leading-[1.1] tracking-tight">
+            <h2 id="main-services-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6 leading-[1.1] tracking-tight">
               Our <span className="text-accent">Core Expertise</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-primary/60 font-medium leading-relaxed">
@@ -184,7 +184,7 @@ const ServicesClient = () => {
                 <span>The Reason Advantage</span>
               </div>
               
-              <h2 id="why-us-heading" className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-8 leading-[1.1] tracking-tight">
+              <h2 id="why-us-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-8 leading-[1.1] tracking-tight">
                 Why Students Trust <span className="text-accent">Reason Education</span>
               </h2>
               
@@ -251,7 +251,7 @@ const ServicesClient = () => {
       <section className="py-16 lg:py-24" aria-labelledby="value-added-heading">
         <div className="container-custom">
           <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-            <h2 id="value-added-heading" className="text-3xl sm:text-4xl md:text-5xl font-black text-primary mb-6 leading-[1.1] tracking-tight">
+            <h2 id="value-added-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-6 leading-[1.1] tracking-tight">
               Beyond the Basics: <span className="text-accent">Specialized Services</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-primary/60 font-medium leading-relaxed">

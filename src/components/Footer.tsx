@@ -32,9 +32,7 @@ const Footer = () => {
   return (
     <footer className="bg-primary text-white/90 pt-16 md:pt-20 pb-8 relative overflow-hidden">
       {/* Decorative Elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
-      <div className="absolute -top-24 -right-24 w-80 h-80 bg-accent-600/20 rounded-full blur-3xl"></div>
-      <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-secondary-600/20 rounded-full blur-3xl"></div>
+      <div className="absolute top-0 left-0 w-full h-px bg-white/20"></div>
       
       <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">

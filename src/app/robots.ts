@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: "/",
       disallow: "/private/",
     },
-    sitemap: "https://studynepal.edu.np/sitemap.xml",
+    sitemap: "https://reasons.edu.np/sitemap.xml",
   };
 }

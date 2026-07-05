@@ -1,14 +1,25 @@
+import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
 
-export const metadata = {
-  title: "Study in Canada from Nepal | Visa Requirements & Process 2026",
+export const metadata: Metadata = {
+  title: "Study in Canada from Nepal",
   description: "Planning to study in Canada from Nepal? Get expert guidance on admission requirements, visa process, costs, and top universities. 98% success rate.",
+  keywords: [
+    "study in canada from nepal",
+    "canada student visa nepal",
+    "sds program nepal",
+    "gic canada nepal",
+    "canada universities nepal",
+  ],
+  authors: [{ name: "Reason Education Consultancy" }],
+  creator: "Reason Education Consultancy",
+  publisher: "Reason Education Consultancy",
   alternates: {
-    canonical: "/countries/canada",
+    canonical: "https://reasons.edu.np/countries/canada",
   },
   openGraph: {
     title: "Study in Canada from Nepal | Complete Guide 2026",
-    description: "Expert guidance for Nepalese students planning to study in Canada. Admission, visa, costs, and top universities.",
+    description: "Expert guidance for Nepalese students planning to study in Canada.",
     images: ["https://images.unsplash.com/photo-1517935703635-2717079c21eb?q=80&w=1200&h=630&auto=format&fit=crop"],
   },
   twitter: {
@@ -16,6 +27,10 @@ export const metadata = {
     title: "Study in Canada from Nepal | Complete Guide 2026",
     description: "Planning to study in Canada from Nepal? Expert guidance on admission, visa, and more.",
     images: ["https://images.unsplash.com/photo-1517935703635-2717079c21eb?q=80&w=1200&h=630&auto=format&fit=crop"],
+  },
+  robots: {
+    index: true,
+    follow: true,
   },
 };
 
