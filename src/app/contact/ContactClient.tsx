@@ -1,220 +1,184 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { toast } from "sonner";
-import { Phone, Mail, MapPin, MessageCircle, Facebook, Instagram, Linkedin, Send, Loader2 } from "lucide-react";
-import { contactSchema, ContactFormData } from "@/lib/validations/contact";
+import { Phone, Mail, MapPin, MessageCircle, Clock, ArrowRight } from "lucide-react";
+import EnquiryForm from "@/components/enquiry/EnquiryForm";
+import PageHero from "@/components/PageHero";
+import Link from "next/link";
+import { company, whatsappLink } from "@/lib/company";
+
+const socials = [
+  ...(company.social.facebook
+    ? [{ label: "Facebook", href: company.social.facebook }]
+    : []),
+  ...(company.social.instagram
+    ? [{ label: "Instagram", href: company.social.instagram }]
+    : []),
+  ...(company.social.linkedin
+    ? [{ label: "LinkedIn", href: company.social.linkedin }]
+    : []),
+];
+
+const googleMapsDirections = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+  `${company.address.street}, ${company.address.city}, ${company.address.country}`
+)}`;
 
 const ContactClient = () => {
-  const {
-    register,
-    handleSubmit,
-    reset,
-    formState: { errors, isSubmitting },
-  } = useForm<ContactFormData>({
-    resolver: zodResolver(contactSchema),
-  });
-
-  const onSubmit = async (data: ContactFormData) => {
-    try {
-      // Validate the data
-      const validation = contactSchema.safeParse(data);
-
-      if (!validation.success) {
-        toast.error("Validation failed. Please check your inputs.");
-        return;
-      }
-
-      // Send to Web3Forms
-      const formData = new FormData();
-      formData.append("access_key", "YOUR_ACCESS_KEY_HERE"); // Replace with your Web3Forms access key
-      formData.append("fullName", validation.data.fullName);
-      formData.append("phone", validation.data.phone);
-      formData.append("email", validation.data.email);
-      formData.append("message", validation.data.message);
-      formData.append("subject", "New Contact Form Submission");
-
-      const response = await fetch("https://api.web3forms.com/submit", {
-        method: "POST",
-        body: formData,
-      });
-
-      const result = await response.json();
-
-      if (result.success) {
-        toast.success("Thank you for reaching out! We'll get back to you soon.");
-        reset();
-      } else {
-        toast.error(result.message || "Something went wrong. Please try again later.");
-      }
-    } catch (error) {
-      toast.error("Something went wrong. Please try again later.");
-    }
-  };
-
   return (
     <div className="bg-white">
-      {/* Header */}
-      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white">
-        <div className="container-custom">
-           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-4xl leading-[1.05] tracking-tight">
-             Let's Start Your <span className="text-accent">Global</span> Journey
-           </h1>
-           <p className="text-lg md:text-xl text-white/70 max-w-2xl leading-relaxed font-medium">
-             Have questions? Our expert counselors are ready to help you plan your international education.
-           </p>
-        </div>
-      </section>
+      <PageHero
+        crumbs={[{ name: "Contact" }]}
+        title="Contact and visit our office"
+        intro="Book a free counselling session at New Baneshwor, or reach us through phone, WhatsApp or email — whichever is easier."
+      />
 
-      {/* Main Contact Section */}
       <section className="section-padding">
         <div className="container-custom">
-           <div className="grid lg:grid-cols-2 gap-16">
-              {/* Contact Info */}
-              <div className="space-y-12">
-                 <div className="space-y-4">
-                    <h2 className="text-3xl md:text-5xl font-bold text-primary leading-tight tracking-tighter">Get in Touch</h2>
-                    <p className="text-lg text-primary/60 font-medium leading-relaxed">
-                      Visit our office or reach out to us through any of the channels below. We're here to support you 6 days a week.
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+            <div className="space-y-10">
+              <div className="space-y-4">
+                <h2 className="text-primary">Get in touch</h2>
+                <p className="text-lg text-primary/60 font-medium leading-relaxed">
+                  We reply within one working day — come in for a meeting, ring us on the landline or send a
+                  WhatsApp and we’ll schedule a session.
+                </p>
+              </div>
+
+              <div className="space-y-4">
+                <div className="flex items-start gap-4 bg-brand-light-bg p-6 rounded-xl border border-brand-border card-hover group">
+                  <div className="bg-accent/10 p-3.5 rounded-lg text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-200 shrink-0">
+                    <MapPin size={24} aria-hidden="true" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-primary mb-1">Visit our office</h4>
+                    <p className="text-base text-primary/70 font-medium leading-relaxed">
+                      {company.address.street}, {company.address.city},{" "}
+                      {company.address.country}
                     </p>
-                 </div>
-                 
-                 <div className="space-y-6">
-                    <div className="flex items-start space-x-6 bg-gray-50 p-8 rounded-[2rem] border border-gray-100 card-hover group">
-                       <div className="bg-accent/10 p-4 rounded-2xl text-accent group-hover:bg-accent group-hover:text-white transition-all">
-                          <MapPin size={28} />
-                       </div>
-                       <div>
-                          <h4 className="text-xl font-bold text-primary mb-1">Visit Our Office</h4>
-                          <p className="text-base text-primary/70 font-medium leading-relaxed">New Baneshwor, (Indreni Complex), Kathmandu, Nepal.</p>
-                       </div>
-                    </div>
-                    <div className="flex items-start space-x-6 bg-gray-50 p-8 rounded-[2rem] border border-gray-100 card-hover group">
-                       <div className="bg-accent/10 p-4 rounded-2xl text-accent group-hover:bg-accent group-hover:text-white transition-all">
-                          <Phone size={28} />
-                       </div>
-                       <div>
-                          <h4 className="text-xl font-bold text-primary mb-1">Call Us</h4>
-                          <p className="text-base text-primary/70 font-medium leading-relaxed">015316680, 9801085977</p>
-                       </div>
-                    </div>
-                    <div className="flex items-start space-x-6 bg-gray-50 p-8 rounded-[2rem] border border-gray-100 card-hover group">
-                       <div className="bg-accent/10 p-4 rounded-2xl text-accent group-hover:bg-accent group-hover:text-white transition-all">
-                          <Mail size={28} />
-                       </div>
-                       <div>
-                          <h4 className="text-xl font-bold text-primary mb-1">Email Us</h4>
-                          <p className="text-base text-primary/70 font-medium leading-relaxed">info@reasons.edu.np</p>
-                       </div>
-                    </div>
-                 </div>
+                    <a
+                      href={googleMapsDirections}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent mt-2 hover:underline"
+                    >
+                      Get directions <ArrowRight size={14} aria-hidden="true" />
+                    </a>
+                  </div>
+                </div>
 
-                 {/* Social Info */}
-                 <div className="pt-12 border-t border-gray-100">
-                    <h4 className="text-xs font-bold text-primary/30 uppercase tracking-[0.2em] mb-6">Follow Our Community</h4>
-                    <div className="flex flex-wrap gap-4">
-                       {[
-                         { Icon: Facebook, href: "https://www.facebook.com/ReasonEducationNepal", label: "Facebook" },
-                         { Icon: Instagram, href: "https://www.instagram.com/reasoneducation", label: "Instagram" },
-                         { Icon: Linkedin, href: "https://www.linkedin.com/company/reason-education-consultancy", label: "Linkedin" },
-                         { Icon: MessageCircle, href: "https://wa.me/9779801085977?text=Hello%20Reason%20Education%2C%20I%20have%20a%20question%20about%20studying%20abroad.%20Can%20you%20help%20me%3F", label: "WhatsApp" }
-                       ].map(({ Icon, href, label }, i) => (
-                         <a 
-                           key={i} 
-                           href={href} 
-                           target="_blank"
-                           rel="noopener noreferrer"
-                           className="w-14 h-14 rounded-2xl bg-primary/5 flex items-center justify-center text-primary hover:bg-accent hover:text-white transition-all duration-300 border border-primary/5 hover:border-accent shadow-sm" 
-                           aria-label={`Follow us on ${label}`}
-                         >
-                            <Icon size={24} />
-                         </a>
-                       ))}
-                    </div>
-                 </div>
+                <div className="flex items-start gap-4 bg-brand-light-bg p-6 rounded-xl border border-brand-border card-hover group">
+                  <div className="bg-primary/10 p-3.5 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-200 shrink-0">
+                    <Clock size={24} aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h4 className="text-primary mb-1">Opening hours</h4>
+                    <p className="text-base text-primary/70 font-medium leading-relaxed">
+                      {company.hours.label}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 bg-brand-light-bg p-6 rounded-xl border border-brand-border card-hover group">
+                  <div className="bg-accent/10 p-3.5 rounded-lg text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-200 shrink-0">
+                    <Phone size={24} aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h4 className="text-primary mb-1">Call us</h4>
+                    <a
+                      href={`tel:${company.phoneTel}`}
+                      className="text-base text-primary/70 font-medium leading-relaxed hover:text-accent transition-colors duration-200"
+                    >
+                      {company.phoneDisplay}
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 bg-brand-light-bg p-6 rounded-xl border border-brand-border card-hover group">
+                  <div className="bg-primary/10 p-3.5 rounded-lg text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-200 shrink-0">
+                    <MessageCircle size={24} aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h4 className="text-primary mb-1">WhatsApp</h4>
+                    <a
+                      href={whatsappLink()}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-base text-primary/70 font-medium leading-relaxed hover:text-accent transition-colors duration-200"
+                    >
+                      Chat with us
+                    </a>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-4 bg-brand-light-bg p-6 rounded-xl border border-brand-border card-hover group">
+                  <div className="bg-accent/10 p-3.5 rounded-lg text-accent group-hover:bg-accent group-hover:text-white transition-colors duration-200 shrink-0">
+                    <Mail size={24} aria-hidden="true" />
+                  </div>
+                  <div>
+                    <h4 className="text-primary mb-1">Email</h4>
+                    <a
+                      href={`mailto:${company.email}`}
+                      className="text-base text-primary/70 font-medium leading-relaxed hover:text-accent transition-colors duration-200 break-all"
+                    >
+                      {company.email}
+                    </a>
+                  </div>
+                </div>
               </div>
 
-              {/* Contact Form */}
-              <div className="bg-white p-8 md:p-12 rounded-[2.5rem] border border-gray-100 shadow-2xl">
-                 <div className="relative z-10">
-                    <h3 className="text-2xl md:text-3xl font-bold text-primary mb-8 tracking-tighter">Send Us a Message</h3>
-                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                       <div className="grid md:grid-cols-2 gap-6">
-                          <div className="space-y-2">
-                             <label className="text-[10px] font-bold text-primary/40 uppercase tracking-widest ml-1">Full Name</label>
-                             <input 
-                               {...register("fullName")}
-                               type="text" 
-                               className={`w-full bg-gray-50 border ${errors.fullName ? 'border-red-500' : 'border-gray-100'} rounded-2xl px-6 py-4 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/5 transition-all outline-none font-medium text-sm`} 
-                               placeholder="Ram Bahadur Shrestha" 
-                             />
-                             {errors.fullName && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.fullName.message}</p>}
-                          </div>
-                          <div className="space-y-2">
-                             <label className="text-[10px] font-bold text-primary/40 uppercase tracking-widest ml-1">Phone Number</label>
-                             <input 
-                               {...register("phone")}
-                               type="tel" 
-                               className={`w-full bg-gray-50 border ${errors.phone ? 'border-red-500' : 'border-gray-100'} rounded-2xl px-6 py-4 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/5 transition-all outline-none font-medium text-sm`} 
-                               placeholder="+977 9801085977" 
-                             />
-                             {errors.phone && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.phone.message}</p>}
-                          </div>
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-bold text-primary/40 uppercase tracking-widest ml-1">Email Address</label>
-                          <input 
-                            {...register("email")}
-                            type="email" 
-                            className={`w-full bg-gray-50 border ${errors.email ? 'border-red-500' : 'border-gray-100'} rounded-2xl px-6 py-4 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/5 transition-all outline-none font-medium text-sm`} 
-                            placeholder="rudesh@gmail.com" 
-                          />
-                          {errors.email && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.email.message}</p>}
-                       </div>
-                       <div className="space-y-2">
-                          <label className="text-[10px] font-bold text-primary/40 uppercase tracking-widest ml-1">Message</label>
-                          <textarea 
-                            {...register("message")}
-                            className={`w-full bg-gray-50 border ${errors.message ? 'border-red-500' : 'border-gray-100'} rounded-2xl px-6 py-4 focus:border-accent focus:bg-white focus:ring-4 focus:ring-accent/5 transition-all outline-none font-medium min-h-[120px] resize-none text-sm`} 
-                            placeholder="How can we help you?"
-                          ></textarea>
-                          {errors.message && <p className="text-red-500 text-[10px] mt-1 ml-1">{errors.message.message}</p>}
-                       </div>
-                       
-                       <button 
-                         type="submit" 
-                         disabled={isSubmitting}
-                         className="btn-primary w-full py-5 text-lg shadow-2xl shadow-accent/30 group disabled:opacity-70 disabled:cursor-not-allowed"
-                       >
-                          {isSubmitting ? (
-                            <Loader2 className="animate-spin" size={24} />
-                          ) : (
-                            <>
-                              Send Message 
-                              <Send size={18} className="group-hover:translate-x-2 group-hover:-translate-y-1 transition-transform" />
-                            </>
-                          )}
-                       </button>
-                    </form>
-                 </div>
+              {socials.length > 0 && (
+                <div className="pt-8 border-t border-brand-border">
+                  <h4 className="text-primary/40 uppercase tracking-[0.2em] mb-5 text-xs font-bold">
+                    Follow us
+                  </h4>
+                  <div className="flex flex-wrap gap-3">
+                    {socials.map((s, i) => (
+                      <a
+                        key={i}
+                        href={s.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2.5 rounded-xl bg-brand-light-bg border border-brand-border text-sm text-primary hover:bg-primary hover:text-white transition-colors duration-200"
+                        aria-label={s.label}
+                      >
+                        {s.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+
+            <div>
+              <div className="bg-white p-6 md:p-8 rounded-xl border border-brand-border shadow-md">
+                <EnquiryForm sourcePage="/contact" />
+                <p className="mt-5 text-xs text-muted leading-relaxed">
+                  We use your details only to contact you about your enquiry. Read
+                  our{" "}
+                  <Link
+                    href="/privacy" className="underline hover:text-accent">
+                    privacy policy
+                  </Link>
+                  .
+                </p>
               </div>
-           </div>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="h-[400px] w-full bg-gray-100 grayscale hover:grayscale-0 transition-all duration-1000">
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m13!1m1!2s!2m2!1d85.3312!2d27.6939!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb199a06c28af7%3A0x9503d3b36171630!2sNew%20Baneshwor%2C%20Kathmandu%2044600!5e0!3m2!1sen!2snp!4v1712912345678!5m2!1sen!2snp" 
-          width="100%" 
-          height="100%" 
-          style={{ border: 0 }} 
-          allowFullScreen 
-          loading="lazy" 
+      <section className="w-full h-[360px] w-full border-t border-brand-border">
+        <iframe
+          src={`https://www.google.com/maps?q=${encodeURIComponent(
+          `${company.address.street}, ${company.address.city}`
+        )}&output=embed`}
+          width="100%"
+          height="100%"
+          style={{ border: 0 }}
+          allowFullScreen
+          loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          title="Reason Education Location"
-        ></iframe>
+          title={`${company.displayName} office location`}
+        />
       </section>
     </div>
   );

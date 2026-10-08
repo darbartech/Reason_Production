@@ -1,99 +1,135 @@
 import Image from "next/image";
-import { Star, Quote, Sparkles } from "lucide-react";
+import SectionHeader from "./SectionHeader";
+import {
+  Testimonial,
+  featuredTestimonial,
+  testimonials,
+} from "@/content/testimonials";
 
-const testimonials = [
-  {
-    name: "Aryan Dev Acchami",
-    destination: "Study in Canada",
-    content: "The best decision I ever made was choosing Reason Education. Their team guided me through every step of my Canadian visa process, and I'm now studying at a top institution in Canada!",
-    image: "/students/aryan.jpg",
-    rating: 5,
-  },
-  {
-    name: "Sristi Thapa",
-    destination: "Study in UK",
-    content: "Transparent, professional, and highly efficient. They handled my UK visa application with such care. I highly recommend Reason Education to any student from Nepal.",
-    image: "/students/sristi.jpg",
-    rating: 5,
-  },
-  {
-    name: "Barsa Sharma",
-    destination: "Study in Australia",
-    content: "Reason Education's IELTS classes are top-notch. I achieved an excellent band score, and their counselor helped me secure my admission in Australia with ease.",
-    image: "/students/barsa.jpg",
-    rating: 5,
-  },
-  {
-    name: "Sarana Pradhan",
-    destination: "Study in Japan",
-    content: "I'm so grateful for the support I received for my Japan study visa. The team was incredibly helpful and made the entire complex process seem very simple.",
-    image: "/students/sarana.jpg",
-    rating: 5,
-  },
-];
-
-const Testimonials = () => {
+export default function Testimonials() {
   return (
-    <section className="section-padding bg-white relative overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute top-0 left-0 w-full h-px bg-gray-100"></div>
-      <div className="absolute -bottom-32 -left-32 w-96 h-96 bg-primary/5 rounded-full blur-3xl pointer-events-none opacity-80"></div>
-      
-      <div className="container-custom relative z-10">
-        <div className="text-center mb-10 lg:mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-accent/10 text-accent rounded-full text-sm font-semibold mb-4 sm:mb-6 border border-accent/20">
-            <Sparkles size={16} className="text-accent" />
-            <span>Success Stories</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 sm:mb-6 leading-tight">
-            Hear from Our
-            <span className="text-accent"> Successful Students</span>
-          </h2>
-          <p className="text-base sm:text-lg md:text-xl text-primary/60 leading-relaxed max-w-2xl mx-auto px-4">
-            Join thousands of successful students who achieved their dreams with Reason Education.
-          </p>
+    <section className="section-padding bg-paper">
+      <div className="container-custom">
+        <div className="mb-10 lg:mb-14">
+          <SectionHeader
+            eyebrow="Student stories"
+            title={<>Students we've <em>recently supported</em> through the process.</>}
+            intro="A few of the students who've gone through our counselling and documentation this intake."
+          />
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-5 sm:gap-6 lg:gap-8">
-          {testimonials.map((testimonial, index) => (
-            <article 
-              key={index} 
-              className="group bg-gray-50/70 p-6 sm:p-8 rounded-2xl border border-gray-100 relative card-hover"
-              style={{ animationDelay: `${index * 100}ms` }}
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-16 items-start">
+          {/* Featured navy card — left 5 cols */}
+          <article className="lg:col-span-5 reveal surface-dark rounded-3xl p-7 sm:p-8 lg:p-10 border border-primary-900 shadow-float">
+            <span
+              aria-hidden="true"
+              className="font-heading text-6xl sm:text-7xl leading-none text-crimson block mb-1 select-none"
             >
-              <Quote className="absolute top-6 sm:top-8 right-6 sm:right-8 text-accent/20 w-12 h-12 sm:w-16 sm:h-16 group-hover:text-accent/30 transition-colors pointer-events-none" aria-hidden="true" />
-              
-              <div className="flex items-center gap-1 mb-6 sm:mb-8" role="img" aria-label={`${testimonial.rating} out of 5 stars`}>
-                {[...Array(testimonial.rating)].map((_, i) => (
-                  <Star key={i} size={18} className="fill-accent text-accent" aria-hidden="true" />
-                ))}
+              &ldquo;
+            </span>
+
+            <blockquote className="font-heading text-2xl md:text-[1.9rem] leading-[1.25] text-white">
+              {featuredTestimonial.quote}
+            </blockquote>
+
+            <footer className="mt-8 pt-6 border-t border-white/10 flex items-center gap-4">
+              <div className="relative w-16 h-16 shrink-0 rounded-2xl overflow-hidden bg-primary-800 border border-white/15">
+                <Image
+                  src={featuredTestimonial.image}
+                  alt={`${featuredTestimonial.name} — study in ${featuredTestimonial.destination}`}
+                  fill
+                  sizes="64px"
+                  className="object-cover"
+                />
               </div>
-              
-              <blockquote className="text-primary/70 mb-8 sm:mb-10 text-base sm:text-lg leading-relaxed relative z-10 font-medium">
-                "{testimonial.content}"
-              </blockquote>
-              
-              <footer className="flex items-center gap-4 sm:gap-5 pt-6 sm:pt-8 border-t border-gray-100">
-                <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl overflow-hidden shadow-xl group-hover:rotate-3 transition-transform flex-shrink-0">
-                  <Image
-                    src={testimonial.image}
-                    alt={`${testimonial.name} - ${testimonial.destination}`}
-                    fill
-                    sizes="64px"
-                    className="object-cover"
-                  />
+              <div>
+                <cite className="font-semibold text-white not-italic block text-base">
+                  {featuredTestimonial.name}
+                </cite>
+                <p className="text-sm mt-0.5">
+                  Study in {featuredTestimonial.destination}
+                  {featuredTestimonial.intake && ` · ${featuredTestimonial.intake}`}
+                </p>
+                {featuredTestimonial.outcome && (
+                  <p className="text-sm text-on-dark-link mt-0.5">
+                    {featuredTestimonial.outcome}
+                  </p>
+                )}
+              </div>
+            </footer>
+          </article>
+
+          {/* Stacked serif quote list — right 7 cols */}
+          <ul className="lg:col-span-7 space-y-0 divide-y divide-line border-y border-line">
+            {testimonials.map((t: Testimonial, i: number) => (
+              <li
+                key={t.name}
+                className={`reveal py-7 sm:py-8 grid grid-cols-[auto_1fr] sm:grid-cols-[auto_1fr_auto] gap-5 sm:gap-6 items-center`}
+              >
+                <span
+                  aria-hidden="true"
+                  className="font-heading text-5xl sm:text-6xl leading-none text-crimson/80 self-start pt-1 select-none hidden sm:block"
+                >
+                  &ldquo;
+                </span>
+
+                <div className="min-w-0">
+                  <blockquote className="font-heading text-xl md:text-2xl leading-[1.3] text-primary">
+                    {t.quote}
+                  </blockquote>
+
+                  <div className="mt-4 flex items-center gap-3 sm:hidden">
+                    <div className="relative w-10 h-10 shrink-0 rounded-full overflow-hidden bg-primary-100">
+                      <Image
+                        src={t.image}
+                        alt={`${t.name} — ${t.destination}`}
+                        fill
+                        sizes="40px"
+                        className="object-cover"
+                      />
+                    </div>
+                    <div className="min-w-0">
+                      <cite className="font-semibold text-primary not-italic block text-sm">
+                        {t.name}
+                      </cite>
+                      <p className="text-xs text-muted mt-0.5 truncate">
+                        {t.destination}
+                        {t.intake && ` · ${t.intake}`}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <div>
-                  <cite className="font-bold text-primary text-base sm:text-lg leading-tight not-italic block">{testimonial.name}</cite>
-                  <p className="text-xs sm:text-sm text-accent font-semibold uppercase tracking-wider mt-1">{testimonial.destination}</p>
+
+                <div className="hidden sm:flex items-center gap-4 shrink-0">
+                  <div className="text-right">
+                    <cite className="font-semibold text-primary not-italic block">
+                      {t.name}
+                    </cite>
+                    <p className="text-xs text-muted mt-0.5">
+                      Study in {t.destination}
+                      {t.intake && ` · ${t.intake}`}
+                    </p>
+                    {t.outcome && (
+                      <p className="text-xs text-accent mt-0.5">
+                        {t.outcome}
+                      </p>
+                    )}
+                  </div>
+                  <div className="relative w-12 h-12 shrink-0 rounded-xl overflow-hidden bg-primary-100 border border-line">
+                    <Image
+                      src={t.image}
+                      alt={`${t.name} — ${t.destination}`}
+                      fill
+                      sizes="48px"
+                      className="object-cover"
+                    />
+                  </div>
                 </div>
-              </footer>
-            </article>
-          ))}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>
   );
-};
-
-export default Testimonials;
+}

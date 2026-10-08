@@ -1,57 +1,36 @@
-import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
+import { buildMetadata } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/Schema";
 
-export const metadata: Metadata = {
-  title: "Study in UK from Nepal",
-  description: "Plan your study in UK from Nepal with expert guidance. Learn about CAS, student visa requirements, costs, and top UK universities.",
-  keywords: [
-    "study in UK from nepal",
-    "uk student visa nepal",
-    "cas letter uk nepal",
-    "uk universities nepal",
-    "scholarships nepal uk",
-  ],
-  authors: [{ name: "Reason Education Consultancy" }],
-  creator: "Reason Education Consultancy",
-  publisher: "Reason Education Consultancy",
-  alternates: {
-    canonical: "https://reasons.edu.np/countries/uk",
-  },
-  openGraph: {
-    title: "Study in UK from Nepal | CAS & Student Visa 2026",
-    description: "Expert guidance for Nepalese students planning to study in the UK.",
-    images: ["https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Study in UK from Nepal | CAS & Student Visa 2026",
-    description: "Expert guidance for Nepalese students planning to study in the UK.",
-    images: ["https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildMetadata({
+  title: "Study in UK from Nepal: Costs & Visa",
+  description: "UK tuition ranges, IELTS 6.0 bands, Student visa steps, CAS requirements and intake months for Nepali students applying from Kathmandu.",
+  path: "/countries/uk",
+});
 
 export default function UKPage() {
   return (
-    <CountryPageTemplate
+    <>
+      <Breadcrumbs items={[{ name: "Countries", path: "/countries" }, { name: "UK", path: "/countries/uk" }]} />
+      <CountryPageTemplate
       country="United Kingdom"
-      h1="Study in UK from Nepal"
+      image={{
+        src: "/images/countries/uk-london-tower-bridge.webp",
+        alt: "Tower Bridge and the River Thames in London, United Kingdom",
+      }}
+      h1="Study in UK from Nepal: costs, intakes and visa steps"
       overview="The UK is renowned for its centuries-old academic tradition, shorter degree durations, and rich cultural experience. It's home to many of the world's best universities."
-      image="https://images.unsplash.com/photo-1486496146582-9ffcd0b2b2b7?q=80&w=1470&auto=format&fit=crop"
       requirements={[
         "Minimum 60% or 2.8 GPA in +2 or Bachelor's",
         "IELTS 6.0 (no band less than 5.5) for UG",
         "IELTS 6.5 (no band less than 6.0) for PG",
-        "PTE 59 (no band less than 51) for Tier 4",
+        "PTE 59 (no band less than 51) for the Student visa",
         "Confirmation of Acceptance for Studies (CAS)",
         "Tuberculosis (TB) Test Certificate",
-        "Proof of financial capacity (approx. GBP 12,006+ tuition)",
-        "Biometric Residence Permit (BRP) collection",
+        "Financial evidence — GBP 1,529/month (London) or GBP 1,171/month (outside London) for up to 9 months, plus first-year tuition. Higher amounts apply for applications from 30 November 2026 — check gov.uk for the figure that applies to you.",
+        "Immigration Health Surcharge (IHS) payment",
       ]}
-      costs={["GBP 12,000 - 30,000 Per Year", "GBP 1,334 Monthly (London)"]}
+      costs={["GBP 12,000 - 30,000 Per Year", "GBP 1,529 Monthly (London) / GBP 1,171 Outside"]}
       visaProcess={[
         "Selection of course and UKVI-licensed sponsor",
         "English proficiency test (IELTS/PTE)",
@@ -59,10 +38,15 @@ export default function UKPage() {
         "Receipt of Unconditional Offer Letter",
         "Payment of tuition deposit and CAS fee",
         "Request for CAS from the institution",
-        "Tier 4 Student Visa application",
-        "Biometric collection and IHS payment",
+        "Student visa application online",
+        "Identity verification (UKVI ID Check app) and biometrics",
       ]}
       intakes={["September (Major)", "January", "May"]}
+      lastUpdated="2026-10-08"
+      officialSources={[
+        { label: "gov.uk — Student visa money requirement", url: "https://www.gov.uk/student-visa/money" },
+        { label: "gov.uk — Graduate visa", url: "https://www.gov.uk/graduate-visa" },
+      ]}
       faqs={[
         {
           q: "What is the CAS?",
@@ -70,13 +54,18 @@ export default function UKPage() {
         },
         {
           q: "Can I work in the UK after graduation?",
-          a: "Yes, you can apply for the Graduate Route visa, which allows you to stay in the UK for 2 years (3 years for PhD) after finishing your course.",
+          a: "Yes, you can apply for the Graduate visa, which currently allows you to stay for 2 years (3 years after a PhD). For applications from 1 January 2027, the stay becomes 18 months for bachelor's and master's graduates; PhD graduates keep 3 years.",
         },
         {
           q: "What is the IHS fee?",
           a: "The Immigration Health Surcharge (IHS) is a fee you pay as part of your visa application to access the UK's National Health Service (NHS).",
         },
+        {
+          q: "Is the Biometric Residence Permit (BRP) still issued?",
+          a: "No. BRPs are being replaced by eVisas — an online record of your immigration status. You verify your identity with the UKVI ID Check app and manage your status through a UKVI online account.",
+        },
       ]}
     />
+    </>
   );
 }

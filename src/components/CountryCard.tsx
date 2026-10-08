@@ -1,57 +1,82 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, GraduationCap } from "lucide-react";
+import Image from "next/image";
+import { ArrowUpRight, HelpCircle } from "lucide-react";
 
-interface CountryCardProps {
-  name: string;
-  image: string;
-  href: string;
-  description: string;
-  students: string;
-}
+type CountryCardProps =
+  | {
+      name: string;
+      code?: string;
+      href: string;
+      description: string;
+      image: { src: string; alt: string };
+      notSure?: false;
+    }
+  | {
+      name: string;
+      href: string;
+      description: string;
+      notSure: true;
+    };
 
-const CountryCard = ({ name, image, href, description, students }: CountryCardProps) => {
-  return (
-    <Link
-      href={href}
-      className="group relative h-[400px] overflow-hidden rounded-[2rem] shadow-xl block bg-primary"
-      aria-label={`Study in ${name}`}
-    >
-      <Image
-        src={image}
-        alt={`Study in ${name}`}
-        fill
-        className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:scale-110 group-hover:opacity-60 transition-all duration-1000"
-      />
-      
-      {/* Gradient Overlay (for legibility only) */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent group-hover:from-black/80 transition-all duration-500"></div>
-      
-      {/* Content */}
-      <div className="absolute inset-0 p-6 flex flex-col justify-end">
-        <div className="translate-y-10 group-hover:translate-y-0 transition-transform duration-500">
-          <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1.5 rounded-full text-[9px] font-bold uppercase tracking-widest text-white w-fit mb-4">
-            <GraduationCap size={12} className="text-accent" />
-            {students}
-          </div>
-          
-          <h3 className="text-2xl font-bold text-white mb-3 flex items-center justify-between">
-            {name}
-            <span className="p-1.5 bg-accent rounded-full opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 shadow-lg shadow-accent/50">
-              <ArrowUpRight size={16} className="text-white" />
-            </span>
-          </h3>
-          
-          <p className="text-white/70 text-xs leading-relaxed font-medium line-clamp-3 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
-            {description}
-          </p>
+export default function CountryCard(props: CountryCardProps) {
+  if (props.notSure) {
+    const { name, href, description } = props;
+    return (
+      <Link
+        href={href}
+        className="group card card-hover flex h-full min-h-[420px] sm:min-h-[440px] lg:min-h-0 flex-col items-start justify-between surface-dark p-6 sm:p-7 border border-primary-900"
+        aria-label="Not sure which country? Talk to our team"
+      >
+        <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
+          <HelpCircle size={22} className="text-crimson" aria-hidden="true" />
         </div>
-      </div>
+        <div>
+          <div className="inline-flex items-center gap-2 mb-3">
+            <span className="rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-on-dark-link">
+              Guidance
+            </span>
+          </div>
+          <h3 className="text-white group-hover:text-on-dark-link transition-colors">{name}</h3>
+          <p className="mt-3 text-[0.9375rem] leading-relaxed">{description}</p>
+        </div>
+        <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:text-on-dark-link transition-colors">
+          Talk to our team <ArrowUpRight size={16} />
+        </div>
+      </Link>
+    );
+  }
 
-      {/* Border Glow */}
-      <div className="absolute inset-0 border-2 border-white/0 group-hover:border-white/20 rounded-[2rem] transition-colors duration-500"></div>
+  const { name, code, href, description, image } = props;
+  return (
+    <Link href={href} className="group card card-hover block overflow-hidden relative aspect-[4/5]" aria-label={`Study in ${name} from Nepal`}>
+      <Image
+        src={image.src}
+        alt={image.alt}
+        fill
+        sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 85vw"
+        className="object-cover transition-transform duration-500 group-hover:scale-105"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 bg-gradient-to-t from-primary-950 via-primary-950/70 via-[55%] to-transparent to-[15%]"
+      />
+
+      {code && (
+        <span
+          aria-hidden="true"
+          className="absolute top-4 left-4 rounded-md bg-white/95 backdrop-blur-sm px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary shadow-sm border border-line"
+        >
+          {code}
+        </span>
+      )}
+
+      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6">
+        <h3 className="flex items-center justify-between text-white group-hover:text-on-dark-link transition-colors leading-tight">
+          <span>{name}</span>
+          <ArrowUpRight size={18} className="text-white/70 shrink-0 ml-3 transition-colors group-hover:text-on-dark-link" aria-hidden="true" />
+        </h3>
+        <p className="mt-2 text-[0.9375rem] leading-relaxed text-on-dark line-clamp-3">{description}</p>
+      </div>
     </Link>
   );
-};
-
-export default CountryCard;
+}

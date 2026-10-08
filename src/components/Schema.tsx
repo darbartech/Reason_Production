@@ -1,152 +1,94 @@
-export default function Schema() {
-  const schemas = [
-    {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "@id": "https://reasons.edu.np/#organization",
-      "name": "Reason Education Consultancy",
-      "image": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1200&h=630",
-      "logo": "https://reasons.edu.np/logo/NEW.png",
-      "url": "https://reasons.edu.np",
-      "telephone": "+977-15316680",
-      "email": "info@reasons.edu.np",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "New Baneshwor, Indreni Complex",
-        "addressLocality": "Kathmandu",
-        "postalCode": "44600",
-        "addressCountry": {
-          "@type": "Country",
-          "name": "Nepal"
-        }
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 27.6915,
-        "longitude": 85.3331
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
-          "opens": "10:00",
-          "closes": "17:00"
-        },
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": "Sunday",
-          "opens": "10:00",
-          "closes": "17:00"
-        }
-      ],
-      "sameAs": [
-        "https://www.facebook.com/ReasonEducationNepal",
-        "https://www.instagram.com/reasoneducation",
-        "https://www.linkedin.com/company/reason-education-consultancy",
-        "https://twitter.com/reasoneducation"
-      ],
-      "priceRange": "$$",
-      "areaServed": {
-        "@type": "Country",
-        "name": "Nepal"
-      },
-      "serviceType": ["Education Consultancy", "Study Abroad Services", "IELTS Training", "Visa Assistance"],
-      "description": "Leading study abroad consultancy in Nepal helping students achieve their dreams of global education.",
-      "foundingDate": "2015",
-      "numberOfEmployees": {
-        "@type": "QuantitativeValue",
-        "value": "25"
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "@id": "https://reasons.edu.np/#website",
-      "url": "https://reasons.edu.np",
-      "name": "Reason Education Consultancy",
-      "publisher": {
-        "@id": "https://reasons.edu.np/#organization"
-      }
-    },
-    {
-      "@context": "https://schema.org",
-      "@type": "Service",
-      "serviceType": "Education Consultancy",
-      "provider": {
-        "@id": "https://reasons.edu.np/#organization"
-      },
-      "areaServed": [
-        {
-          "@type": "Country",
-          "name": "United States"
-        },
-        {
-          "@type": "Country",
-          "name": "Canada"
-        },
-        {
-          "@type": "Country",
-          "name": "United Kingdom"
-        },
-        {
-          "@type": "Country",
-          "name": "Australia"
-        },
-        {
-          "@type": "Country",
-          "name": "New Zealand"
-        },
-        {
-          "@type": "Country",
-          "name": "Japan"
-        }
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Education Services",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Study Abroad Counseling"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "IELTS Training"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Visa Assistance"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "PTE Preparation"
-            }
-          }
-        ]
-      }
-    }
-  ];
+import { company } from "@/lib/company";
 
+const DAY_MAP = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+export function JsonLd({ data }: { data: object | object[] }) {
   return (
-    <>
-      {schemas.map((schema, index) => (
-        <script
-          key={index}
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-        />
-      ))}
-    </>
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
+}
+
+export default function Schema() {
+  const sameAs = Object.values(company.social).filter(Boolean) as string[];
+
+  const org: Record<string, unknown> = {
+    "@context": "https://schema.org",
+    "@type": ["EducationalOrganization", "ProfessionalService"],
+    "@id": `${company.url}/#organization`,
+    name: company.legalName,
+    alternateName: company.displayName,
+    url: company.url,
+    logo: `${company.url}/logo/logo.png`,
+    telephone: company.phoneTel,
+    email: company.email,
+    foundingDate: String(company.established),
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: company.address.street,
+      addressLocality: company.address.city,
+      postalCode: company.address.postalCode,
+      addressCountry: "NP",
+    },
+    geo: {
+      "@type": "GeoCoordinates",
+      latitude: company.geo.lat,
+      longitude: company.geo.lng,
+    },
+    openingHoursSpecification: [
+      {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: DAY_MAP,
+        opens: company.hours.open,
+        closes: company.hours.close,
+      },
+    ],
+    areaServed: { "@type": "Country", name: "Nepal" },
+    knowsAbout: [
+      "Study abroad counselling",
+      "IELTS preparation",
+      "PTE preparation",
+      "Student visa documentation",
+    ],
+  };
+
+  if (sameAs.length) {
+    org.sameAs = sameAs;
+  }
+
+  const website = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${company.url}/#website`,
+    url: company.url,
+    name: company.displayName,
+    publisher: { "@id": `${company.url}/#organization` },
+  };
+
+  return <JsonLd data={[org, website]} />;
+}
+
+export function Breadcrumbs({
+  items,
+}: {
+  items: { name: string; path: string }[];
+}) {
+  return (
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: [{ name: "Home", path: "/" }, ...items].map((it, i) => ({
+          "@type": "ListItem",
+          position: i + 1,
+          name: it.name,
+          item: `${company.url}${it.path}`,
+        })),
+      }}
+    />
   );
 }

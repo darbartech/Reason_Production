@@ -6,17 +6,25 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "serve": "node server.js",
+    "db:migrate": "node server/migrate.js",
+    "admin:create": "node server/create-admin.js",
+    "dev:api": "node --watch server.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
+    "@supabase/supabase-js": "^2.117.3",
     "clsx": "^2.1.0",
     "express": "^5.2.1",
     "lucide-react": "^0.330.0",
     "next": "^14.2.35",
+    "pg": "^8.23.1",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.72.1",
+    "sanitize-html": "^2.13.0",
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.2.1",
     "zod": "^4.3.6"
@@ -25,9 +33,10 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/sanitize-html": "^2.11.0",
     "autoprefixer": "^10.4.17",
     "eslint": "^8",
-    "eslint-config-next": "14.1.0",
+    "eslint-config-next": "^14.2.35",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"

@@ -2,39 +2,28 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import { Menu, X, Phone, ChevronRight, MessageCircle } from "lucide-react";
+import { company, whatsappLink } from "@/lib/company";
 
 const navLinks = [
-  { name: "Home", href: "/" },
   { name: "Study Abroad", href: "/study-abroad" },
   { name: "Countries", href: "/countries" },
-  { name: "IELTS/PTE", href: "/ielts" },
+  { name: "IELTS / PTE", href: "/ielts" },
   { name: "Services", href: "/services" },
-  { name: "B2B", href: "/b2b" },
+  { name: "About", href: "/about" },
   { name: "Blog", href: "/blog" },
-];
-
-// 定义深色背景页面
-const darkBackgroundPages = [
-  "/",
-  "/study-abroad", 
-  "/countries",
-  "/ielts",
-  "/blog",
-  "/services",
-  "/b2b",
-  "/contact"
 ];
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const pathname = usePathname();
-  
-  // 判断当前页面是否是深色背景
-  const isDarkPage = darkBackgroundPages.some(page => pathname === page || pathname.startsWith('/countries/'));
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
+  const lastFocusedRef = useRef<HTMLElement | null>(null);
+  const hasBeenOpenedRef = useRef(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,16 +35,63 @@ const Navbar = () => {
 
   useEffect(() => {
     if (isOpen) {
+      hasBeenOpenedRef.current = true;
       document.body.classList.add("overflow-hidden");
+      lastFocusedRef.current = document.activeElement as HTMLElement | null;
+      requestAnimationFrame(() => {
+        if (!drawerRef.current) return;
+        const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+          'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length > 0) {
+          focusable[0].focus();
+        }
+      });
     } else {
       document.body.classList.remove("overflow-hidden");
+      if (hasBeenOpenedRef.current && menuButtonRef.current) {
+        menuButtonRef.current.focus();
+      }
     }
     return () => {
       document.body.classList.remove("overflow-hidden");
     };
   }, [isOpen]);
 
-  // 关闭菜单时重置滚动
+  useEffect(() => {
+    const handleEsc = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setIsOpen(false);
+    };
+    window.addEventListener("keydown", handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
+  }, []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const drawer = drawerRef.current;
+    if (!drawer) return;
+
+    const handleKeydown = (e: KeyboardEvent) => {
+      if (e.key !== "Tab") return;
+      const focusable = drawer.querySelectorAll<HTMLElement>(
+        'a[href], button, input, select, textarea, [tabindex]:not([tabindex="-1"])'
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+
+    drawer.addEventListener("keydown", handleKeydown);
+    return () => drawer.removeEventListener("keydown", handleKeydown);
+  }, [isOpen]);
+
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
@@ -64,126 +100,123 @@ const Navbar = () => {
 
   return (
     <>
-      <nav 
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled 
-            ? "bg-white/95 backdrop-blur-md shadow-md py-3 border-b border-gray-100" 
-            : isDarkPage 
-            ? "bg-primary/80 backdrop-blur-md py-4 lg:py-5 border-b border-white/10"
-            : "bg-white/90 backdrop-blur-sm py-4 lg:py-5 border-b border-gray-100"
-        }`}
-      >
-        <div className="container-custom">
-          <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center group shrink-0">
-              <div className={`relative w-40 h-12 sm:w-44 sm:h-14 group-hover:scale-105 transition-transform ${
-                (isDarkPage && !scrolled) ? "" : ""
-              }`}>
-                <Image 
-                  src="/logo/NEW.png" 
-                  alt="Reason Education Consultancy" 
-                  fill 
-                  className={`object-contain transition-all duration-300 ${
-                    (isDarkPage && !scrolled) ? "brightness-0 invert" : ""
+      <div className="surface-dark hidden lg:block text-[0.8125rem]">
+        <div className="container-custom flex h-9 items-center justify-between">
+          <p className="text-primary-300">
+            {company.address.street}, {company.address.city} · {company.hours.label}
+          </p>
+          <div className="flex items-center gap-6">
+            <a href={`tel:${company.phoneTel}`} className="text-white hover:underline">{company.phoneDisplay}</a>
+            <a href={`mailto:${company.email}`} className="hidden xl:inline text-white hover:underline">{company.email}</a>
+            <Link href="/b2b" className="text-primary-300 hover:text-white">For institutions</Link>
+          </div>
+        </div>
+      </div>
+
+      <header className="sticky top-0 z-50">
+        <nav
+          className={`transition-all duration-300 bg-white ${
+            scrolled
+              ? "h-[68px] shadow-sm border-b border-brand-border"
+              : "h-20 border-b border-brand-border/60"
+          }`}
+        >
+          <div className="container-custom h-full">
+            <div className="flex items-center justify-between h-full">
+              <Link href="/" className="flex items-center shrink-0">
+                <Image
+                  src="/logo/logo.png"
+                  alt={company.displayName}
+                  width={480}
+                  height={208}
+                  className={`transition-all duration-300 w-auto object-contain ${
+                    scrolled ? "h-12" : "h-14"
                   }`}
                   priority
                 />
-              </div>
-            </Link>
+              </Link>
 
-            {/* Desktop Navigation */}
-            <div className="hidden lg:flex items-center gap-1">
-              {navLinks.map((link) => (
-                <Link
-                  key={link.name}
-                  href={link.href}
-                  className={`px-4 py-2.5 rounded-lg text-sm font-semibold transition-all ${
-                    isActive(link.href)
-                      ? scrolled || !isDarkPage
-                      ? "text-accent bg-accent/10" 
-                      : "text-accent bg-white/10"
-                      : scrolled || !isDarkPage
-                      ? "text-primary hover:text-accent hover:bg-primary/10"
-                      : "text-white hover:text-accent hover:bg-white/10"
-                  }`}
-                >
-                  {link.name}
-                </Link>
-              ))}
-              
-              <div className="ml-4">
-                <Link
-                  href="/contact"
-                  className="btn-primary px-6 py-3 text-sm"
-                >
-                  Free Counseling
-                </Link>
-              </div>
-            </div>
+              <div className="hidden lg:flex items-center gap-1">
+                {navLinks.map((link) => (
+                  <Link
+                    key={link.name}
+                    href={link.href}
+                    className={`relative px-3 py-2 text-[0.9375rem] font-medium transition-colors ${
+                      isActive(link.href)
+                        ? "text-primary after:absolute after:inset-x-3 after:-bottom-2 after:h-0.5 after:bg-crimson"
+                        : "text-primary/80 hover:text-primary"
+                    }`}
+                  >
+                    {link.name}
+                  </Link>
+                ))}
 
-            {/* Mobile Controls */}
-            <div className="flex items-center gap-2 lg:hidden">
-              <a 
-                href="tel:015316680" 
-                className={`p-3 transition-all rounded-xl shadow-lg active:scale-95 ${
-                  scrolled || !isDarkPage 
-                  ? "text-white bg-accent hover:bg-accent/90" 
-                  : "text-white bg-accent hover:bg-accent/90"
-                }`}
-                aria-label="Call Us"
-              >
-                <Phone size={18} />
-              </a>
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className={`p-3 transition-all rounded-xl active:scale-95 ${
-                  scrolled || !isDarkPage 
-                  ? "text-primary bg-gray-100 hover:bg-gray-200" 
-                  : "text-white bg-white/10 hover:bg-white/20"
-                }`}
-                aria-label={isOpen ? "Close menu" : "Open menu"}
-                aria-expanded={isOpen}
-              >
-                {isOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
+                <div className="ml-4">
+                  <Link href="/contact" className="btn-primary h-10 px-5 text-sm">
+                    Free counselling
+                  </Link>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 lg:hidden">
+                <a
+                  href={`tel:${company.phoneTel}`}
+                  className="p-2.5 transition-colors rounded-lg border border-line text-primary hover:bg-primary-50"
+                  aria-label="Call Us"
+                >
+                  <Phone size={18} />
+                </a>
+                <button
+                  ref={menuButtonRef}
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="p-2.5 transition-colors rounded-lg text-primary bg-primary-50 hover:bg-primary-100 border border-line"
+                  aria-label={isOpen ? "Close menu" : "Open menu"}
+                  aria-expanded={isOpen}
+                >
+                  {isOpen ? <X size={22} /> : <Menu size={22} />}
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </header>
 
-      {/* Mobile Menu Overlay */}
-      <div 
-        className={`fixed inset-0 bg-primary/30 backdrop-blur-sm transition-opacity duration-300 lg:hidden z-[9998] ${
+      <div
+        className={`fixed inset-0 bg-primary/40 backdrop-blur-sm transition-opacity duration-300 lg:hidden z-[9998] ${
           isOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
         onClick={() => setIsOpen(false)}
         aria-hidden="true"
       />
 
-      {/* Mobile Menu */}
-      <div 
-        className={`fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-2xl z-[9999] transform transition-transform duration-300 lg:hidden ${
+      <div
+        ref={drawerRef}
+        role="dialog"
+        aria-modal="true"
+        aria-label="Menu"
+        aria-hidden={!isOpen}
+        inert={isOpen ? undefined : true}
+        className={`fixed inset-y-0 right-0 w-full max-w-sm bg-white shadow-md z-[9999] transform transition-transform duration-200 lg:hidden ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
         <div className="flex flex-col h-full">
-          <div className="flex items-center justify-between p-6 border-b border-gray-100">
+          <div className="flex items-center justify-between p-6 border-b border-brand-border">
             <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
-              <div className="relative w-36 h-12">
-                <Image 
-                  src="/logo/NEW.png" 
-                  alt="Reason Education Consultancy" 
-                  fill 
-                  className="object-contain"
-                />
-              </div>
+              <Image
+                src="/logo/logo.png"
+                alt={company.displayName}
+                width={480}
+                height={208}
+                className="h-10 w-auto object-contain"
+              />
             </Link>
-            <button 
+            <button
               onClick={() => setIsOpen(false)}
-              className="p-3 text-primary bg-gray-100 rounded-full hover:bg-gray-200"
+              className="p-3 text-primary bg-primary-50 rounded-lg hover:bg-primary-100"
               aria-label="Close menu"
             >
-              <X size={24} />
+              <X size={22} />
             </button>
           </div>
 
@@ -193,41 +226,49 @@ const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className={`flex items-center justify-between px-5 py-4 rounded-xl transition-all ${
+                className={`flex items-center justify-between px-5 py-4 rounded-xl transition-colors ${
                   isActive(link.href)
                     ? "bg-accent/10 text-accent"
-                    : "text-primary hover:bg-gray-50"
+                    : "text-primary hover:bg-primary-50"
                 }`}
               >
                 <span className="text-lg font-semibold">{link.name}</span>
-                <ChevronRight size={18} className={isActive(link.href) ? "text-accent" : "text-gray-400"} />
+                <ChevronRight size={18} className={isActive(link.href) ? "text-accent" : "text-primary-300"} />
               </Link>
             ))}
+            <Link
+              href="/b2b"
+              onClick={() => setIsOpen(false)}
+              className="flex items-center justify-between px-5 py-4 rounded-xl transition-colors text-primary hover:bg-primary-50"
+            >
+              <span className="text-lg font-semibold">For institutions (B2B)</span>
+              <ChevronRight size={18} className="text-primary-300" />
+            </Link>
           </div>
 
-          <div className="p-6 border-t border-gray-100 space-y-4">
+          <div className="p-6 border-t border-brand-border space-y-4">
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
               className="btn-primary w-full py-4 text-base"
             >
-              Free Counseling
+              Book free counselling
             </Link>
-            
+
             <div className="grid grid-cols-2 gap-3">
-              <a 
-                href="tel:015316680" 
-                className="flex items-center justify-center gap-2 py-4 rounded-xl bg-gray-50 text-primary font-semibold hover:bg-gray-100 transition-all border border-gray-100"
+              <a
+                href={`tel:${company.phoneTel}`}
+                className="flex items-center justify-center gap-2 py-4 rounded-xl bg-primary-50 text-primary font-semibold hover:bg-primary-100 transition-colors border border-brand-border"
                 aria-label="Call Us"
               >
                 <Phone size={18} />
                 <span>Call</span>
               </a>
-              <a 
-                href="https://wa.me/9779801085977?text=Hello%20Reason%20Education" 
+              <a
+                href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-4 rounded-xl bg-gray-50 text-primary font-semibold hover:bg-green-50 hover:text-green-700 transition-all border border-gray-100"
+                className="flex items-center justify-center gap-2 py-4 rounded-xl bg-primary-50 text-primary font-semibold hover:bg-green-50 hover:text-green-700 transition-colors border border-brand-border"
                 aria-label="WhatsApp"
               >
                 <MessageCircle size={18} />

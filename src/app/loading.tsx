@@ -8,7 +8,7 @@ export default function Loading() {
         </div>
       </div>
       <p className="mt-8 text-primary font-bold tracking-widest uppercase text-xs animate-pulse">
-        Reason Education
+        Reasons Education
       </p>
     </div>
   );

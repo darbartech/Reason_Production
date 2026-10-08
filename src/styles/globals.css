@@ -3,106 +3,122 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --primary-color: #0A2540;
-    --accent-color: #E66E00;
-  }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
   body {
-    @apply font-sans bg-white text-primary antialiased overflow-x-hidden;
+    @apply font-sans bg-white text-ink antialiased overflow-x-hidden;
+    font-size: 1rem;
+    line-height: 1.7;
+    text-rendering: optimizeLegibility;
   }
 
-  /* Global Focus Styles for WCAG 2.2 AA */
-  :focus-visible {
-    @apply outline-none ring-2 ring-accent ring-offset-2;
-  }
+  :focus-visible { @apply outline-none ring-2 ring-accent ring-offset-2; }
 
-  /* Professional Typography Hierarchy */
-  h1 {
-    @apply font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight;
-  }
+  h1, h2 { @apply font-heading text-primary; font-optical-sizing: auto; }
+  h3, h4 { @apply font-sans text-primary; }
 
-  h2 {
-    @apply font-heading text-3xl sm:text-4xl md:text-5xl font-bold leading-snug tracking-tight;
-  }
+  h1 { font-size: theme("fontSize.display[0]"); line-height: 1.02; letter-spacing: -0.025em; font-weight: 450; }
+  h2 { font-size: clamp(2rem, 1.35rem + 2.2vw, 3.25rem); line-height: 1.08; letter-spacing: -0.02em; font-weight: 450; }
+  h3 { font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem); line-height: 1.3; letter-spacing: -0.01em; font-weight: 600; }
+  h4 { font-size: 1rem; line-height: 1.4; font-weight: 600; }
 
-  h3 {
-    @apply font-heading text-2xl sm:text-3xl md:text-4xl font-semibold leading-normal tracking-tight;
-  }
+  h1 em, h2 em { font-style: italic; font-weight: 400; @apply text-crimson; }
+  .surface-dark h1 em, .surface-dark h2 em { @apply text-on-dark-link; }
 
-  h4 {
-    @apply font-heading text-xl sm:text-2xl md:text-3xl font-semibold leading-normal;
-  }
+  p  { @apply text-ink; max-width: 68ch; }
+  .lead { font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); line-height: 1.6; @apply text-muted; }
 
-  h5 {
-    @apply font-heading text-lg sm:text-xl md:text-2xl font-semibold leading-normal;
-  }
+  .surface-dark { @apply bg-primary-950 text-on-dark; }
+  .surface-dark h1, .surface-dark h2, .surface-dark h3, .surface-dark h4 { @apply text-white; }
+  .surface-dark p { @apply text-on-dark; }
+  .surface-dark a:not([class*="btn"]) { @apply text-on-dark-link; }
+  .surface-dark a:not([class*="btn"]):hover { @apply text-white; }
+  .surface-dark .eyebrow { @apply text-on-dark-link; }
+  .surface-dark .lead { @apply !text-on-dark; }
 
-  h6 {
-    @apply font-heading text-base sm:text-lg md:text-xl font-semibold leading-normal;
-  }
-
-  p {
-    @apply font-sans text-base sm:text-lg leading-relaxed;
-  }
-
-  .text-small {
-    @apply font-sans text-sm leading-relaxed;
-  }
-
-  .text-xsmall {
-    @apply font-sans text-xs leading-relaxed;
-  }
+  summary { list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::marker { display: none; }
 }
 
 @layer components {
-  .btn-primary {
-    @apply inline-flex items-center justify-center gap-3 bg-accent text-white px-7 py-4 rounded-xl font-semibold 
-           hover:bg-accent/90 active:bg-accent/80 transition-all duration-300 shadow-lg shadow-accent/15 
-           hover:shadow-xl hover:shadow-accent/20 hover:-translate-y-0.5 active:translate-y-0;
-  }
+  .container-custom { @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10; }
+  .section-padding  { @apply py-20 md:py-28 lg:py-32; }
+  .section-tight    { @apply py-12 md:py-16; }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center gap-3 bg-white text-primary border border-primary/10 px-7 py-4 
-           rounded-xl font-semibold hover:bg-primary hover:text-white hover:border-primary 
-           transition-all duration-300 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-0.5 
-           active:translate-y-0;
+  .eyebrow {
+    @apply inline-flex items-center gap-3 text-[0.75rem] font-semibold uppercase text-accent;
+    letter-spacing: 0.14em;
   }
+  .eyebrow::before { content: ""; @apply block h-px w-6 bg-crimson; }
 
-  .btn-outline {
-    @apply inline-flex items-center justify-center gap-3 bg-transparent text-primary border border-primary/20 px-7 py-4 
-           rounded-xl font-semibold hover:bg-primary/5 hover:border-primary/40 
-           transition-all duration-300;
-  }
+  .btn { @apply inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-[0.9375rem] font-semibold
+                 transition duration-150 active:translate-y-px disabled:opacity-60 disabled:pointer-events-none; }
+  .btn-primary   { @apply btn bg-crimson text-white shadow-[0_1px_0_rgba(255,255,255,.15)_inset] hover:bg-crimson-dark; }
+  .btn-lg        { @apply h-14 px-8 text-base; }
+  .btn-navy      { @apply btn bg-primary text-white hover:bg-primary-900; }
+  .btn-secondary { @apply btn border border-primary/25 bg-white text-primary hover:border-primary hover:bg-primary-50; }
+  .btn-outline   { @apply btn border border-primary/25 bg-transparent text-primary hover:border-primary hover:bg-primary-50; }
+  .btn-ghost     { @apply btn bg-transparent text-primary hover:bg-primary-50; }
+  .btn-on-dark   { @apply btn border border-white/30 bg-transparent text-white hover:bg-white/10; }
 
-  .btn-ghost {
-    @apply inline-flex items-center justify-center gap-3 bg-transparent text-primary px-7 py-4 
-           rounded-xl font-semibold hover:bg-primary/5 transition-all duration-300;
-  }
+  .card        { @apply rounded-2xl border border-line bg-white; }
+  .card-hover  { @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-lift; }
 
-  .section-padding {
-    @apply py-12 sm:py-16 md:py-20 lg:py-24;
-  }
+  .link-arrow  { @apply inline-flex items-center gap-1.5 font-semibold text-accent; }
+  .link-arrow svg { @apply transition-transform duration-200; }
+  .link-arrow:hover svg { @apply translate-x-1; }
 
-  .container-custom {
-    @apply max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12;
-  }
+  .stat-num { @apply font-heading text-5xl font-normal leading-none text-primary md:text-6xl; font-variant-numeric: lining-nums; }
 
-  .card-hover {
-    @apply transition-all duration-500 hover:shadow-xl hover:shadow-primary/5 hover:-translate-y-1;
-  }
-
-  .glass-effect {
-    @apply bg-white/80 backdrop-blur-md border border-white/20;
-  }
+  /* Long-form article body. Preflight strips margins and there is no typography
+     plugin in this project, so the rhythm is defined here. */
+  .blog-body > * + * { @apply mt-5; }
+  .blog-body h2 { @apply mt-12 mb-0 text-primary; }
+  .blog-body h3 { @apply mt-9 mb-0 text-primary; }
+  .blog-body h4 { @apply mt-7 mb-0; }
+  .blog-body p  { @apply max-w-prose text-muted leading-relaxed; }
+  .blog-body ul,
+  .blog-body ol { @apply max-w-prose space-y-2 pl-6 text-muted; }
+  .blog-body ul { list-style: disc; }
+  .blog-body ol { list-style: decimal; }
+  .blog-body li::marker { @apply text-accent; }
+  .blog-body a  { @apply text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent; }
+  .blog-body blockquote { @apply max-w-prose border-l-2 border-crimson pl-5 font-heading text-lg not-italic text-primary; }
+  .blog-body hr { @apply my-10 border-line; }
+  .blog-body img { @apply rounded-xl border border-line; }
 }
 
 @layer utilities {
-  .content-auto {
-    content-visibility: auto;
-  }
+  .text-balance { text-wrap: balance; }
+  .content-auto { content-visibility: auto; }
 
-  .text-balance {
-    text-wrap: balance;
+  .text-ink    { color: theme("colors.ink"); }
+  .text-muted  { color: theme("colors.muted"); }
+  .bg-paper    { background-color: theme("colors.paper"); }
+  .border-line { border-color: theme("colors.line"); }
+
+  .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+  .hide-scrollbar::-webkit-scrollbar { display: none; }
+
+  .text-brand-text      { color: theme("colors.brand.text"); }
+  .text-brand-text-muted{ color: theme("colors.brand.text-muted"); }
+  .bg-brand-light-bg    { background-color: theme("colors.brand.light-bg"); }
+  .border-brand-border  { border-color: theme("colors.brand.border"); }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .reveal {
+        animation: reveal-up linear both;
+        animation-timeline: view();
+        animation-range: entry 0% entry 35%;
+      }
+    }
   }
+}
+
+@keyframes reveal-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }

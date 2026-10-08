@@ -1,54 +1,33 @@
-import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
+import { buildMetadata } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/Schema";
 
-export const metadata: Metadata = {
-  title: "Study in Europe from Nepal",
-  description: "Plan your study in Europe from Nepal with expert guidance. Learn about Schengen visa, tuition-free options, costs, and top European universities.",
-  keywords: [
-    "study in europe from nepal",
-    "schengen student visa nepal",
-    "tuition free europe nepal",
-    "germany study nepal",
-    "france study nepal",
-  ],
-  authors: [{ name: "Reason Education Consultancy" }],
-  creator: "Reason Education Consultancy",
-  publisher: "Reason Education Consultancy",
-  alternates: {
-    canonical: "https://reasons.edu.np/countries/europe",
-  },
-  openGraph: {
-    title: "Study in Europe from Nepal | Schengen Visa & Costs 2026",
-    description: "Expert guidance for Nepalese students planning to study in Europe.",
-    images: ["https://images.unsplash.com/photo-1473946377622-73b54f855779?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Study in Europe from Nepal | Schengen Visa & Costs 2026",
-    description: "Expert guidance for Nepalese students planning to study in Europe.",
-    images: ["https://images.unsplash.com/photo-1473946377622-73b54f855779?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildMetadata({
+  title: "Study in Europe from Nepal: Costs & Visa",
+  description: "Study in Europe from Nepal: country-by-country guide to tuition, scholarships, English requirements and visa steps. Counselling in Kathmandu.",
+  path: "/countries/europe",
+});
 
 export default function EuropePage() {
   return (
-    <CountryPageTemplate
+    <>
+      <Breadcrumbs items={[{ name: "Countries", path: "/countries" }, { name: "Europe", path: "/countries/europe" }]} />
+      <CountryPageTemplate
       country="Europe"
+      image={{
+        src: "/images/countries/europe-rothenburg-old-town.webp",
+        alt: "Historic half-timbered old town of Rothenburg ob der Tauber, Germany",
+      }}
       h1="Study in Europe from Nepal"
       overview="Europe offers a wide range of study destinations, including Germany, France, Italy, and Spain, with diverse academic traditions and excellent scholarship opportunities."
-      image="https://images.unsplash.com/photo-1473946377622-73b54f855779?q=80&w=1470&auto=format&fit=crop"
       requirements={[
         "Minimum 60% or 2.8 GPA in +2 or Bachelor's",
         "English proficiency (IELTS 6.0/PTE 59) for many",
         "Language proficiency (German/French/Spanish)",
-        "Proof of financial capacity (approx. EUR 10,000+)",
-        "Schengen visa application and interview",
+        "Proof of financial capacity — varies by country (Germany's blocked account: EUR 11,904 per year)",
+        "National student visa (Type D) application and interview",
         "Health insurance and tuberculosis (TB) test",
-        "Biometric Residence Permit (BRP) collection",
+        "Residence permit registration after arrival",
         "Police clearance and character certificate",
       ]}
       costs={["EUR 5,000 - 25,000 Per Year", "EUR 800 - 1,500 Monthly Living"]}
@@ -58,25 +37,30 @@ export default function EuropePage() {
         "Submission of application for admission",
         "Receipt of Acceptance Letter (Offer Letter)",
         "Payment of tuition deposit and visa fees",
-        "Schengen student visa application (Type D)",
+        "National student visa (Type D) application",
         "Visa interview and biometric collection",
         "Visa approval and travel to Europe",
       ]}
       intakes={["September/October (Major)", "February/March"]}
+      lastUpdated="2026-10-08"
+      officialSources={[
+        { label: "European Union — Study in Europe", url: "https://european-union.europa.eu/live-work-study/study_en" },
+      ]}
       faqs={[
         {
-          q: "What is the Schengen visa?",
-          a: "The Schengen visa (Type D) allows international students to live and study in the Schengen area for more than 90 days.",
+          q: "Do I need a Schengen visa to study in Europe?",
+          a: "No. For degree studies you apply for a national long-stay (Type D) student visa and, after arrival, a residence permit from your specific country — not the 90-day Schengen short-stay tourist visa. Each country runs its own process.",
         },
         {
           q: "Are tuition-free options available?",
-          a: "Yes, many European countries like Germany, France, and Norway offer tuition-free or low-tuition education to international students, especially in public universities.",
+          a: "Germany's public universities charge little or no tuition (a semester contribution only). Most other European countries — including France and, since autumn 2023, Norway — charge non-EU students tuition fees. We'll help you compare real costs country by country.",
         },
         {
           q: "Can I work in Europe after graduation?",
-          a: "Yes, many European countries offer post-study work permits (e.g., 18 months in Germany, 12 months in France) to international students after finishing their studies.",
+          a: "Yes, many European countries offer post-study work options (for example, 18 months in Germany to look for work). Rules differ by country, so we build the plan around your destination.",
         },
       ]}
     />
+    </>
   );
 }

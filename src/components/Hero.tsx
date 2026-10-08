@@ -1,88 +1,85 @@
-import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import Image from "next/image";
+import { ArrowRight, Phone } from "lucide-react";
+import { company } from "@/lib/company";
+import CallbackCard from "./CallbackCard";
 
-const Hero = () => {
+const proof = [
+  { value: "7", label: "Study destinations" },
+  { value: "Free", label: "First counselling session" },
+  { value: "In-house", label: "IELTS & PTE classes" },
+  { value: `Since ${company.established}`, label: "Counselling Nepali students" },
+];
+
+export default function Hero() {
   return (
-    <section className="relative overflow-hidden pt-28 pb-16 md:pt-32 md:pb-24 lg:pt-36 lg:pb-28 bg-white">
-      <div className="container-custom relative z-10">
-        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <div className="lg:col-span-7 text-center lg:text-left space-y-6 lg:space-y-8">
-            <div className="space-y-4 animate-fade-in">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-primary leading-[1.05] tracking-tight">
-                Study Abroad: Your Future
-                <br />
-                Beyond Borders
-              </h1>
-            </div>
-            
-            <p className="text-base sm:text-lg md:text-xl text-primary/60 max-w-xl mx-auto lg:mx-0 leading-relaxed font-medium">
-              Bridge the gap between your potential and global excellence with Nepal&apos;s most trusted education consultancy.
+    <section className="bg-paper pt-10 pb-14 md:pt-16 md:pb-20 lg:pb-24" aria-labelledby="hero-heading">
+      <div className="container-custom">
+        <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="lg:col-span-7">
+            <p className="eyebrow mb-6">Education consultancy · New Baneshwor, Kathmandu</p>
+
+            <h1 id="hero-heading" className="text-balance max-w-[18ch] sm:max-w-[20ch]">
+              Study abroad, <em>planned one step at a time.</em>
+            </h1>
+
+            <p className="lead mt-6 max-w-xl">
+              Course and country selection, applications, IELTS/PTE preparation and visa
+              documents — handled by one counselling team you can meet in person.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
-              <Link 
-                href="/contact" 
-                className="btn-primary w-full sm:w-auto text-base sm:text-lg group"
-                aria-label="Start your study abroad journey"
-              >
-                Start Your Journey
-                <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
+            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+              <Link href="/contact" className="btn-primary group w-full sm:w-auto">
+                Book a free counselling session
+                <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
               </Link>
-              <Link 
-                href="/ielts" 
-                className="btn-secondary w-full sm:w-auto text-base sm:text-lg"
-                aria-label="Explore IELTS and PTE courses"
-              >
-                Explore Courses
-              </Link>
+              <a href={`tel:${company.phoneTel}`} className="btn-secondary w-full sm:w-auto">
+                <Phone size={16} aria-hidden="true" />
+                Call {company.phoneDisplay}
+              </a>
             </div>
 
-            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-8 gap-y-4 pt-4">
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 bg-accent/10 rounded-full">
-                  <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
-                </div>
-                <span className="text-sm font-semibold text-primary/60">98% Visa Success</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 bg-primary/10 rounded-full">
-                  <div className="w-5 h-5 bg-primary rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
-                </div>
-                <span className="text-sm font-semibold text-primary/60">Approved Consultancy</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="p-1.5 bg-accent/10 rounded-full">
-                  <div className="w-5 h-5 bg-accent rounded-full flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
-                </div>
-                <span className="text-sm font-semibold text-primary/60">Free Counseling</span>
-              </div>
-            </div>
+            {company.registration.number && (
+              <p className="mt-5 text-sm text-muted">
+                Registered{company.registration.authority ? ` with ${company.registration.authority}` : ""} · Reg. No. {company.registration.number}
+                {company.registration.pan ? ` · PAN ${company.registration.pan}` : ""}
+              </p>
+            )}
           </div>
 
-          <div className="lg:col-span-5 relative lg:mt-0 animate-fade-in order-first lg:order-last">
-            <div className="relative aspect-square sm:aspect-[4/3] lg:aspect-[4/5] max-w-md mx-auto lg:max-w-none rounded-3xl overflow-hidden shadow-2xl shadow-primary/10 group">
-              <Image
-                src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=1470"
-                alt="Happy international students achieving their dreams with Reason Education Consultancy"
-                fill
-                priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
-                className="object-cover transition-transform duration-700 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent"></div>
-            </div>
+          <div className="lg:col-span-5 space-y-6">
+            <CallbackCard />
+
+            <figure className="relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-white shadow-card">
+                <Image
+                  src="/images/hero/counselling-session.webp"
+                  alt="Students reviewing course options together on laptops"
+                  fill
+                  priority
+                  sizes="(min-width: 1024px) 40vw, 90vw"
+                  className="object-cover"
+                />
+              </div>
+              <figcaption className="mt-4 text-sm text-muted">
+                Free first session · {company.address.street}, {company.address.city}.
+              </figcaption>
+            </figure>
           </div>
         </div>
+
+        <dl className="mt-14 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-8 sm:grid-cols-4 lg:mt-16">
+          {proof.map((p) => (
+            <div key={p.label}>
+              <dt className="sr-only">{p.label}</dt>
+              <dd>
+                <span className="block font-heading text-2xl font-medium text-primary md:text-3xl">{p.value}</span>
+                <span className="mt-1 block text-sm text-muted">{p.label}</span>
+              </dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );
-};
-
-export default Hero;
+}

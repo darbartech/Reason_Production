@@ -1,46 +1,25 @@
-import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
+import { buildMetadata } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/Schema";
 
-export const metadata: Metadata = {
-  title: "Study in Japan from Nepal",
-  description: "Plan your study in Japan from Nepal with expert guidance. Learn about COE, student visa requirements, costs, and top Japanese universities.",
-  keywords: [
-    "study in japan from nepal",
-    "japan student visa nepal",
-    "coe japan nepal",
-    "japanese language nepal",
-    "eju exam nepal",
-  ],
-  authors: [{ name: "Reason Education Consultancy" }],
-  creator: "Reason Education Consultancy",
-  publisher: "Reason Education Consultancy",
-  alternates: {
-    canonical: "https://reasons.edu.np/countries/japan",
-  },
-  openGraph: {
-    title: "Study in Japan from Nepal | COE & Student Visa 2026",
-    description: "Expert guidance for Nepalese students planning to study in Japan.",
-    images: ["https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Study in Japan from Nepal | COE & Student Visa 2026",
-    description: "Expert guidance for Nepalese students planning to study in Japan.",
-    images: ["https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildMetadata({
+  title: "Study in Japan from Nepal: Costs & Visa",
+  description: "Japanese language requirements, tuition fees, student visa steps and scholarship options for Nepali students applying to universities and colleges in Japan.",
+  path: "/countries/japan",
+});
 
 export default function JapanPage() {
   return (
-    <CountryPageTemplate
+    <>
+      <Breadcrumbs items={[{ name: "Countries", path: "/countries" }, { name: "Japan", path: "/countries/japan" }]} />
+      <CountryPageTemplate
       country="Japan"
+      image={{
+        src: "/images/countries/japan-tokyo-street.webp",
+        alt: "Neon-lit shopping street crossing in Tokyo, Japan",
+      }}
       h1="Study in Japan from Nepal"
       overview="Japan is a unique destination for international students, offering high-tech innovation, a rich culture, and affordable education with excellent part-time work opportunities."
-      image="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1470&auto=format&fit=crop"
       requirements={[
         "Minimum 50% or 2.5 GPA in +2 or Bachelor's",
         "Japanese language proficiency (N5/N4/N3)",
@@ -49,20 +28,24 @@ export default function JapanPage() {
         "Certificate of Eligibility (COE) from Japan",
         "Passport and visa application documents",
         "Proof of financial capacity (approx. JPY 150,000 monthly)",
-        "Biometric Residence Permit (BRP) collection",
+        "Academic transcripts and certificates",
       ]}
       costs={["JPY 500,000 - 1,200,000 Per Year", "JPY 150,000 Monthly Living"]}
       visaProcess={[
         "Selection of course and Japanese school",
         "Preparation for Japanese language proficiency",
         "Submission of application for admission",
+        "University entrance exams (EJU/JLPT) where required",
         "Request for COE from the Japanese school",
         "COE approval and student visa application",
         "Student visa approval and pre-departure briefing",
-        "Travel to Japan and residence card collection",
-        "Japanese university entrance exams (EJU/JLPT)",
+        "Travel to Japan and Residence Card collection at the airport",
       ]}
       intakes={["April (Major)", "October (Major)", "July", "January"]}
+      lastUpdated="2026-10-08"
+      officialSources={[
+        { label: "MOFA Japan — Visa information", url: "https://www.mofa.go.jp/j_info/visit/visa/index.html" },
+      ]}
       faqs={[
         {
           q: "What is the COE?",
@@ -78,5 +61,6 @@ export default function JapanPage() {
         },
       ]}
     />
+    </>
   );
 }

@@ -1,45 +1,25 @@
-import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
+import { buildMetadata } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/Schema";
 
-export const metadata: Metadata = {
-  title: "Study in New Zealand from Nepal",
-  description: "Planning to study in New Zealand from Nepal? Get expert guidance on admission requirements, visa process, costs, and top universities. 98% success rate.",
-  keywords: [
-    "study in new zealand from nepal",
-    "new zealand student visa nepal",
-    "nz universities nepal",
-    "new zealand scholarships nepal",
-  ],
-  authors: [{ name: "Reason Education Consultancy" }],
-  creator: "Reason Education Consultancy",
-  publisher: "Reason Education Consultancy",
-  alternates: {
-    canonical: "https://reasons.edu.np/countries/new-zealand",
-  },
-  openGraph: {
-    title: "Study in New Zealand from Nepal | Complete Guide 2026",
-    description: "Expert guidance for Nepalese students planning to study in New Zealand.",
-    images: ["https://images.unsplash.com/photo-1589802829985-817e51181b92?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Study in New Zealand from Nepal | Complete Guide 2026",
-    description: "Planning to study in New Zealand from Nepal? Expert guidance on admission, visa, and more.",
-    images: ["https://images.unsplash.com/photo-1589802829985-817e51181b92?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildMetadata({
+  title: "Study in New Zealand from Nepal: Costs & Visa",
+  description: "Tuition, living costs in NPR, IELTS bands, student visa steps and post-study work rights for Nepali students planning to study in New Zealand.",
+  path: "/countries/new-zealand",
+});
 
 export default function NewZealandPage() {
   return (
-    <CountryPageTemplate
+    <>
+      <Breadcrumbs items={[{ name: "Countries", path: "/countries" }, { name: "New Zealand", path: "/countries/new-zealand" }]} />
+      <CountryPageTemplate
       country="New Zealand"
-      h1="Study in New Zealand from Nepal"
+      image={{
+        src: "/images/countries/new-zealand-auckland-waterfront.webp",
+        alt: "Auckland Sky Tower and marina waterfront, New Zealand",
+      }}
+      h1="Study in New Zealand from Nepal: costs, intakes and visa steps"
       overview="New Zealand is a safe environment with a world-class education system, offering beautiful natural landscapes and excellent student support services for Nepalese students."
-      image="https://images.unsplash.com/photo-1589802829985-817e51181b92?q=80&w=1471&auto=format&fit=crop"
       requirements={[
         "Minimum 55% or 2.8 GPA in +2 or Bachelor's",
         "IELTS 6.0 (no band less than 5.5) for UG",
@@ -51,7 +31,7 @@ export default function NewZealandPage() {
       ]}
       costs={["NZD 22,000 - 35,000 Per Year", "NZD 20,000 Living Cost"]}
       visaProcess={[
-        "Initial counseling and destination selection",
+        "Initial counselling and destination selection",
         "English proficiency test (IELTS/PTE)",
         "Application to New Zealand institutions",
         "Offer of Place and Fee Payment",
@@ -61,10 +41,14 @@ export default function NewZealandPage() {
         "Visa approval and pre-departure briefing",
       ]}
       intakes={["February (Major)", "July", "September"]}
+      lastUpdated="2026-10-08"
+      officialSources={[
+        { label: "Immigration New Zealand — Working on a student visa", url: "https://www.immigration.govt.nz/study/once-you-have-a-student-visa/working-on-a-student-visa/" },
+      ]}
       faqs={[
         {
           q: "What are the work rights for students in New Zealand?",
-          a: "Most international students in New Zealand can work up to 20 hours per week during academic sessions and full-time during holidays.",
+          a: "Most international students in New Zealand can work up to 25 hours per week during academic sessions (the limit rose from 20 to 25 hours on 3 November 2025) and full-time during scheduled breaks.",
         },
         {
           q: "Is there a post-study work permit in New Zealand?",
@@ -76,5 +60,6 @@ export default function NewZealandPage() {
         },
       ]}
     />
+    </>
   );
 }

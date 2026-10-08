@@ -1,80 +1,88 @@
 import Link from "next/link";
-import { MessageCircle, Phone, Clock, MapPin, Sparkles, ArrowRight } from "lucide-react";
+import { Phone, Clock, MapPin, MessageCircle } from "lucide-react";
+import { company, whatsappLink } from "@/lib/company";
 
-const CTA = () => {
+export default function CTA() {
+  const mapsLink = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+    `${company.address.street}, ${company.address.city}, ${company.address.country}`
+  )}`;
+
   return (
-    <section className="section-padding bg-primary relative overflow-hidden">
-      <div className="container-custom relative z-10">
-        <div className="max-w-5xl mx-auto text-center px-4">
-          <div className="inline-flex items-center gap-2 bg-white/10 text-white px-5 py-2.5 rounded-full text-sm font-semibold mb-6 sm:mb-8 backdrop-blur-sm border border-white/20">
-            <Sparkles size={16} className="text-accent" />
-            <span>Your Future Starts Here</span>
-          </div>
-          
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 sm:mb-8 leading-tight tracking-tight">
-            Ready to Start Your
-            <span className="text-accent"> Global</span> Journey Today?
-          </h2>
-          
-          <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/80 mb-8 sm:mb-12 max-w-3xl mx-auto font-medium leading-relaxed">
-            Get expert counseling and start your application process now. We're here to guide you every step of the way to your dream university.
-          </p>
+    <section className="surface-dark section-padding relative overflow-hidden" aria-labelledby="cta-heading">
+      <div className="absolute top-0 left-0 w-full h-px bg-white/10" aria-hidden="true" />
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-6">
-            <Link
-              href="/contact"
-              className="btn-primary !bg-white !text-primary hover:!bg-accent hover:!text-white w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 text-base sm:text-lg shadow-[0_20px_50px_rgba(255,255,255,0.15)] group rounded-xl sm:rounded-2xl"
-              aria-label="Book free counseling session"
-            >
-              Book Free Counseling
-              <ArrowRight size={20} className="ml-2 group-hover:translate-x-2 transition-transform" />
-            </Link>
-            
-            <a
-              href="https://wa.me/9779801085977?text=Hello%20Reason%20Education%2C%20I%20have%20a%20question%20about%20studying%20abroad.%20Can%20you%20help%20me%3F"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full sm:w-auto flex items-center justify-center gap-3 sm:gap-4 text-white border-2 border-white/30 hover:border-white hover:bg-white/10 px-6 sm:px-8 py-4 sm:py-5 rounded-xl sm:rounded-2xl font-semibold text-base sm:text-lg transition-all group"
-              aria-label="Chat with us on WhatsApp"
-            >
-              <MessageCircle size={22} className="text-[#25D366] group-hover:scale-110 transition-transform" aria-hidden="true" />
-              <span>WhatsApp Us</span>
-            </a>
-          </div>
-
-          <div className="mt-10 sm:mt-16 flex flex-col md:flex-row items-center justify-center gap-6 sm:gap-8 lg:gap-16 pt-8 sm:pt-12 border-t border-white/10">
-            <a href="tel:015316680" className="flex items-center gap-3 sm:gap-4 group cursor-pointer">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-xl" aria-hidden="true">
-                <Phone size={24} />
-              </div>
-              <div className="text-left">
-                <p className="text-xs sm:text-xs text-white/50 font-bold uppercase tracking-widest mb-1">Call Us Now</p>
-                <p className="text-lg sm:text-xl font-bold text-white leading-tight">01-5316680</p>
-              </div>
-            </a>
-            <div className="flex items-center gap-3 sm:gap-4 group">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-xl" aria-hidden="true">
-                <Clock size={24} />
-              </div>
-              <div className="text-left">
-                <p className="text-xs sm:text-xs text-white/50 font-bold uppercase tracking-widest mb-1">Office Hours</p>
-                <p className="text-lg sm:text-xl font-bold text-white leading-tight">Sun - Fri, 7:00 AM - 5 PM</p>
+      <div className="container-custom">
+        <div className="bg-paper rounded-3xl shadow-float border border-line/60 p-7 sm:p-10 md:p-12 lg:p-14">
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-12">
+            <div className="lg:col-span-7">
+              <p className="eyebrow mb-5">Free first session</p>
+              <h2 id="cta-heading" className="text-balance">
+                Talk to a counsellor <em>before you decide anything.</em>
+              </h2>
+              <p className="lead mt-5 max-w-xl">
+                Bring your results and your questions. We'll tell you honestly what's realistic and what isn't.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Link href="/contact" className="btn-primary btn-lg">
+                  Book a free session
+                </Link>
+                <a href={whatsappLink()} target="_blank" rel="noopener noreferrer" className="btn-secondary btn-lg">
+                  <MessageCircle size={18} aria-hidden="true" style={{ color: "#25D366" }} />
+                  Chat on WhatsApp
+                </a>
               </div>
             </div>
-            <div className="flex items-center gap-3 sm:gap-4 group">
-              <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-white/10 flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-white transition-all duration-300 shadow-xl" aria-hidden="true">
-                <MapPin size={24} />
+
+            <dl className="lg:col-span-5 space-y-5 border-t lg:border-t-0 lg:border-l border-line pt-6 lg:pt-0 lg:pl-8">
+              <div className="flex items-start gap-3">
+                <Phone size={16} className="text-crimson mt-0.5 shrink-0" aria-hidden="true" />
+                <div>
+                  <dt className="sr-only">Phone</dt>
+                  <dd>
+                    <p className="text-xs text-muted uppercase tracking-wider mb-1 font-semibold">Call</p>
+                    <a href={`tel:${company.phoneTel}`} className="font-semibold text-primary hover:underline">
+                      {company.phoneDisplay}
+                    </a>
+                  </dd>
+                </div>
               </div>
-              <div className="text-left">
-                <p className="text-xs sm:text-xs text-white/50 font-bold uppercase tracking-widest mb-1">Visit Us</p>
-                <p className="text-lg sm:text-xl font-bold text-white leading-tight">New Baneshwor, Kathmandu</p>
+              <div className="flex items-start gap-3">
+                <Clock size={16} className="text-crimson mt-0.5 shrink-0" aria-hidden="true" />
+                <div>
+                  <dt className="sr-only">Opening hours</dt>
+                  <dd>
+                    <p className="text-xs text-muted uppercase tracking-wider mb-1 font-semibold">Opening hours</p>
+                    <span className="font-semibold text-primary">{company.hours.label}</span>
+                  </dd>
+                </div>
               </div>
-            </div>
+              <div className="flex items-start gap-3">
+                <MapPin size={16} className="text-crimson mt-0.5 shrink-0" aria-hidden="true" />
+                <div>
+                  <dt className="sr-only">Address</dt>
+                  <dd>
+                    <p className="text-xs text-muted uppercase tracking-wider mb-1 font-semibold">Visit us</p>
+                    <span className="font-semibold text-primary leading-relaxed block">
+                      {company.address.street}
+                      <br />
+                      {company.address.city} {company.address.postalCode}
+                    </span>
+                    <a
+                      href={mapsLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm text-accent hover:text-primary hover:underline mt-2 inline-flex items-center gap-1"
+                    >
+                      Get directions
+                      <MessageCircle size={12} className="hidden" aria-hidden="true" />
+                    </a>
+                  </dd>
+                </div>
+              </div>
+            </dl>
           </div>
         </div>
       </div>
     </section>
   );
-};
-
-export default CTA;
+}

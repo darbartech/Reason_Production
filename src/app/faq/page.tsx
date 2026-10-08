@@ -1,58 +1,24 @@
 import { Metadata } from "next";
-import { HelpCircle, Plus, Minus, Search } from "lucide-react";
+import { HelpCircle, Plus, Minus, Search, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import CTA from "@/components/CTA";
+import PageHero from "@/components/PageHero";
+import { Breadcrumbs, JsonLd } from "@/components/Schema";
+import { whatsappLink, company } from "@/lib/company";
+import { buildMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
-  title: "Frequently Asked Questions",
-  description: "Find answers to commonly asked questions about studying abroad, IELTS/PTE classes, visa processing, and more from our expert counselors.",
-  keywords: [
-    "study abroad faq nepal",
-    "ielts preparation questions",
-    "student visa faq",
-    "reason education faq",
-    "study abroad questions nepal",
-  ],
-  authors: [{ name: "Reason Education Consultancy" }],
-  creator: "Reason Education Consultancy",
-  publisher: "Reason Education Consultancy",
-  alternates: {
-    canonical: "https://reasons.edu.np/faq",
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://reasons.edu.np/faq",
-    siteName: "Reason Education Consultancy",
-    title: "Frequently Asked Questions | Reason Education Consultancy",
-    description: "Find answers to commonly asked questions about studying abroad, IELTS/PTE classes, and visa processing.",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=1200&h=630",
-        width: 1200,
-        height: 630,
-        alt: "FAQ - Study Abroad Questions and Answers",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "FAQ | Reason Education Consultancy",
-    description: "Find answers about studying abroad, IELTS/PTE classes, and visa processing.",
-    images: ["https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?auto=format&fit=crop&q=80&w=1200&h=630"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildMetadata({
+  title: "Study Abroad FAQs",
+  description: "Honest answers to the most common questions about studying abroad from Nepal, IELTS/PTE classes, costs, visa processing and our counselling process in Kathmandu.",
+  path: "/faq",
+});
 
 const FAQPage = () => {
   const faqs = [
     {
       category: "General",
       items: [
-        { q: "How much do your counseling services cost?", a: "Our initial counseling services are completely free of charge. We believe in providing accessible information to all students." },
+        { q: "How much do your counselling services cost?", a: "Our initial counselling services are completely free of charge. We believe in providing accessible information to all students." },
         { q: "Where is your office located?", a: "Our main office is located in New Baneshwor, (Indreni Complex), Kathmandu, Nepal." },
         { q: "Which countries do you help with?", a: "We specialize in UK, USA, Canada, Australia, New Zealand, Japan, and several European countries." },
       ],
@@ -62,7 +28,7 @@ const FAQPage = () => {
       items: [
         { q: "What is the minimum GPA required for Canada?", a: "Generally, a minimum of 2.8 GPA or 55% in +2 or Bachelor's is required, but this varies by institution and course." },
         { q: "How long does the visa process take?", a: "Processing times vary by country. Typically, it takes 2-4 months from application to visa approval." },
-        { q: "Do you help with SOP writing?", a: "Yes, our expert counselors provide comprehensive guidance and feedback on Statement of Purpose (SOP) writing." },
+        { q: "Do you help with SOP writing?", a: "Yes, our expert counsellors provide comprehensive guidance and feedback on Statement of Purpose (SOP) writing." },
       ],
     },
     {
@@ -91,23 +57,14 @@ const FAQPage = () => {
 
   return (
     <div className="bg-white">
-      {/* JSON-LD Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
+      <Breadcrumbs items={[{ name: "FAQ", path: "/faq" }]} />
+      <JsonLd data={faqSchema} />
 
-      {/* Header */}
-      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white">
-        <div className="container-custom text-center">
-           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 max-w-4xl mx-auto leading-[1.05] tracking-tight">
-             Everything You Need to Know
-           </h1>
-           <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-medium">
-             Common questions and expert answers to help you navigate your study abroad journey.
-           </p>
-        </div>
-      </section>
+      <PageHero
+        crumbs={[{ name: "FAQ" }]}
+        title="Frequently asked questions about studying abroad"
+        intro="If your question isn't here, call us or drop in. We'll tell you honestly whether we can help."
+      />
 
       {/* FAQ Grid */}
       <section className="py-16">
@@ -115,20 +72,20 @@ const FAQPage = () => {
            <div className="space-y-12">
               {faqs.map((cat, i) => (
                 <div key={i}>
-                   <h2 className="text-xl font-bold text-primary mb-6 border-b border-gray-100 pb-3 uppercase tracking-widest text-[10px] flex items-center">
+                   <h2 className="text-primary mb-6 border-b border-brand-border pb-3 uppercase text-[10px] flex items-center">
                       <HelpCircle size={16} className="mr-2 text-accent" /> {cat.category} Questions
                    </h2>
                    <div className="space-y-4">
                       {cat.items.map((item, j) => (
-                        <details key={j} className="group bg-white border border-gray-100 rounded-[2rem] overflow-hidden hover:border-accent/20 transition-all shadow-sm">
+                        <details key={j} className="group bg-white border border-brand-border rounded-xl overflow-hidden hover:border-accent/20 transition-colors duration-200 shadow-sm">
                            <summary className="flex items-center justify-between p-6 cursor-pointer list-none">
                               <span className="text-lg font-bold text-primary pr-6">{item.q}</span>
-                              <div className="bg-primary/5 p-2 rounded-xl text-primary group-open:bg-accent group-open:text-white transition-all">
+                              <div className="bg-primary/5 p-2 rounded-lg text-primary group-open:bg-accent group-open:text-white transition-colors duration-200">
                                  <Plus className="group-open:hidden" size={18} />
                                  <Minus className="hidden group-open:block" size={18} />
                               </div>
                            </summary>
-                           <div className="p-6 pt-0 text-base text-primary/70 leading-relaxed font-medium border-t border-gray-50">
+                           <div className="p-6 pt-0 text-base text-primary/70 leading-relaxed font-medium border-t border-brand-border">
                               {item.a}
                            </div>
                         </details>
@@ -138,12 +95,26 @@ const FAQPage = () => {
               ))}
            </div>
 
-           <div className="mt-12 bg-accent/10 p-10 rounded-[2.5rem] border border-accent/20 text-center">
-              <h3 className="text-xl font-bold text-primary mb-3">Still Have Questions?</h3>
-              <p className="text-base text-primary/70 font-medium mb-6">Our expert counselors are ready to help you with personalized answers.</p>
+           <div className="mt-12 card border border-accent/20 bg-accent/5 p-8 rounded-xl">
+             <div className="flex items-start gap-4">
+               <div className="w-11 h-11 rounded-lg bg-accent/15 text-accent flex items-center justify-center shrink-0" aria-hidden="true">
+                 <AlertTriangle size={22} />
+               </div>
+               <div>
+                 <h3 className="text-primary">What we can&apos;t do</h3>
+                 <p className="mt-3 text-sm sm:text-base text-ink leading-relaxed">
+                   We can&apos;t guarantee a visa or an admission offer — those decisions belong to universities and embassies. What we do guarantee is that your file is accurate, complete and submitted on time, and that we tell you honestly where you stand.
+                 </p>
+               </div>
+             </div>
+           </div>
+
+           <div className="mt-12 bg-brand-light-bg p-10 rounded-xl border border-brand-border text-center">
+              <h3 className="text-primary mb-3">Still Have Questions?</h3>
+              <p className="text-base text-primary/70 font-medium mb-6">Our expert counsellors are ready to help you with personalised answers.</p>
               <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                  <Link href="/contact" className="btn-primary py-3.5 px-8 text-base">Talk to an Expert</Link>
-                 <a href="https://wa.me/9779801085977?text=Hello%20Reason%20Education%2C%20I%20have%20a%20question%20about%20studying%20abroad.%20Can%20you%20help%20me%3F" className="bg-white border-2 border-primary/10 px-8 py-3.5 rounded-xl font-bold hover:bg-primary hover:text-white transition-all text-base">Chat on WhatsApp</a>
+                 <a href={whatsappLink()} className="bg-white border border-brand-border px-8 py-3.5 rounded-xl font-semibold hover:bg-primary hover:text-white transition-colors duration-200 text-base">Chat on WhatsApp</a>
               </div>
            </div>
         </div>

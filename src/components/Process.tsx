@@ -1,93 +1,99 @@
-import { Search, GraduationCap, FileText, Send, Plane, Home, MapPin } from "lucide-react";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import SectionHeader from "./SectionHeader";
 
 const steps = [
   {
-    title: "Counseling",
-    description: "Our experts understand your profile and help you choose the right destination and course.",
-    icon: Search,
-    color: "bg-primary",
+    n: "01",
+    title: "Counselling & profile review",
+    text: "We look at your results, timeline, budget and goals. You leave knowing which countries actually fit your profile.",
+    duration: "Typical duration: 45–60 minutes, in person or over call",
   },
   {
-    title: "Test Preparation",
-    description: "Get top-notch IELTS/PTE training from certified trainers to achieve your target score.",
-    icon: GraduationCap,
-    color: "bg-accent",
+    n: "02",
+    title: "Shortlist, courses & test plan",
+    text: "A ranked shortlist of 3–5 courses plus a realistic IELTS/PTE timeline and weekly study plan.",
+    duration: "Delivered 1–2 days after the first counselling session",
   },
   {
-    title: "Documentation",
-    description: "Professional help with university applications, SOP writing, and document verification.",
-    icon: FileText,
-    color: "bg-primary",
+    n: "03",
+    title: "Applications & offers",
+    text: "We prepare, submit and follow up on every application. You see every email and every response.",
+    duration: "From submission to first offer: usually 2–8 weeks",
   },
   {
-    title: "Visa Application",
-    description: "Expert guidance for your visa interview and preparation of all necessary financial documents.",
-    icon: Send,
-    color: "bg-accent",
+    n: "04",
+    title: "Visa documentation",
+    text: "Financial evidence, statements and — where the process requires it — interview preparation. We tell you what's actually required.",
+    duration: "Visa processing varies by country; we'll give you the current average",
   },
   {
-    title: "Departure",
-    description: "Pre-departure briefings to help you prepare for your new life and academic journey abroad.",
-    icon: Plane,
-    color: "bg-primary",
-  },
-  {
-    title: "Settle In",
-    description: "We provide post-landing support to ensure you're comfortable and ready to succeed.",
-    icon: Home,
-    color: "bg-accent",
+    n: "05",
+    title: "Departure & pre-departure",
+    text: "Flights, accommodation, airport pickup and a short briefing on what to expect in your first week abroad.",
+    duration: "Final briefing 1–2 weeks before your travel date",
   },
 ];
 
-const Process = () => {
+export default function Process() {
   return (
-    <section className="section-padding bg-white relative overflow-hidden" aria-labelledby="process-heading">
-      <div className="absolute top-0 left-0 w-full h-px bg-gray-100"></div>
-      
-      <div className="container-custom relative z-10">
-        <div className="text-center mb-10 lg:mb-16">
-          <div className="inline-flex items-center space-x-2 bg-primary/5 text-primary px-4 py-2 rounded-full text-xs font-bold mb-4 sm:mb-6 border border-primary/10 uppercase tracking-widest">
-            <MapPin size={16} className="text-accent" aria-hidden="true" />
-            <span>Our Methodology</span>
-          </div>
-          <h2 id="process-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 sm:mb-6 tracking-tight">
-            Your Journey to <span className="text-accent">Global Success</span>
-          </h2>
-          <p className="text-lg md:text-xl text-primary/60 font-medium leading-relaxed max-w-2xl mx-auto px-4">
-            A clear, step-by-step roadmap designed to take you from your first query to landing in your dream destination.
-          </p>
+    <section className="section-padding bg-white">
+      <div className="container-custom grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-4 lg:sticky lg:top-[68px] self-start">
+          <SectionHeader
+            eyebrow="Process"
+            title={<>Five transparent steps from first meeting to <em>departure.</em></>}
+            intro="You'll know where you are in the process, what's next, and — where we have one — the typical timeline."
+          />
+          <Link
+            href="/study-abroad"
+            className="link-arrow mt-8 inline-flex"
+          >
+            See intake deadlines
+            <ArrowRight size={16} />
+          </Link>
         </div>
 
-        <div className="relative">
-          <div className="absolute top-10 left-0 w-full h-1 bg-gray-100 rounded-full hidden lg:block opacity-20" aria-hidden="true"></div>
-          
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-4 relative z-10">
-            {steps.map((step, index) => (
-              <div key={index} className="flex flex-col items-center text-center group">
-                <div 
-                  className={`w-16 h-16 sm:w-20 sm:h-20 ${step.color} rounded-xl sm:rounded-2xl flex items-center justify-center mb-4 sm:mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-xl relative`}
-                  aria-hidden="true"
+        <div className="lg:col-span-8">
+          <ol className="relative">
+            <div
+              aria-hidden="true"
+              className="absolute left-[19px] top-4 bottom-4 w-px bg-line hidden sm:block"
+            />
+            {steps.map((s, i) => {
+              const isLast = i === steps.length - 1;
+              return (
+                <li
+                  key={s.n}
+                  className={`reveal grid grid-cols-[2.75rem_1fr] sm:grid-cols-[3.5rem_1fr] gap-5 sm:gap-6 ${
+                    isLast ? "pb-0" : "pb-10 sm:pb-12"
+                  } items-start`}
                 >
-                  <step.icon size={28} className="text-white" />
-                  <div className="absolute -top-2 -right-2 w-7 h-7 sm:w-8 sm:h-8 bg-white border-2 border-gray-100 rounded-lg sm:rounded-xl flex items-center justify-center text-primary font-bold shadow-lg text-xs sm:text-sm">
-                    {index + 1}
+                  <div className="relative flex justify-center pt-1">
+                    <span
+                      aria-hidden="true"
+                      className="font-heading text-3xl sm:text-4xl font-normal text-crimson"
+                    >
+                      {s.n}
+                    </span>
                   </div>
-                </div>
-                
-                <h3 className="text-base sm:text-lg font-bold text-primary mb-2 group-hover:text-accent transition-colors leading-tight">
-                  {step.title}
-                </h3>
-                
-                <p className="text-primary/60 text-xs sm:text-sm leading-relaxed font-medium max-w-[160px]">
-                  {step.description}
-                </p>
-              </div>
-            ))}
-          </div>
+                  <div
+                    className={`card p-5 sm:p-6 bg-white border border-line shadow-sm`}
+                  >
+                    <h3>{s.title}</h3>
+                    <p className="mt-2 text-[0.9375rem] text-muted leading-relaxed">
+                      {s.text}
+                    </p>
+                    <p className="mt-4 text-xs text-primary-400 font-medium before:inline-block before:w-1 before:h-1 before:rounded-full before:bg-crimson before:mr-2 before:align-middle before:-mt-0.5">
+                      {s.duration}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
       </div>
     </section>
   );
-};
-
-export default Process;
+}

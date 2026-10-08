@@ -1,82 +1,73 @@
-import { Metadata } from "next";
 import CountryPageTemplate from "@/components/CountryPageTemplate";
+import { buildMetadata } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/Schema";
 
-export const metadata: Metadata = {
-  title: "Study in Canada from Nepal",
-  description: "Planning to study in Canada from Nepal? Get expert guidance on admission requirements, visa process, costs, and top universities. 98% success rate.",
-  keywords: [
-    "study in canada from nepal",
-    "canada student visa nepal",
-    "sds program nepal",
-    "gic canada nepal",
-    "canada universities nepal",
-  ],
-  authors: [{ name: "Reason Education Consultancy" }],
-  creator: "Reason Education Consultancy",
-  publisher: "Reason Education Consultancy",
-  alternates: {
-    canonical: "https://reasons.edu.np/countries/canada",
-  },
-  openGraph: {
-    title: "Study in Canada from Nepal | Complete Guide 2026",
-    description: "Expert guidance for Nepalese students planning to study in Canada.",
-    images: ["https://images.unsplash.com/photo-1517935703635-2717079c21eb?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Study in Canada from Nepal | Complete Guide 2026",
-    description: "Planning to study in Canada from Nepal? Expert guidance on admission, visa, and more.",
-    images: ["https://images.unsplash.com/photo-1517935703635-2717079c21eb?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildMetadata({
+  title: "Study in Canada from Nepal: Costs & Visa",
+  description: "Tuition and living costs for Nepali students in Canada, IELTS/PTE requirements, intakes and study permit steps. Contact Reasons Education for current, reviewed study-permit information.",
+  path: "/countries/canada",
+});
 
 export default function CanadaPage() {
   return (
-    <CountryPageTemplate
-      country="Canada"
-      h1="Study in Canada from Nepal"
-      overview="Canada is the top choice for Nepalese students due to its world-class education system, multicultural environment, and excellent post-study work opportunities."
-      image="https://images.unsplash.com/photo-1517935703635-2717079c21eb?q=80&w=1411&auto=format&fit=crop"
-      requirements={[
-        "Minimum 55% or 2.8 GPA in +2 or Bachelor's",
-        "IELTS 6.0 (no band less than 5.5) for UG",
-        "IELTS 6.5 (no band less than 6.0) for PG",
-        "PTE 58 (no band less than 50) for SDS",
-        "Sufficient financial evidence for GIC",
-        "Statement of Purpose (SOP)",
-        "Police Clearance Certificate",
-        "Medical Examination Result",
-      ]}
-      costs={["CAD 15,000 - 35,000 Per Year", "GIC CAD 20,635"]}
-      visaProcess={[
-        "Initial counseling and destination selection",
-        "English proficiency test (IELTS/PTE)",
-        "Application to Canadian DLI institutions",
-        "Receipt of Letter of Acceptance (LOA)",
-        "Payment of tuition fees and GIC",
-        "Submission of SDS or Non-SDS visa application",
-        "Medical and Biometric collection",
-        "Visa approval and pre-departure briefing",
-      ]}
-      intakes={["September (Major)", "January", "May"]}
-      faqs={[
-        {
-          q: "What is the SDS program for Nepal?",
-          a: "SDS (Student Direct Stream) is a faster visa processing stream for students who meet specific language and financial requirements (GIC).",
-        },
-        {
-          q: "Can I work while studying in Canada?",
-          a: "Yes, most international students can work up to 20 hours per week off-campus during academic sessions and full-time during breaks.",
-        },
-        {
-          q: "What is a GIC?",
-          a: "A Guaranteed Investment Certificate (GIC) is a Canadian investment that has a guaranteed rate of return for a fixed period of time, used to prove financial stability.",
-        },
-      ]}
-    />
+    <>
+      <Breadcrumbs items={[{ name: "Countries", path: "/countries" }, { name: "Canada", path: "/countries/canada" }]} />
+      <CountryPageTemplate
+        country="Canada"
+        image={{
+          src: "/images/countries/canada-toronto-skyline.webp",
+          alt: "Toronto skyline and Lake Ontario at sunset, Canada",
+        }}
+        h1="Study in Canada from Nepal: costs, intakes and visa steps"
+        overview="Canada is the top choice for Nepalese students due to its world-class education system, multicultural environment, and excellent post-study work opportunities."
+        requirements={[
+          "Minimum 55% or 2.8 GPA in +2 or Bachelor's",
+          "IELTS 6.0 (no band less than 5.5) for UG",
+          "IELTS 6.5 (no band less than 6.0) for PG",
+          "PTE minimum bands vary by institution. Contact counsellor for current IRCC-accepted scores.",
+          "Sufficient financial evidence (per IRCC current proof-of-funds rules).",
+          "Provincial Attestation Letter (PAL) — required for most study permit applications since January 2024; your institution typically arranges it after you accept your offer.",
+          "Statement of Purpose (SOP)",
+          "Police Clearance Certificate",
+          "Medical Examination Result",
+        ]}
+        costs={[
+          "CAD 15,000 - 35,000 Per Year",
+          "See official IRCC website for the current 12-month living-costs figure.",
+        ]}
+        visaProcess={[
+          "Initial counselling and destination selection",
+          "English proficiency test (IELTS/PTE)",
+          "Application to Canadian DLI institutions",
+          "Receipt of Letter of Acceptance (LOA)",
+          "Obtaining the Provincial Attestation Letter (PAL)",
+          "Payment of tuition fees and preparation of required financial evidence.",
+          "Submission of study permit application via the IRCC portal.",
+          "Medical and Biometric collection",
+          "Visa approval and pre-departure briefing",
+        ]}
+        intakes={["September (Major)", "January", "May"]}
+        faqs={[
+          {
+            q: "Where can I find the current IRCC application streams?",
+            a: "Visit the official IRCC 'Study in Canada' website or book a free counselling session with us for the latest guidance.",
+          },
+          {
+            q: "Can I work while studying in Canada?",
+            a: "Yes, most international students can work up to 24 hours per week off-campus during academic sessions and full-time during scheduled breaks. The limit rose from 20 to 24 hours in November 2024.",
+          },
+          {
+            q: "How do I show proof of funds?",
+            a: "Use the latest financial-evidence and living-costs figures published by IRCC. We can help you assemble these documents correctly during counselling.",
+          },
+        ]}
+        lastUpdated="2026-10-08"
+        officialSources={[
+          { label: "IRCC Study in Canada", url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" },
+          { label: "IRCC — Work off campus", url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/work-off-campus.html" },
+          { label: "Designated Learning Institutions list", url: "https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/prepare/designated-learning-institutions-list.html" },
+        ]}
+      />
+    </>
   );
 }

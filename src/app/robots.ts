@@ -1,12 +1,13 @@
 import { MetadataRoute } from "next";
+import { company } from "@/lib/company";
 
 export default function robots(): MetadataRoute.Robots {
   return {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: "/private/",
+      disallow: ["/admin/", "/api/"],
     },
-    sitemap: "https://reasons.edu.np/sitemap.xml",
+    sitemap: `${company.url}/sitemap.xml`,
   };
 }

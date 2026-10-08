@@ -1,47 +1,12 @@
-import { Metadata } from "next";
 import CTA from "@/components/CTA";
+import { buildMetadata } from "@/lib/seo";
+import { company } from "@/lib/company";
 
-export const metadata: Metadata = {
+export const metadata = buildMetadata({
   title: "Terms of Service",
-  description: "Terms and conditions for using the services of Reason Education Consultancy, Kathmandu, Nepal.",
-  keywords: [
-    "terms of service nepal",
-    "reason education terms",
-    "service agreement nepal",
-  ],
-  authors: [{ name: "Reason Education Consultancy" }],
-  creator: "Reason Education Consultancy",
-  publisher: "Reason Education Consultancy",
-  alternates: {
-    canonical: "https://reasons.edu.np/terms",
-  },
-  openGraph: {
-    type: "website",
-    locale: "en_US",
-    url: "https://reasons.edu.np/terms",
-    siteName: "Reason Education Consultancy",
-    title: "Terms of Service | Reason Education Consultancy",
-    description: "Terms and conditions for using our services.",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200&h=630",
-        width: 1200,
-        height: 630,
-        alt: "Terms of Service - Reason Education Consultancy",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Terms of Service | Reason Education Consultancy",
-    description: "Terms and conditions for using our services.",
-    images: ["https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=1200&h=630"],
-  },
-  robots: {
-    index: false,
-    follow: true,
-  },
-};
+  description: "Terms of engagement for Reasons Education's counselling, test-prep and visa-documentation services offered from our Kathmandu office.",
+  path: "/terms",
+});
 
 const TermsPage = () => {
   return (
@@ -50,7 +15,7 @@ const TermsPage = () => {
       <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 -skew-x-12 translate-x-1/2 blur-3xl opacity-30"></div>
         <div className="container-custom relative z-10 text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-black mb-6 max-w-4xl mx-auto leading-[1.05] tracking-tight">
+          <h1 className="mb-6 max-w-4xl mx-auto">
             Terms of Service
           </h1>
           <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-medium">
@@ -64,14 +29,14 @@ const TermsPage = () => {
         <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="prose prose-lg prose-slate max-w-none text-primary/70 font-medium leading-relaxed space-y-8">
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-primary tracking-tight">1. Acceptance of Terms</h2>
+              <h2 className="text-primary">1. Acceptance of Terms</h2>
               <p>
-                By accessing or using the services of Reason Education Consultancy ("we," "our," or "us"), you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.
+                By accessing or using the services of {company.legalName} (“we,” “our,” or “us”), you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-primary tracking-tight">2. Use of Services</h2>
+              <h2 className="text-primary">2. Use of Services</h2>
               <p>
                 Our services are provided for educational and information purposes. You agree to provide accurate and complete information when requested. Any fraudulent or misleading information may lead to the termination of our services.
               </p>
@@ -83,41 +48,41 @@ const TermsPage = () => {
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-primary tracking-tight">3. User Responsibilities</h2>
+              <h2 className="text-primary">3. User Responsibilities</h2>
               <p>
                 As a user, you are responsible for:
               </p>
               <ul className="list-disc pl-6 space-y-2">
                 <li>Providing authentic documents and information.</li>
                 <li>Complying with the rules of the educational institutions and visa authorities.</li>
-                <li>Attending scheduled counseling sessions and classes on time.</li>
+                <li>Attending scheduled counselling sessions and classes on time.</li>
                 <li>Paying any applicable fees as agreed.</li>
               </ul>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-primary tracking-tight">4. Intellectual Property</h2>
+              <h2 className="text-primary">4. Intellectual Property</h2>
               <p>
-                All content on this website, including text, graphics, logos, and images, is the property of Reason Education Consultancy and is protected by intellectual property laws. You may not reproduce or distribute any content without our prior written permission.
+                All content on this website, including text, graphics, logos, and images, is the property of {company.legalName} and is protected by intellectual property laws. You may not reproduce or distribute any content without our prior written permission.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-primary tracking-tight">5. Limitation of Liability</h2>
+              <h2 className="text-primary">5. Limitation of Liability</h2>
               <p>
                 While we strive for excellence, we do not guarantee admission to any institution or the approval of any visa application. Decisions are made by the respective institutions and government authorities. We are not liable for any direct or indirect losses arising from such decisions.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-primary tracking-tight">6. Termination</h2>
+              <h2 className="text-primary">6. Termination</h2>
               <p>
                 We reserve the right to terminate our services at any time for any violation of these terms or for any other reason.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-2xl md:text-3xl font-black text-primary tracking-tight">7. Governing Law</h2>
+              <h2 className="text-primary">7. Governing Law</h2>
               <p>
                 These Terms of Service are governed by and construed in accordance with the laws of Nepal. Any disputes will be subject to the exclusive jurisdiction of the courts in Kathmandu.
               </p>

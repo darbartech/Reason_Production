@@ -1,168 +1,94 @@
-import { Metadata } from "next";
-import Link from "next/link";
 import CountryCard from "@/components/CountryCard";
 import CTA from "@/components/CTA";
-import { GraduationCap, MapPin, Globe } from "lucide-react";
+import PageHero from "@/components/PageHero";
+import SectionHeader from "@/components/SectionHeader";
+import { HelpCircle, GraduationCap, MapPin, Globe } from "lucide-react";
+import { company } from "@/lib/company";
+import { buildMetadata } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/Schema";
+import { countries } from "@/content/countries";
 
-export const metadata: Metadata = {
-  title: "Study Abroad Destinations",
-  description: "Explore top study abroad destinations for Nepalese students. USA, Canada, UK, Australia, New Zealand, Europe, Japan. Expert guidance available.",
-  keywords: [
-    "study abroad destinations nepal",
-    "top countries for nepali students",
-    "international study destinations",
-    "canada study nepal",
-    "usa study nepal",
-  ],
-  authors: [{ name: "Reason Education Consultancy" }],
-  creator: "Reason Education Consultancy",
-  publisher: "Reason Education Consultancy",
-  alternates: {
-    canonical: "https://reasons.edu.np/countries",
-  },
-  openGraph: {
-    title: "Study Abroad Destinations | Reason Education Consultancy",
-    description: "Top study destinations for Nepalese students including USA, Canada, UK, Australia, and more.",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop",
-        width: 1200,
-        height: 630,
-        alt: "Study Abroad Destinations - Reason Education Consultancy",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Study Abroad Destinations | Reason Education Consultancy",
-    description: "Top study destinations for Nepalese students including USA, Canada, UK, Australia, and more.",
-    images: ["https://images.unsplash.com/photo-1523050335392-93851179ae22?q=80&w=1200&h=630&auto=format&fit=crop"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
-};
+export const metadata = buildMetadata({
+  title: "Study Destinations for Nepali Students",
+  description: "Compare study destinations for Nepali students: Canada, Australia, UK, USA, New Zealand, Europe and Japan. Costs, intakes, visa steps and which fits your marks and budget.",
+  path: "/countries",
+});
 
-const destinations = [
+const destinations = countries.map((c) => ({
+  name: c.name,
+  flag: c.flag,
+  href: `/countries/${c.slug}`,
+  description: c.description,
+  image: c.image,
+}));
+
+const factors = [
   {
-    name: "USA",
-    image: "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?q=80&w=1499&auto=format&fit=crop",
-    href: "/countries/usa",
-    description: "Largest number of universities, cutting-edge research, and diverse scholarship opportunities.",
-    students: "400+ Students Placed",
+    title: "Course Availability",
+    desc: "Check if your preferred field of study is highly ranked and widely available in the country. Some countries excel in STEM while others are better for Arts or Business.",
+    icon: GraduationCap,
   },
   {
-    name: "Canada",
-    image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=1411&auto=format&fit=crop",
-    href: "/countries/canada",
-    description: "Post-study work permit, high-quality education, and permanent residency options.",
-    students: "1200+ Students Placed",
+    title: "Cost of Living & Tuition",
+    desc: "Analyze your budget. While some countries offer free tuition (like parts of Europe), others might have higher tuition but better scholarship opportunities.",
+    icon: MapPin,
   },
   {
-    name: "United Kingdom",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1470&auto=format&fit=crop",
-    href: "/countries/uk",
-    description: "Centuries-old academic tradition, shorter degree durations, and rich cultural experience.",
-    students: "500+ Students Placed",
-  },
-  {
-    name: "Australia",
-    image: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1530&auto=format&fit=crop",
-    href: "/countries/australia",
-    description: "World-class universities, great lifestyle, and excellent student support services.",
-    students: "800+ Students Placed",
-  },
-  {
-    name: "New Zealand",
-    image: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?q=80&w=1471&auto=format&fit=crop",
-    href: "/countries/new-zealand",
-    description: "Safe environment, world-class education system, and beautiful natural landscapes.",
-    students: "150+ Students Placed",
-  },
-  {
-    name: "Europe",
-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=1470&auto=format&fit=crop",
-    href: "/countries/europe",
-    description: "Tuition-free options, rich heritage, and access to the entire Schengen area.",
-    students: "250+ Students Placed",
-  },
-  {
-    name: "Japan",
-    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1470&auto=format&fit=crop",
-    href: "/countries/japan",
-    description: "High-tech innovation, unique culture, and affordable education with part-time job opportunities.",
-    students: "300+ Students Placed",
+    title: "Post-Study Work Options",
+    desc: "Research post-study work permits and potential pathways for permanent residency if you plan to gain work experience after graduation.",
+    icon: Globe,
   },
 ];
 
 export default function CountriesPage() {
   return (
     <div className="bg-white">
-      {/* Hero Section */}
-      <section className="min-h-[55vh] flex items-center pt-24 pb-16 lg:pt-32 bg-primary text-white">
-        <div className="container-custom text-center">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-[1.05] tracking-tight">
-            Discover Your Perfect <br />
-            <span className="text-accent relative inline-block">
-              Destination
-            </span>
-          </h1>
-          
-          <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed font-medium">
-            Choose from top global education hubs. Each country offers unique opportunities, high-quality life, and world-class academic excellence.
-          </p>
-        </div>
-      </section>
+      <Breadcrumbs items={[{ name: "Countries", path: "/countries" }]} />
+      <PageHero
+        crumbs={[{ name: "Countries" }]}
+        title="Study Destinations for Nepali Students"
+        intro="Compare 7 popular destinations — intakes, tuition ranges and visa paths — then book a free session to build a shortlist that fits your profile and budget."
+      />
 
-      {/* Country Grid */}
-      <section className="py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {destinations.map((destination, index) => (
-              <CountryCard key={index} {...destination} />
+      <section className="section-padding">
+        <div className="container-custom">
+          <SectionHeader
+            eyebrow="Destinations"
+            title="Seven countries, one plan that fits you"
+            intro="Click a country to see intakes, cost estimates and visa steps. If you're not sure yet, start with a free counselling session instead."
+          />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-10">
+            {destinations.map((destination) => (
+              <CountryCard key={destination.name} {...destination} />
             ))}
+            <CountryCard
+              name="Not sure which country?"
+              description="Bring your results, budget and timeline — we'll shortlist 2–3 destinations that fit."
+              href="/contact"
+              notSure
+            />
           </div>
         </div>
       </section>
 
-      {/* Comparison or Why Choose Section */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-5xl font-bold text-primary mb-6 tracking-tighter">How to Choose Your <span className="text-accent">Destination?</span></h2>
-            <p className="text-lg text-primary/60 max-w-2xl mx-auto font-medium">
-              Consider these key factors when deciding where to pursue your international education journey.
-            </p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Course Availability",
-                desc: "Check if your preferred field of study is highly ranked and widely available in the country. Some countries excel in STEM while others are better for Arts or Business.",
-                icon: GraduationCap
-              },
-              {
-                title: "Cost of Living & Tuition",
-                desc: "Analyze your budget. While some countries offer free tuition (like parts of Europe), others might have higher tuition but better scholarship opportunities.",
-                icon: MapPin
-              },
-              {
-                title: "Post-Study Work Options",
-                desc: "Research post-study work permits and potential pathways for permanent residency if you plan to gain work experience after graduation.",
-                icon: Globe
-              }
-            ].map((factor, i) => (
-              <div key={i} className="group bg-white p-10 rounded-[2.5rem] shadow-sm border border-gray-100 hover:shadow-2xl hover:border-accent/10 transition-all duration-500">
-                <div className="w-14 h-14 bg-primary/5 rounded-2xl flex items-center justify-center mb-8 group-hover:bg-accent group-hover:text-white transition-all duration-500">
-                  <factor.icon size={28} />
+      <section className="section-padding bg-paper">
+        <div className="container-custom">
+          <SectionHeader
+            eyebrow="How to decide"
+            title="How to choose your destination"
+            intro="Three questions we cover in the first counselling session. Use them as a starting point before you book."
+          />
+
+          <div className="grid md:grid-cols-3 gap-4 sm:gap-5 mt-10">
+            {factors.map((factor) => (
+              <article key={factor.title} className="card card-hover p-6 sm:p-7">
+                <div className="w-11 h-11 rounded-lg bg-primary flex items-center justify-center mb-5 text-white" aria-hidden="true">
+                  <factor.icon size={22} />
                 </div>
-                <h3 className="text-xl font-bold text-primary mb-4 group-hover:text-accent transition-colors">{factor.title}</h3>
-                <p className="text-base text-primary/70 leading-relaxed font-medium">
-                  {factor.desc}
-                </p>
-              </div>
+                <h3 className="mb-2">{factor.title}</h3>
+                <p className="text-sm text-muted leading-relaxed">{factor.desc}</p>
+              </article>
             ))}
           </div>
         </div>

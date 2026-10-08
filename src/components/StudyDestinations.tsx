@@ -1,99 +1,65 @@
 import Link from "next/link";
-import { ArrowUpRight, MapPin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import CountryCard from "./CountryCard";
+import SectionHeader from "./SectionHeader";
+import { countries } from "@/content/countries";
 
-const destinations = [
-  {
-    name: "USA",
-    image: "https://images.unsplash.com/photo-1485738422979-f5c462d49f74?q=80&w=1499&auto=format&fit=crop",
-    href: "/countries/usa",
-    description: "Largest number of universities, cutting-edge research, and diverse scholarship opportunities.",
-    students: "400+ Students",
-  },
-  {
-    name: "Canada",
-    image: "https://images.unsplash.com/photo-1503614472-8c93d56e92ce?q=80&w=1411&auto=format&fit=crop",
-    href: "/countries/canada",
-    description: "Post-study work permit, high-quality education, and permanent residency options for international students.",
-    students: "1200+ Students",
-  },
-  {
-    name: "United Kingdom",
-    image: "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?q=80&w=1470&auto=format&fit=crop",
-    href: "/countries/uk",
-    description: "Centuries-old academic tradition, shorter degree durations, and rich cultural experiences.",
-    students: "500+ Students",
-  },
-  {
-    name: "Australia",
-    image: "https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?q=80&w=1530&auto=format&fit=crop",
-    href: "/countries/australia",
-    description: "World-class universities, great lifestyle, and excellent student support services in top cities.",
-    students: "800+ Students",
-  },
-  {
-    name: "New Zealand",
-    image: "https://images.unsplash.com/photo-1507699622108-4be3abd695ad?q=80&w=1471&auto=format&fit=crop",
-    href: "/countries/new-zealand",
-    description: "Safe environment, world-class education system, and beautiful natural landscapes for Nepalese students.",
-    students: "150+ Students",
-  },
-  {
-    name: "Europe",
-    image: "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=1470&auto=format&fit=crop",
-    href: "/countries/europe",
-    description: "Tuition-free options, rich heritage, and access to the entire Schengen area for students.",
-    students: "250+ Students",
-  },
-  {
-    name: "Japan",
-    image: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1470&auto=format&fit=crop",
-    href: "/countries/japan",
-    description: "High-tech innovation, unique culture, and affordable education with part-time job opportunities.",
-    students: "300+ Students",
-  },
-];
+const destinations = countries.map((c) => ({
+  name: c.name,
+  code: c.code,
+  href: `/countries/${c.slug}`,
+  description: c.description,
+  image: c.image,
+}));
+
+const notSureCountry = {
+  name: "Not sure which country?",
+  href: "/contact",
+  description:
+    "Bring your results and budget to our office. We'll walk through which options actually fit your profile — no pressure, no hard sell.",
+};
 
 const StudyDestinations = () => {
   return (
-    <section className="section-padding bg-white relative overflow-hidden" aria-labelledby="destinations-heading">
-      
+    <section className="section-padding bg-paper" aria-labelledby="destinations-heading">
       <div className="container-custom">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 lg:mb-16 gap-6">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center space-x-2 bg-accent/10 text-accent px-4 py-2 rounded-full text-xs font-bold mb-4 sm:mb-6 border border-accent/20 uppercase tracking-widest">
-              <MapPin size={16} aria-hidden="true" />
-              <span>Top Destinations</span>
-            </div>
-            <h2 id="destinations-heading" className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary mb-4 sm:mb-6 tracking-tight leading-[1.1]">
-              Explore Your <span className="text-accent">Dream Destination</span>
-            </h2>
-            <p className="text-lg md:text-xl text-primary/60 font-medium leading-relaxed">
-              We help you find the perfect destination that aligns with your academic goals, budget, and future career plans.
-            </p>
-          </div>
-          <Link href="/countries" className="btn-secondary whitespace-nowrap hidden lg:flex group shadow-xl">
-            View All Countries 
+        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 lg:mb-14 gap-6">
+          <SectionHeader
+            eyebrow="Destinations"
+            title={<>Seven countries, one team that knows <em>each process.</em></>}
+            intro="From application deadlines to proof-of-funds rules — we keep current with each embassy's requirements."
+            id="destinations-heading"
+          />
+          <Link href="/countries" className="btn-secondary whitespace-nowrap hidden lg:flex group">
+            View all country guides
             <ArrowUpRight size={20} className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6">
-          {destinations.map((destination, index) => (
-            <div 
-              key={index} 
-              className="animate-fade-in"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <CountryCard {...destination} />
-            </div>
+        <div className="hidden lg:grid grid-cols-4 gap-5 sm:gap-6">
+          {destinations.map((d) => (
+            <CountryCard key={d.name} {...d} />
           ))}
+          <CountryCard {...notSureCountry} notSure />
+        </div>
+
+        <div className="lg:hidden -mx-5 px-5 overflow-x-auto snap-x snap-mandatory pb-4 hide-scrollbar">
+          <div className="flex gap-4 sm:gap-5 w-max">
+            {destinations.map((d) => (
+              <div key={d.name} className="snap-start shrink-0 w-[85%] sm:w-[60%]">
+                <CountryCard {...d} />
+              </div>
+            ))}
+            <div className="snap-start shrink-0 w-[85%] sm:w-[60%]">
+              <CountryCard {...notSureCountry} notSure />
+            </div>
+          </div>
         </div>
 
         <div className="mt-8 lg:hidden">
-          <Link href="/countries" className="btn-secondary w-full justify-center shadow-xl">
-            View All Countries 
-            <ArrowUpRight size={20} className="ml-2 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+          <Link href="/countries" className="btn-secondary w-full justify-center group">
+            View all country guides
+            <ArrowUpRight size={20} className="ml-2 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
       </div>
