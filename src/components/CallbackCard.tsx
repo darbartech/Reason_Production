@@ -48,12 +48,12 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
   return (
     <form
       onSubmit={onSubmit}
-      className={`card shadow-lift ${compact ? "p-5" : "p-6 sm:p-8"} bg-white`}
+      className={`card shadow-card ${compact ? "p-5" : "p-6 sm:p-8"}`}
     >
       <div className="mb-5">
         <h3 className="text-primary">Book a free counselling session</h3>
         <p className="mt-1.5 text-sm text-muted">
-          Three fields. We'll reply within one working day.
+          Three fields. We&apos;ll reply within one working day.
         </p>
       </div>
 
@@ -74,7 +74,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
             onChange={(e) => setFullName(e.target.value)}
             aria-invalid={!!errors.fullName}
             aria-describedby={errors.fullName ? "cb-fullname-err" : undefined}
-            className="w-full h-12 px-4 text-[1rem] rounded-lg border border-line bg-white text-primary placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+            className="w-full h-12 px-4 text-[1rem] rounded-xl border border-line bg-white text-primary placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
             placeholder="e.g. Aryan Karki"
           />
           {errors.fullName && (
@@ -100,7 +100,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
             onChange={(e) => setPhone(e.target.value)}
             aria-invalid={!!errors.phone}
             aria-describedby={errors.phone ? "cb-phone-err" : undefined}
-            className="w-full h-12 px-4 text-[1rem] rounded-lg border border-line bg-white text-primary placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+            className="w-full h-12 px-4 text-[1rem] rounded-xl border border-line bg-white text-primary placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
             placeholder="98XXXXXXXX or 01-4XXXXXX"
           />
           {errors.phone && (
@@ -123,7 +123,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
             onChange={(e) => setPreferredDestination(e.target.value)}
             aria-invalid={!!errors.preferredDestination}
             aria-describedby={errors.preferredDestination ? "cb-dest-err" : undefined}
-            className="w-full h-12 px-4 text-[1rem] rounded-lg border border-line bg-white text-primary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
+            className="w-full h-12 px-4 text-[1rem] rounded-xl border border-line bg-white text-primary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
           >
             <option value="">Select a destination</option>
             {PREFERRED_DESTINATIONS.map((d) => (
@@ -146,7 +146,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
       </button>
 
       <p className="mt-3 text-center text-xs text-muted">
-        No charge for the first session. We'll confirm by call or WhatsApp.
+        No charge for the first session. We&apos;ll confirm by call or WhatsApp.
       </p>
     </form>
   );

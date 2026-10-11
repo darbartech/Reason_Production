@@ -37,9 +37,9 @@ const steps = [
 
 export default function Process() {
   return (
-    <section className="section-padding bg-white">
+    <section className="section-padding bg-tint">
       <div className="container-custom grid gap-12 lg:grid-cols-12 lg:gap-16">
-        <div className="lg:col-span-4 lg:sticky lg:top-[68px] self-start">
+        <div className="lg:col-span-4 lg:sticky lg:top-32 self-start">
           <SectionHeader
             eyebrow="Process"
             title={<>Five transparent steps from first meeting to <em>departure.</em></>}
@@ -55,36 +55,22 @@ export default function Process() {
         </div>
 
         <div className="lg:col-span-8">
-          <ol className="relative">
-            <div
-              aria-hidden="true"
-              className="absolute left-[19px] top-4 bottom-4 w-px bg-line hidden sm:block"
-            />
+          <ol>
             {steps.map((s, i) => {
-              const isLast = i === steps.length - 1;
               return (
                 <li
                   key={s.n}
-                  className={`reveal grid grid-cols-[2.75rem_1fr] sm:grid-cols-[3.5rem_1fr] gap-5 sm:gap-6 ${
-                    isLast ? "pb-0" : "pb-10 sm:pb-12"
-                  } items-start`}
+                  className="reveal grid grid-cols-[auto_1fr] gap-6 border-t border-primary/15 py-8 first:border-t-0 first:pt-0"
                 >
-                  <div className="relative flex justify-center pt-1">
-                    <span
-                      aria-hidden="true"
-                      className="font-heading text-3xl sm:text-4xl font-normal text-crimson"
-                    >
-                      {s.n}
-                    </span>
-                  </div>
-                  <div
-                    className={`card p-5 sm:p-6 bg-white border border-line shadow-sm`}
-                  >
+                  <span className="font-heading text-5xl md:text-6xl leading-none text-crimson">
+                    {s.n}
+                  </span>
+                  <div>
                     <h3>{s.title}</h3>
                     <p className="mt-2 text-[0.9375rem] text-muted leading-relaxed">
                       {s.text}
                     </p>
-                    <p className="mt-4 text-xs text-primary-400 font-medium before:inline-block before:w-1 before:h-1 before:rounded-full before:bg-crimson before:mr-2 before:align-middle before:-mt-0.5">
+                    <p className="mt-4 inline-block rounded-md bg-white px-3 py-1 text-sm font-medium text-primary-700">
                       {s.duration}
                     </p>
                   </div>

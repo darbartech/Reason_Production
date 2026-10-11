@@ -42,17 +42,17 @@ export default function Footer() {
     <footer className="surface-dark pt-16 md:pt-20 pb-8 relative">
       <div className="absolute top-0 left-0 w-full h-px bg-white/10"></div>
 
-      <div className="container-custom relative z-10">
+      <div className="container-custom reveal relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Column 1 — Brand + registration */}
           <div className="lg:col-span-4 space-y-6">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-block rounded-lg bg-white p-2.5" aria-label={company.displayName}>
               <Image
                 src="/logo/logo.png"
                 alt={company.displayName}
                 width={480}
                 height={208}
-                className="h-10 w-auto object-contain brightness-0 invert"
+                className="h-9 w-auto object-contain"
               />
             </Link>
 
@@ -94,25 +94,25 @@ export default function Footer() {
 
           {/* Column 2 — Destinations */}
           <div className="lg:col-span-2">
-            <h4 className="text-white mb-5 uppercase tracking-wider text-xs font-semibold">Destinations</h4>
+            <h4 className="text-white mb-5 uppercase tracking-wide text-sm font-semibold">Destinations</h4>
             <ul className="space-y-3">
               {destinations.map((dest) => (
                 <li key={dest.name}>
                   <Link
-                  href={dest.href}
-                  className="flex items-center group"
-                >
-                  <ArrowRight size={12} className="mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform text-crimson" />
-                  Study in {dest.name}
-                </Link>
-              </li>
-            ))}
+                    href={dest.href}
+                    className="flex items-center group"
+                  >
+                    <ArrowRight size={12} className="mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform text-crimson" aria-hidden="true" />
+                    <span>Study in {dest.name}</span>
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
           {/* Column 3 — Services */}
           <div className="lg:col-span-3">
-            <h4 className="text-white mb-5 uppercase tracking-wider text-xs font-semibold">Services</h4>
+            <h4 className="text-white mb-5 uppercase tracking-wide text-sm font-semibold">Services</h4>
             <ul className="space-y-3">
               {quickLinks.map((link) => (
                 <li key={link.name}>
@@ -120,8 +120,8 @@ export default function Footer() {
                     href={link.href}
                     className="flex items-center group"
                   >
-                    <ArrowRight size={12} className="mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform text-crimson" />
-                    {link.name}
+                    <ArrowRight size={12} className="mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform text-crimson" aria-hidden="true" />
+                    <span>{link.name}</span>
                   </Link>
                 </li>
               ))}
@@ -130,7 +130,7 @@ export default function Footer() {
 
           {/* Column 4 — Visit & contact */}
           <div className="lg:col-span-3 space-y-5">
-            <h4 className="text-white mb-2 uppercase tracking-wider text-xs font-semibold">Visit & contact</h4>
+            <h4 className="text-white mb-2 uppercase tracking-wide text-sm font-semibold">Visit & contact</h4>
 
             <div className="flex items-start gap-3">
               <MapPin size={16} className="text-crimson mt-0.5 shrink-0" aria-hidden="true" />

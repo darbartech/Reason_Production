@@ -27,7 +27,7 @@ const BlogPreview = () => {
           {latestPosts.map((post, i) => (
             <article
               key={post.slug}
-              className={`group bg-white rounded-2xl border border-line overflow-hidden card-hover flex flex-col h-full reveal`}
+              className={`group card card-hover overflow-hidden flex flex-col h-full reveal`}
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <Link
@@ -44,14 +44,14 @@ const BlogPreview = () => {
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute top-4 left-4 rounded-md bg-white/95 backdrop-blur-sm px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary border border-line"
+                  className="absolute top-4 left-4 rounded-lg bg-white px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary border border-line"
                 >
                   {post.category}
                 </span>
               </Link>
 
               <div className="p-6 sm:p-7 flex flex-col flex-grow">
-                <div className="flex items-center gap-4 text-xs text-muted font-medium mb-4">
+                <div className="flex items-center gap-4 text-sm text-muted font-medium mb-4">
                   <div className="flex items-center gap-1.5">
                     <Calendar size={14} className="text-crimson" aria-hidden="true" />
                     <time dateTime={post.dateISO}>{post.date}</time>

@@ -13,7 +13,7 @@ export default function Testimonials() {
         <div className="mb-10 lg:mb-14">
           <SectionHeader
             eyebrow="Student stories"
-            title={<>Students we've <em>recently supported</em> through the process.</>}
+            title={<>Students we&apos;ve <em>recently supported</em> through the process.</>}
             intro="A few of the students who've gone through our counselling and documentation this intake."
           />
         </div>
@@ -33,7 +33,7 @@ export default function Testimonials() {
             </blockquote>
 
             <footer className="mt-8 pt-6 border-t border-white/10 flex items-center gap-4">
-              <div className="relative w-16 h-16 shrink-0 rounded-2xl overflow-hidden bg-primary-800 border border-white/15">
+              <div className="relative w-16 h-16 shrink-0 rounded-xl overflow-hidden bg-primary-800 border border-white/15">
                 <Image
                   src={featuredTestimonial.image}
                   alt={`${featuredTestimonial.name} — study in ${featuredTestimonial.destination}`}
@@ -79,7 +79,7 @@ export default function Testimonials() {
                   </blockquote>
 
                   <div className="mt-4 flex items-center gap-3 sm:hidden">
-                    <div className="relative w-10 h-10 shrink-0 rounded-full overflow-hidden bg-primary-100">
+                    <div className="relative w-10 h-10 shrink-0 rounded-xl overflow-hidden bg-primary-100">
                       <Image
                         src={t.image}
                         alt={`${t.name} — ${t.destination}`}
@@ -92,7 +92,7 @@ export default function Testimonials() {
                       <cite className="font-semibold text-primary not-italic block text-sm">
                         {t.name}
                       </cite>
-                      <p className="text-xs text-muted mt-0.5 truncate">
+                      <p className="text-sm text-muted mt-0.5 truncate">
                         {t.destination}
                         {t.intake && ` · ${t.intake}`}
                       </p>
@@ -105,12 +105,12 @@ export default function Testimonials() {
                     <cite className="font-semibold text-primary not-italic block">
                       {t.name}
                     </cite>
-                    <p className="text-xs text-muted mt-0.5">
+                    <p className="text-sm text-muted mt-0.5">
                       Study in {t.destination}
                       {t.intake && ` · ${t.intake}`}
                     </p>
                     {t.outcome && (
-                      <p className="text-xs text-accent mt-0.5">
+                      <p className="text-sm text-accent mt-0.5">
                         {t.outcome}
                       </p>
                     )}

@@ -87,24 +87,25 @@ const step1Schema = z.object({
       nepalPhoneRegex,
       "Please enter a valid Nepali mobile or landline number"
     ),
-  email: z
-    .string()
-    .optional()
-    .or(z.literal(""))
-    .refine(
-      (v) => !v || z.string().email().safeParse(v).success,
-      "Please enter a valid email address"
-    ),
   preferredDestination: z.enum(PREFERRED_DESTINATIONS, {
     message: "Please select a preferred destination",
-  }),
-  preferredIntake: z.enum(PREFERRED_INTAKES, {
-    message: "Please select a preferred intake",
   }),
 });
 
 const step2Schema = z
   .object({
+    email: z
+      .string()
+      .optional()
+      .or(z.literal(""))
+      .refine(
+        (v) => !v || z.string().email().safeParse(v).success,
+        "Please enter a valid email address"
+      ),
+    preferredIntake: z
+      .enum(PREFERRED_INTAKES)
+      .optional()
+      .or(z.literal("")),
     highestEducation: z.enum(HIGHEST_EDUCATION, {
       message: "Please select your highest education",
     }),

@@ -15,7 +15,7 @@ export default function CredentialsStrip() {
         <ul className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 py-4 text-sm text-muted">
           {items.map(({ label, value }) => (
             <li key={label} className="flex items-center gap-2">
-              <span className="uppercase tracking-wider text-xs text-primary-400">{label}</span>
+              <span className="uppercase tracking-wider text-sm font-medium text-muted">{label}</span>
               <span className="font-semibold text-primary">{value}</span>
             </li>
           ))}

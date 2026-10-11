@@ -1,5 +1,7 @@
+"use client";
+
 import Link from "next/link";
-import Image from "next/image";
+import { useState, useEffect } from "react";
 import {
   CheckCircle2,
   DollarSign,
@@ -20,9 +22,11 @@ import {
   Landmark,
 } from "lucide-react";
 import CTA from "@/components/CTA";
+import CallbackCard from "@/components/CallbackCard";
 import PageHero from "@/components/PageHero";
 import SectionHeader from "@/components/SectionHeader";
 import { company } from "@/lib/company";
+import { PREFERRED_DESTINATIONS } from "@/lib/validations/enquiry";
 
 export interface OfficialSource {
   label: string;
@@ -72,7 +76,7 @@ const SectionWrapper = ({
   <section
     id={id}
     aria-labelledby={`${id}-heading`}
-    className="scroll-mt-24"
+    className="scroll-mt-[140px]"
   >
     <SectionHeader eyebrow={eyebrow} title={title} intro={intro} align="left" />
     <div className="mt-8">{children}</div>
@@ -80,16 +84,11 @@ const SectionWrapper = ({
 );
 
 const BulletList = ({ items }: { items: string[] }) => (
-  <div className="card p-6 sm:p-8">
-    <ul className="grid sm:grid-cols-1 gap-4" role="list">
+  <div className="divide-y divide-line border border-line rounded-xl bg-white">
+    <ul role="list">
       {items.map((item, i) => (
-        <li key={i} className="flex items-start gap-3">
-          <div
-            className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-crimson mt-0.5 flex-shrink-0"
-            aria-hidden="true"
-          >
-            <CheckCircle2 size={12} />
-          </div>
+        <li key={i} className="flex items-start gap-3 px-5 sm:px-6 py-4 last:border-0">
+          <CheckCircle2 size={16} className="text-crimson mt-1 shrink-0" aria-hidden="true" />
           <span className="text-ink text-sm leading-relaxed">{item}</span>
         </li>
       ))}
@@ -119,16 +118,65 @@ const CountryPageTemplate = ({
   image,
 }: CountryPageProps) => {
   const showMetaBar = !!lastUpdated || (!!officialSources && officialSources.length > 0);
+  const [activeTab, setActiveTab] = useState("overview");
+
+  const tabs = [
+    { id: "overview", label: "Overview" },
+    { id: "requirements", label: "Requirements" },
+    { id: "costs", label: "Costs" },
+    { id: "visa-process", label: "Visa steps" },
+    { id: "faq", label: "FAQ" },
+  ];
+
+  const scrollToSection = (id: string) => {
+    setActiveTab(id);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  useEffect(() => {
+    const sections = tabs.map((t) => document.getElementById(t.id)).filter(Boolean) as HTMLElement[];
+    if (sections.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries.filter((e) => e.isIntersecting);
+        if (visible.length > 0) {
+          visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+          setActiveTab(visible[0].target.id);
+        }
+      },
+      { rootMargin: "-140px 0px -60% 0px", threshold: [0, 0.25, 0.5, 1] }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <div className="bg-white">
       <PageHero
+        variant="compact"
         crumbs={[
           { name: "Countries", href: "/countries" },
           { name: country },
         ]}
+        eyebrow={`Country guide · ${country}`}
         title={h1}
         intro={`${overview}`}
+        image={image}
+        actions={
+          <Link href="/contact" className="btn-primary btn-lg group w-full sm:w-auto">
+            Book free counselling
+            <ArrowRight
+              size={18}
+              className="transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </Link>
+        }
       />
 
       {showMetaBar && (
@@ -166,21 +214,51 @@ const CountryPageTemplate = ({
         </section>
       )}
 
+      <nav
+        aria-label="Page sections"
+        className="sticky top-[68px] z-30 bg-white/95 backdrop-blur border-b border-line"
+      >
+        <div className="container-custom">
+          <div className="lg:hidden -mx-5 px-5 overflow-x-auto snap-x snap-mandatory hide-scrollbar">
+            <div className="flex gap-2 w-max py-3">
+              {tabs.map((tab) => (
+                <button
+                  key={tab.id}
+                  onClick={() => scrollToSection(tab.id)}
+                  className={`snap-start shrink-0 px-4 py-2 rounded-lg text-[14px] font-medium whitespace-nowrap transition-colors duration-200 ${
+                    activeTab === tab.id
+                      ? "underline decoration-crimson decoration-2 underline-offset-[6px] text-primary font-semibold"
+                      : "border border-line bg-white text-primary hover:bg-paper"
+                  }`}
+                  aria-current={activeTab === tab.id ? "location" : undefined}
+                >
+                  {tab.label}
+                </button>
+              ))}
+            </div>
+          </div>
+          <div className="hidden lg:grid grid-cols-5 gap-2 py-4">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => scrollToSection(tab.id)}
+                className={`px-4 py-2.5 rounded-lg text-[14px] font-medium transition-colors duration-200 ${
+                  activeTab === tab.id
+                    ? "underline decoration-crimson decoration-2 underline-offset-[6px] text-primary font-semibold"
+                    : "border border-line bg-white text-primary hover:bg-paper"
+                }`}
+                aria-current={activeTab === tab.id ? "location" : undefined}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
+        </div>
+      </nav>
+
       <section className="section-padding">
         <div className="container-custom">
-          {image && (
-            <figure className="mb-10 lg:mb-14 overflow-hidden rounded-xl border border-line">
-              <div className="relative h-56 sm:h-72 lg:h-96">
-                <Image
-                  src={image.src}
-                  alt={image.alt}
-                  fill
-                  sizes="(min-width: 1024px) 1120px, 100vw"
-                  className="object-cover"
-                />
-              </div>
-            </figure>
-          )}
+          <div id="overview" className="scroll-mt-[140px]" />
           <div className="lg:grid lg:grid-cols-12 lg:gap-8 lg:gap-x-12">
             <div className="lg:col-span-8 space-y-14 lg:space-y-20">
               <SectionWrapper
@@ -189,6 +267,24 @@ const CountryPageTemplate = ({
                 title="What you need to apply"
               >
                 <BulletList items={requirements} />
+              </SectionWrapper>
+
+              <SectionWrapper
+                id="costs"
+                eyebrow="Costs"
+                title="Tuition and living expenses"
+                intro="Typical ranges for international students; exact figures depend on university, city, and programme length."
+              >
+                <div className="divide-y divide-line border border-line rounded-xl bg-white">
+                  <ul role="list">
+                    {costs.map((item, i) => (
+                      <li key={i} className="flex items-start gap-3 px-5 sm:px-6 py-4 last:border-0">
+                        <DollarSign size={16} className="text-crimson mt-1 shrink-0" aria-hidden="true" />
+                        <span className="text-ink text-sm leading-relaxed">{item}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </SectionWrapper>
 
               {englishRequirements && englishRequirements.length > 0 && (
@@ -201,12 +297,7 @@ const CountryPageTemplate = ({
                     <ul className="grid sm:grid-cols-1 gap-4" role="list">
                       {englishRequirements.map((req, i) => (
                         <li key={i} className="flex items-start gap-3">
-                          <div
-                            className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-crimson mt-0.5 flex-shrink-0"
-                            aria-hidden="true"
-                          >
-                            <Languages size={12} />
-                          </div>
+                          <Languages size={16} className="text-crimson mt-1 shrink-0" aria-hidden="true" />
                           <span className="text-ink text-sm leading-relaxed">{req}</span>
                         </li>
                       ))}
@@ -281,12 +372,7 @@ const CountryPageTemplate = ({
                     <ul className="grid sm:grid-cols-1 gap-4" role="list">
                       {workRights.map((item, i) => (
                         <li key={i} className="flex items-start gap-3">
-                          <div
-                            className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-crimson mt-0.5 flex-shrink-0"
-                            aria-hidden="true"
-                          >
-                            <Briefcase size={12} />
-                          </div>
+                          <Briefcase size={16} className="text-crimson mt-1 shrink-0" aria-hidden="true" />
                           <span className="text-ink text-sm leading-relaxed">{item}</span>
                         </li>
                       ))}
@@ -306,12 +392,7 @@ const CountryPageTemplate = ({
                     <ul className="grid sm:grid-cols-1 gap-4" role="list">
                       {commonRefusalReasons.map((item, i) => (
                         <li key={i} className="flex items-start gap-3">
-                          <div
-                            className="w-5 h-5 rounded-full bg-paper border border-brand-border flex items-center justify-center text-crimson mt-0.5 flex-shrink-0"
-                            aria-hidden="true"
-                          >
-                            <XCircle size={12} />
-                          </div>
+                          <XCircle size={16} className="text-crimson mt-1 shrink-0" aria-hidden="true" />
                           <span className="text-ink text-sm leading-relaxed">{item}</span>
                         </li>
                       ))}
@@ -330,12 +411,7 @@ const CountryPageTemplate = ({
                     <ul className="grid sm:grid-cols-1 gap-4" role="list">
                       {scholarships.map((item, i) => (
                         <li key={i} className="flex items-start gap-3">
-                          <div
-                            className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-crimson mt-0.5 flex-shrink-0"
-                            aria-hidden="true"
-                          >
-                            <Award size={12} />
-                          </div>
+                          <Award size={16} className="text-crimson mt-1 shrink-0" aria-hidden="true" />
                           <span className="text-ink text-sm leading-relaxed">{item}</span>
                         </li>
                       ))}
@@ -355,12 +431,7 @@ const CountryPageTemplate = ({
                     <ul className="grid sm:grid-cols-1 gap-4" role="list">
                       {ourRole.map((item, i) => (
                         <li key={i} className="flex items-start gap-3">
-                          <div
-                            className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center text-crimson mt-0.5 flex-shrink-0"
-                            aria-hidden="true"
-                          >
-                            <Handshake size={12} />
-                          </div>
+                          <Handshake size={16} className="text-crimson mt-1 shrink-0" aria-hidden="true" />
                           <span className="text-ink text-sm leading-relaxed">{item}</span>
                         </li>
                       ))}
@@ -402,9 +473,9 @@ const CountryPageTemplate = ({
             </div>
 
             <aside className="lg:col-span-4 mt-12 lg:mt-0">
-              <div className="sticky top-28 space-y-5">
+              <div className="sticky top-28 lg:top-[140px] space-y-5">
                 <div className="surface-dark p-6 sm:p-7 rounded-xl text-white shadow-card">
-                  <h3 className="eyebrow !text-white/60 mb-5">Quick facts</h3>
+                  <h3 className="eyebrow !text-on-dark-link mb-5">Quick facts</h3>
 
                   <div className="space-y-5">
                     <div className="flex items-start gap-4">
@@ -415,7 +486,7 @@ const CountryPageTemplate = ({
                         <DollarSign size={18} />
                       </div>
                       <div>
-                        <p className="text-[11px] text-white/50 uppercase font-semibold tracking-wider mb-1">
+                        <p className="text-sm text-on-dark uppercase font-semibold tracking-wider mb-1">
                           Estimated cost
                         </p>
                         <p className="text-base font-semibold">{costs[0]}</p>
@@ -430,7 +501,7 @@ const CountryPageTemplate = ({
                         <Calendar size={18} />
                       </div>
                       <div>
-                        <p className="text-[11px] text-white/50 uppercase font-semibold tracking-wider mb-1">
+                        <p className="text-sm text-on-dark uppercase font-semibold tracking-wider mb-1">
                           Major intakes
                         </p>
                         <p className="text-base font-semibold">
@@ -448,7 +519,7 @@ const CountryPageTemplate = ({
                           <Clock size={18} />
                         </div>
                         <div>
-                          <p className="text-[11px] text-white/50 uppercase font-semibold tracking-wider mb-1">
+                          <p className="text-sm text-on-dark uppercase font-semibold tracking-wider mb-1">
                             Typical processing
                           </p>
                           <p className="text-base font-semibold">
@@ -485,25 +556,24 @@ const CountryPageTemplate = ({
                         key={item}
                         className="flex items-start gap-3 text-muted text-sm"
                       >
-                        <div
-                          className="w-5 h-5 rounded-full bg-paper border border-line flex items-center justify-center text-crimson flex-shrink-0 mt-0.5"
-                          aria-hidden="true"
-                        >
-                          <CheckCircle2 size={12} />
-                        </div>
+                        <CheckCircle2 size={16} className="text-crimson mt-0.5 shrink-0" aria-hidden="true" />
                         <span>{item}</span>
                       </li>
                     ))}
                   </ul>
 
                   {lastUpdated && (
-                    <p className="text-[11px] text-muted mt-6 pt-4 border-t border-line leading-relaxed">
+                    <p className="text-sm text-muted mt-6 pt-4 border-t border-line leading-relaxed">
                       Last verified: {lastUpdated}
                     </p>
                   )}
                 </div>
               </div>
             </aside>
+          </div>
+
+          <div className="mt-14 lg:mt-20">
+            <CallbackCard defaultDestination={country as (typeof PREFERRED_DESTINATIONS)[number]} />
           </div>
         </div>
       </section>

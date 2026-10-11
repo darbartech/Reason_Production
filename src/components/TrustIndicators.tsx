@@ -42,7 +42,7 @@ export default function TrustIndicators() {
           {reasons.map((r) => (
             <li
               key={r.n}
-              className="reveal rounded-2xl p-6 sm:p-7 border border-white/10 bg-white/[0.04]"
+              className="reveal rounded-xl p-6 sm:p-7 border border-white/10 bg-white/[0.04]"
             >
               <span
                 aria-hidden="true"

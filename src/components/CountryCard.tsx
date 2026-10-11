@@ -24,24 +24,24 @@ export default function CountryCard(props: CountryCardProps) {
     return (
       <Link
         href={href}
-        className="group card card-hover flex h-full min-h-[420px] sm:min-h-[440px] lg:min-h-0 flex-col items-start justify-between surface-dark p-6 sm:p-7 border border-primary-900"
+        className="group surface-dark card-hover relative flex aspect-[4/5] flex-col justify-between overflow-hidden rounded-2xl border border-primary-900 p-6 sm:p-7"
         aria-label="Not sure which country? Talk to our team"
       >
-        <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
-          <HelpCircle size={22} className="text-crimson" aria-hidden="true" />
+        <div className="flex items-center justify-between">
+          <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl border border-white/10 bg-white/10">
+            <HelpCircle size={22} className="text-on-dark-link" aria-hidden="true" />
+          </span>
+          <span className="rounded-md border border-white/15 bg-white/5 px-2.5 py-1 text-xs font-bold uppercase tracking-[0.14em] text-on-dark-link">
+            Guidance
+          </span>
         </div>
         <div>
-          <div className="inline-flex items-center gap-2 mb-3">
-            <span className="rounded-md border border-white/15 bg-white/5 px-2 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-on-dark-link">
-              Guidance
-            </span>
-          </div>
-          <h3 className="text-white group-hover:text-on-dark-link transition-colors">{name}</h3>
-          <p className="mt-3 text-[0.9375rem] leading-relaxed">{description}</p>
+          <h3 className="text-white transition-colors group-hover:text-on-dark-link">{name}</h3>
+          <p className="mt-3 text-[0.9375rem] leading-relaxed text-on-dark line-clamp-3">{description}</p>
         </div>
-        <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:text-on-dark-link transition-colors">
-          Talk to our team <ArrowUpRight size={16} />
-        </div>
+        <span className="btn-primary w-full">
+          Talk to our team <ArrowUpRight size={16} aria-hidden="true" />
+        </span>
       </Link>
     );
   }
@@ -64,7 +64,7 @@ export default function CountryCard(props: CountryCardProps) {
       {code && (
         <span
           aria-hidden="true"
-          className="absolute top-4 left-4 rounded-md bg-white/95 backdrop-blur-sm px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary shadow-sm border border-line"
+          className="absolute top-4 left-4 rounded-lg bg-white px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary shadow-sm border border-line"
         >
           {code}
         </span>

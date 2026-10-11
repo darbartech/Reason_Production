@@ -5,6 +5,10 @@
 @layer base {
   html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 
+  /* Mobile sticky action bar is fixed to the viewport bottom; offset anchors so
+     jumped-to content is not hidden behind it. */
+  @media (max-width: 1023px) { html { scroll-padding-bottom: 5rem; } }
+
   body {
     @apply font-sans bg-white text-ink antialiased overflow-x-hidden;
     font-size: 1rem;
@@ -18,15 +22,18 @@
   h3, h4 { @apply font-sans text-primary; }
 
   h1 { font-size: theme("fontSize.display[0]"); line-height: 1.02; letter-spacing: -0.025em; font-weight: 450; }
-  h2 { font-size: clamp(2rem, 1.35rem + 2.2vw, 3.25rem); line-height: 1.08; letter-spacing: -0.02em; font-weight: 450; }
-  h3 { font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.3125rem); line-height: 1.3; letter-spacing: -0.01em; font-weight: 600; }
+  h2 { font-size: theme("fontSize.section[0]"); line-height: 1.08; letter-spacing: -0.02em; font-weight: 450; }
+  h3 { font-size: theme("fontSize.card[0]"); line-height: 1.3; letter-spacing: -0.01em; font-weight: 600; }
   h4 { font-size: 1rem; line-height: 1.4; font-weight: 600; }
 
-  h1 em, h2 em { font-style: italic; font-weight: 400; @apply text-crimson; }
+  /* Crimson italic is a signature moment reserved for the home hero only.
+     Everywhere else <em> is neutralised so the device stops signalling. */
+  h1 em, h2 em { font-style: normal; font-weight: inherit; color: inherit; }
+  #hero-heading em { font-style: italic; font-weight: 400; @apply text-crimson; }
   .surface-dark h1 em, .surface-dark h2 em { @apply text-on-dark-link; }
 
   p  { @apply text-ink; max-width: 68ch; }
-  .lead { font-size: clamp(1.0625rem, 1rem + 0.35vw, 1.25rem); line-height: 1.6; @apply text-muted; }
+  .lead { font-size: theme("fontSize.lead[0]"); line-height: 1.6; @apply text-muted; }
 
   .surface-dark { @apply bg-primary-950 text-on-dark; }
   .surface-dark h1, .surface-dark h2, .surface-dark h3, .surface-dark h4 { @apply text-white; }
@@ -43,7 +50,7 @@
 
 @layer components {
   .container-custom { @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10; }
-  .section-padding  { @apply py-20 md:py-28 lg:py-32; }
+  .section-padding  { @apply py-16 md:py-24 lg:py-28; }
   .section-tight    { @apply py-12 md:py-16; }
 
   .eyebrow {
@@ -54,7 +61,8 @@
 
   .btn { @apply inline-flex h-12 items-center justify-center gap-2 rounded-lg px-6 text-[0.9375rem] font-semibold
                  transition duration-150 active:translate-y-px disabled:opacity-60 disabled:pointer-events-none; }
-  .btn-primary   { @apply btn bg-crimson text-white shadow-[0_1px_0_rgba(255,255,255,.15)_inset] hover:bg-crimson-dark; }
+  .btn-primary   { @apply btn bg-crimson text-white hover:bg-crimson-dark; }
+  .btn-whatsapp  { @apply btn bg-[#1A7F37] text-white hover:bg-[#15702F]; }
   .btn-lg        { @apply h-14 px-8 text-base; }
   .btn-navy      { @apply btn bg-primary text-white hover:bg-primary-900; }
   .btn-secondary { @apply btn border border-primary/25 bg-white text-primary hover:border-primary hover:bg-primary-50; }
@@ -62,14 +70,102 @@
   .btn-ghost     { @apply btn bg-transparent text-primary hover:bg-primary-50; }
   .btn-on-dark   { @apply btn border border-white/30 bg-transparent text-white hover:bg-white/10; }
 
-  .card        { @apply rounded-2xl border border-line bg-white; }
-  .card-hover  { @apply transition duration-200 hover:-translate-y-0.5 hover:shadow-lift; }
+  .card        { @apply rounded-xl border border-line bg-white; }
+  .card-hover  { @apply transition-shadow duration-200 hover:shadow-card; }
+
+  /* `.surface-dark` lives in @layer base, which loses to component utilities such
+     as `.card`'s bg-white. Re-assert it here so combining the two never produces
+     white-on-white text. */
+  .surface-dark { @apply bg-primary-950 text-on-dark; }
 
   .link-arrow  { @apply inline-flex items-center gap-1.5 font-semibold text-accent; }
   .link-arrow svg { @apply transition-transform duration-200; }
   .link-arrow:hover svg { @apply translate-x-1; }
 
   .stat-num { @apply font-heading text-5xl font-normal leading-none text-primary md:text-6xl; font-variant-numeric: lining-nums; }
+
+  /* Home hero media: soft arch mask around the footage, or its poster still. */
+  .hero-media { position: relative; width: 100%; max-width: 34rem; margin-inline: auto; }
+  .hero-video-mask {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    aspect-ratio: 4 / 5;
+    border-radius: 48% 48% 18px 18px / 34% 34% 18px 18px;
+    background-color: theme("colors.primary.50");
+    box-shadow: inset 0 0 0 1px theme("colors.line");
+  }
+  .hero-video {
+    display: block;
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Bias upward so the subject's face clears the arch crop. */
+    object-position: center 22%;
+  }
+  .hero-video-overlay {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(120% 80% at 18% 0%, rgba(11, 110, 143, 0.28), transparent 62%),
+      linear-gradient(
+        to top,
+        rgba(9, 27, 52, 0.82) 0%,
+        rgba(12, 39, 73, 0.48) 32%,
+        rgba(16, 49, 88, 0.18) 62%,
+        rgba(184, 50, 74, 0.16) 100%
+      );
+  }
+  .hero-video-text {
+    position: absolute;
+    left: 1.25rem;
+    right: 1.25rem;
+    bottom: 3.9rem;
+    @apply font-heading text-2xl text-white md:text-3xl;
+    max-width: 20ch;
+    margin: 0;
+    line-height: 1.15;
+    text-wrap: balance;
+    text-shadow: 0 1px 14px rgba(9, 27, 52, 0.55);
+  }
+  .hero-media-caption {
+    position: absolute;
+    left: 1.125rem;
+    bottom: 1.125rem;
+    display: inline-flex;
+    align-items: center;
+    width: fit-content;
+    max-width: calc(100% - 2.25rem);
+    padding: 0.4rem 0.8rem 0.4rem 0.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: 999px;
+    background-color: rgba(9, 27, 52, 0.42);
+    color: #fff;
+    font-size: 0.6875rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .hero-media-caption::before {
+    content: "";
+    @apply block h-1.5 w-1.5 shrink-0 rounded-full bg-crimson;
+    margin-right: 0.5rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    /* Footage carries its own motion; the still gets a slow cinematic drift. */
+    .hero-video--still {
+      transform-origin: 62% 28%;
+      animation: hero-drift 24s ease-in-out infinite alternate;
+    }
+  }
+  @media (max-width: 1023px) {
+    .hero-media { max-width: 26rem; }
+    .hero-video-mask { border-radius: 30% 30% 16px 16px / 20% 20% 16px 16px; }
+  }
 
   /* Long-form article body. Preflight strips margins and there is no typography
      plugin in this project, so the rhythm is defined here. */
@@ -101,10 +197,8 @@
   .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
   .hide-scrollbar::-webkit-scrollbar { display: none; }
 
-  .text-brand-text      { color: theme("colors.brand.text"); }
-  .text-brand-text-muted{ color: theme("colors.brand.text-muted"); }
-  .bg-brand-light-bg    { background-color: theme("colors.brand.light-bg"); }
-  .border-brand-border  { border-color: theme("colors.brand.border"); }
+  /* Dotted paper texture used behind page heroes. Colour follows currentColor. */
+  .hero-grid { background-image: radial-gradient(currentColor 1px, transparent 1px); background-size: 24px 24px; }
 
   @media (prefers-reduced-motion: no-preference) {
     @supports (animation-timeline: view()) {
@@ -118,6 +212,11 @@
 }
 
 @keyframes reveal-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+
+@keyframes hero-drift {
+  from { transform: scale(1.03) translate3d(0, 0, 0); }
+  to   { transform: scale(1.09) translate3d(-1.6%, -1.2%, 0); }
+}
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

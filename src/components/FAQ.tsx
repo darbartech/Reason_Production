@@ -1,4 +1,6 @@
 import SectionHeader from "./SectionHeader";
+import { ArrowRight, Phone, MessageCircle } from "lucide-react";
+import { company, whatsappLink } from "@/lib/company";
 
 const faqs = [
   {
@@ -24,74 +26,68 @@ const faqs = [
 ];
 
 const FAQ = () => {
-  const midPoint = Math.ceil(faqs.length / 2);
-  const leftColumn = faqs.slice(0, midPoint);
-  const rightColumn = faqs.slice(midPoint);
-
   return (
     <section className="section-padding bg-paper relative overflow-hidden">
       <div className="container-custom">
-        <div className="mb-10 lg:mb-14 max-w-2xl">
-          <SectionHeader
-            eyebrow="FAQ"
-            title={<>Questions we get <em>asked most often.</em></>}
-            intro="If you don't see yours here, bring it to a first session — we answer them all, no time pressure."
-          />
-        </div>
-
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 max-w-6xl mx-auto lg:gap-8 items-start">
-          <div className="space-y-5 sm:space-y-6">
-            {leftColumn.map((faq, index) => (
-              <details
-                key={`l-${index}`}
-                className={`group rounded-2xl border border-line bg-white overflow-hidden transition-all duration-200 open:shadow-card ${
-                  index === 0 ? "open" : ""
-                }`}
-                {...(index === 0 ? { open: true } : {})}
-              >
-                <summary className="flex items-center justify-between gap-4 p-5 sm:p-6 cursor-pointer font-semibold text-base sm:text-lg text-primary group-open:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white list-none">
-                  <span className="pr-4">{faq.q}</span>
-                  <span
-                    aria-hidden="true"
-                    className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-primary-50 text-crimson transition-transform duration-200 group-open:rotate-45 font-heading text-[1.75rem] leading-none"
-                  >
-                    +
-                  </span>
-                </summary>
-                <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-                  <div className="pt-4 border-t border-line">
-                    <p className="text-sm sm:text-base text-muted leading-relaxed">
-                      {faq.a}
-                    </p>
-                  </div>
-                </div>
-              </details>
-            ))}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
+          <div className="lg:col-span-4">
+            <SectionHeader
+              eyebrow="FAQ"
+              title={<>Questions we get <em>asked most often.</em></>}
+              intro="If you don't see yours here, bring it to a first session — we answer them all, no time pressure."
+            />
+            <div className="mt-8 space-y-3">
+              <p className="text-sm font-semibold text-primary">Can&apos;t find it? Call / WhatsApp</p>
+              <div className="flex flex-col gap-3">
+                <a
+                  href={`tel:${company.phoneTel}`}
+                  className="btn-secondary inline-flex items-center justify-start gap-2"
+                >
+                  <Phone size={18} aria-hidden="true" />
+                  <span>{company.phoneDisplay}</span>
+                  <ArrowRight size={16} className="ml-auto transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+                </a>
+                <a
+                  href={whatsappLink()}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                      className="btn-whatsapp inline-flex items-center justify-start gap-2"
+                >
+                  <MessageCircle size={18} aria-hidden="true" />
+                  <span>Chat on WhatsApp</span>
+                  <ArrowRight size={16} className="ml-auto transition-transform duration-200 group-hover:translate-x-1" aria-hidden="true" />
+                </a>
+              </div>
+            </div>
           </div>
-          <div className="space-y-5 sm:space-y-6">
-            {rightColumn.map((faq, index) => (
-              <details
-                key={`r-${index}`}
-                className="group rounded-2xl border border-line bg-white overflow-hidden transition-all duration-200 open:shadow-card"
-              >
-                <summary className="flex items-center justify-between gap-4 p-5 sm:p-6 cursor-pointer font-semibold text-base sm:text-lg text-primary group-open:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white list-none">
-                  <span className="pr-4">{faq.q}</span>
-                  <span
-                    aria-hidden="true"
-                    className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-primary-50 text-crimson transition-transform duration-200 group-open:rotate-45 font-heading text-[1.75rem] leading-none"
-                  >
-                    +
-                  </span>
-                </summary>
-                <div className="px-5 sm:px-6 pb-5 sm:pb-6">
-                  <div className="pt-4 border-t border-line">
-                    <p className="text-sm sm:text-base text-muted leading-relaxed">
-                      {faq.a}
-                    </p>
+
+          <div className="lg:col-span-8 max-w-3xl mx-auto lg:mx-0 w-full">
+            <div className="space-y-5 sm:space-y-6">
+              {faqs.map((faq, index) => (
+                <details
+                  key={`faq-${index}`}
+                  className="group rounded-xl border border-line bg-white overflow-hidden transition-all duration-200 open:shadow-card"
+                  {...(index === 0 ? { open: true } : {})}
+                >
+                  <summary className="flex items-center justify-between gap-4 p-5 sm:p-6 cursor-pointer font-semibold text-base sm:text-lg text-primary group-open:text-accent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-white list-none">
+                    <span className="pr-4">{faq.q}</span>
+                    <span
+                      aria-hidden="true"
+                      className="shrink-0 w-8 h-8 flex items-center justify-center rounded-lg bg-primary-50 text-crimson transition-transform duration-200 group-open:rotate-45 font-heading text-[1.75rem] leading-none"
+                    >
+                      +
+                    </span>
+                  </summary>
+                  <div className="px-5 sm:px-6 pb-5 sm:pb-6">
+                    <div className="pt-4 border-t border-line">
+                      <p className="text-sm sm:text-base text-muted leading-relaxed">
+                        {faq.a}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </details>
-            ))}
+                </details>
+              ))}
+            </div>
           </div>
         </div>
       </div>

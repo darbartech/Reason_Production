@@ -19,6 +19,7 @@ import EnquirySuccess from "./EnquirySuccess";
 
 interface EnquiryFormProps {
   sourcePage?: string;
+  prefill?: Partial<EnquiryFormData>;
 }
 
 type Step = 1 | 2 | "success";
@@ -66,7 +67,7 @@ const captureUtm = () => {
   return meta;
 };
 
-const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
+const EnquiryForm = ({ sourcePage: propSource, prefill }: EnquiryFormProps) => {
   const [step, setStep] = useState<Step>(1);
   const [meta, setMeta] = useState<Partial<EnquiryFormData>>({});
   const [turnstileToken, setTurnstileToken] = useState("");
@@ -104,6 +105,15 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
   }, [propSource]);
 
   useEffect(() => {
+    if (!prefill) return;
+    (Object.keys(prefill) as (keyof EnquiryFormData)[]).forEach((key) => {
+      const value = prefill[key];
+      if (typeof value === "string" && value) setValue(key, value);
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prefill]);
+
+  useEffect(() => {
     if (!TURNSTILE_SITE_KEY || step !== 2 || !turnstileReady) return;
     const el = turnstileRef.current;
     if (!el || !window.turnstile) return;
@@ -125,7 +135,7 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
 
   const handleContinue = async () => {
     setSubmitAttempted(true);
-    const step1Fields = Object.keys(enquiryStep1Schema.shape) as (keyof EnquiryStep1)[];
+    const step1Fields = ["fullName", "phone", "preferredDestination"] as const;
     // shouldFocus lets react-hook-form focus the first invalid field itself,
     // using the errors it just produced rather than the previous render's.
     const isValid = await trigger(step1Fields, { shouldFocus: true });
@@ -221,43 +231,23 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
         <>
           {/* Step indicator */}
           <div className="mb-8">
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex items-center gap-4">
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                    step >= 1
-                      ? "bg-accent text-white"
-                      : "bg-brand-light-bg text-brand-text-muted border border-brand-border"
-                  }`}
-                >
-                  1
-                </div>
-                <div className="text-sm font-bold text-ink tracking-wide">
-                  Step {step} of 2
-                </div>
-                <div
-                  className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold transition-colors ${
-                    step >= 2
-                      ? "bg-accent text-white"
-                      : "bg-brand-light-bg text-brand-text-muted border border-brand-border"
-                  }`}
-                >
-                  2
-                </div>
+            <div className="flex items-center justify-between mb-4">
+              <div className="text-sm font-bold text-ink tracking-wide">
+              Step {step} of 2 · {step === 1 ? "Personal details" : "Academic profile"}
               </div>
+            </div>
+            <div
+              className="h-1 w-full rounded-full bg-brand-light-bg overflow-hidden mb-5"
+              role="progressbar"
+              aria-valuenow={step}
+              aria-valuemin={1}
+              aria-valuemax={2}
+              aria-label="Enquiry form progress"
+            >
               <div
-                className="h-2 flex-1 max-w-[160px] ml-6 rounded-full bg-brand-light-bg overflow-hidden"
-                role="progressbar"
-                aria-valuenow={step}
-                aria-valuemin={1}
-                aria-valuemax={2}
-                aria-label="Enquiry form progress"
-              >
-                <div
-                  className="h-full bg-accent transition-all duration-300"
-                  style={{ width: step === 1 ? "50%" : "100%" }}
-                />
-              </div>
+                className="h-full bg-accent transition-all duration-300"
+                style={{ width: step === 1 ? "50%" : "100%" }}
+              />
             </div>
             <h3 className="text-primary">
               {step === 1 ? "Let's Start Your Study Assessment" : "Your Academic Profile"}
@@ -278,7 +268,7 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
               <div
                 role="alert"
                 tabIndex={-1}
-                className="p-4 rounded-xl border border-red-300 bg-red-50 text-red-800 space-y-3"
+                className="p-4 rounded-xl border border-crimson/30 bg-crimson-50 text-crimson space-y-3"
               >
                 <p className="font-bold text-sm">
                   Please fix the following {errorEntries.length > 1 ? "errors" : "error"}:
@@ -288,7 +278,7 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
                     <li key={key}>
                       <a
                         href={`#${key}`}
-                        className="underline hover:text-red-900 focus:outline-none focus:ring-2 focus:ring-red-400 rounded"
+                        className="underline hover:text-crimson-dark focus:outline-none focus:ring-2 focus:ring-crimson rounded"
                       >
                         {(val as { message?: string })?.message || key}
                       </a>
@@ -361,7 +351,7 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
                   onClick={handleContinue}
                   className="btn-primary inline-flex items-center gap-2 px-8"
                 >
-                  Continue
+                  Continue to profile
                   <ArrowRight size={18} />
                 </button>
               ) : (

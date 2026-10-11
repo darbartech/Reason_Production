@@ -1,10 +1,13 @@
 "use client";
 
+import { Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { Phone, Mail, MapPin, MessageCircle, Clock, ArrowRight } from "lucide-react";
 import EnquiryForm from "@/components/enquiry/EnquiryForm";
 import PageHero from "@/components/PageHero";
 import Link from "next/link";
 import { company, whatsappLink } from "@/lib/company";
+import type { EnquiryFormData } from "@/lib/validations/enquiry";
 
 const socials = [
   ...(company.social.facebook
@@ -22,19 +25,53 @@ const googleMapsDirections = `https://www.google.com/maps/dir/?api=1&destination
   `${company.address.street}, ${company.address.city}, ${company.address.country}`
 )}`;
 
+const googleMapsSearch = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+  `${company.address.street}, ${company.address.city}, ${company.address.country}`
+)}`;
+
+const EnquiryFormPrefill = () => {
+  const params = useSearchParams();
+  const prefill: Partial<EnquiryFormData> = {
+    fullName: params.get("fullName") ?? undefined,
+    phone: params.get("phone") ?? undefined,
+    preferredDestination: (params.get("preferredDestination") ?? undefined) as
+      | EnquiryFormData["preferredDestination"]
+      | undefined,
+  };
+
+  return <EnquiryForm sourcePage="/contact" prefill={prefill} />;
+};
+
 const ContactClient = () => {
   return (
     <div className="bg-white">
       <PageHero
+        variant="compact"
         crumbs={[{ name: "Contact" }]}
+        eyebrow="Visit or get in touch"
         title="Contact and visit our office"
         intro="Book a free counselling session at New Baneshwor, or reach us through phone, WhatsApp or email — whichever is easier."
+        actions={
+          <>
+            <Link href="#enquiry" className="btn-primary btn-lg w-full sm:w-auto">
+              Send an enquiry
+              <ArrowRight size={18} aria-hidden="true" />
+            </Link>
+            <a
+              href={`tel:${company.phoneTel}`}
+              className="btn-secondary btn-lg w-full sm:w-auto"
+            >
+              <Phone size={16} aria-hidden="true" />
+              Call {company.phoneDisplay}
+            </a>
+          </>
+        }
       />
 
       <section className="section-padding">
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
-            <div className="space-y-10">
+            <div className="space-y-10 order-2 lg:order-1">
               <div className="space-y-4">
                 <h2 className="text-primary">Get in touch</h2>
                 <p className="text-lg text-primary/60 font-medium leading-relaxed">
@@ -123,11 +160,41 @@ const ContactClient = () => {
                     </a>
                   </div>
                 </div>
+
+                <div className="overflow-hidden rounded-xl border border-brand-border card-hover">
+                  <a
+                    href={googleMapsSearch}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block relative"
+                  >
+                    <div className="h-48 w-full bg-paper hero-grid text-primary/20 relative">
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="rounded-lg bg-white/95 px-5 py-3 shadow-card border border-line flex flex-col items-center">
+                          <MapPin size={18} className="text-accent" aria-hidden="true" />
+                        </div>
+                      </div>
+                    </div>
+                    <div className="bg-white p-5 border-t border-brand-border flex items-center justify-between">
+                      <div>
+                        <p className="text-sm font-semibold text-primary">
+                          {company.displayName} — Office Map
+                        </p>
+                        <p className="text-sm text-muted mt-0.5">
+                          {company.address.street}, {company.address.city}
+                        </p>
+                      </div>
+                      <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-accent">
+                        View map <ArrowRight size={14} aria-hidden="true" />
+                      </span>
+                    </div>
+                  </a>
+                </div>
               </div>
 
               {socials.length > 0 && (
                 <div className="pt-8 border-t border-brand-border">
-                  <h4 className="text-primary/40 uppercase tracking-[0.2em] mb-5 text-xs font-bold">
+                  <h4 className="text-muted uppercase tracking-[0.2em] mb-5 text-sm font-bold">
                     Follow us
                   </h4>
                   <div className="flex flex-wrap gap-3">
@@ -148,37 +215,78 @@ const ContactClient = () => {
               )}
             </div>
 
-            <div>
-              <div className="bg-white p-6 md:p-8 rounded-xl border border-brand-border shadow-md">
-                <EnquiryForm sourcePage="/contact" />
-                <p className="mt-5 text-xs text-muted leading-relaxed">
-                  We use your details only to contact you about your enquiry. Read
-                  our{" "}
-                  <Link
-                    href="/privacy" className="underline hover:text-accent">
-                    privacy policy
-                  </Link>
-                  .
-                </p>
-              </div>
+            <div id="enquiry" className="order-1 lg:order-2">
+              <h2 className="text-primary mb-6">Send us an enquiry</h2>
+              <Suspense fallback={<div className="card p-10 text-center text-muted">Loading form…</div>}>
+                <div className="card shadow-card p-6 md:p-8">
+                  <EnquiryFormPrefill />
+                  <p className="mt-5 text-sm text-muted leading-relaxed">
+                    We use your details only to contact you about your enquiry. Read
+                    our{" "}
+                    <Link
+                      href="/privacy" className="underline hover:text-accent">
+                      privacy policy
+                    </Link>
+                    .
+                  </p>
+                </div>
+              </Suspense>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="w-full h-[360px] w-full border-t border-brand-border">
-        <iframe
-          src={`https://www.google.com/maps?q=${encodeURIComponent(
-          `${company.address.street}, ${company.address.city}`
-        )}&output=embed`}
-          width="100%"
-          height="100%"
-          style={{ border: 0 }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title={`${company.displayName} office location`}
-        />
+      <section className="w-full border-t border-brand-border bg-brand-light-bg">
+        <div className="container-custom py-12">
+          <div className="max-w-4xl mx-auto overflow-hidden rounded-xl border border-brand-border shadow-md">
+            <a
+              href={googleMapsSearch}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="block relative group"
+            >
+              <div className="h-80 w-full bg-paper hero-grid text-primary/20 relative">
+                <div className="absolute inset-0 flex flex-col items-center justify-center">
+                  <div className="rounded-lg bg-white/95 px-5 py-3 shadow-card border border-line flex flex-col items-center mb-5">
+                    <MapPin size={18} className="text-accent" aria-hidden="true" />
+                  </div>
+                  <div className="bg-white px-6 py-3 rounded-xl shadow-card text-center">
+                    <p className="font-bold text-primary">{company.displayName}</p>
+                    <p className="text-sm text-primary/70 mt-1">
+                      {company.address.street}, {company.address.city}, {company.address.country}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="bg-white p-6 md:p-8 border-t border-brand-border flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div className="text-center sm:text-left">
+                  <h3 className="text-lg font-bold text-primary">Find us on Google Maps</h3>
+                  <p className="text-sm text-primary/60 mt-1">
+                    {company.hours.label} · {company.phoneDisplay}
+                  </p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-3">
+                  <a
+                    href={googleMapsDirections}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-accent text-white font-semibold hover:bg-accent/90 transition-colors duration-200"
+                  >
+                    Get directions <ArrowRight size={16} aria-hidden="true" />
+                  </a>
+                  <a
+                    href={googleMapsSearch}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-lg bg-brand-light-bg border border-brand-border text-primary font-semibold hover:bg-primary hover:text-white transition-colors duration-200"
+                  >
+                    Open in Maps
+                  </a>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
       </section>
     </div>
   );

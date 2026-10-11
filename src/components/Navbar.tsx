@@ -141,6 +141,7 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     href={link.href}
+                    aria-current={isActive(link.href) ? "page" : undefined}
                     className={`relative px-3 py-2 text-[0.9375rem] font-medium transition-colors ${
                       isActive(link.href)
                         ? "text-primary after:absolute after:inset-x-3 after:-bottom-2 after:h-0.5 after:bg-crimson"
@@ -226,14 +227,15 @@ const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
+                aria-current={isActive(link.href) ? "page" : undefined}
                 className={`flex items-center justify-between px-5 py-4 rounded-xl transition-colors ${
                   isActive(link.href)
-                    ? "bg-accent/10 text-accent"
+                    ? "bg-crimson/5 text-crimson"
                     : "text-primary hover:bg-primary-50"
                 }`}
               >
                 <span className="text-lg font-semibold">{link.name}</span>
-                <ChevronRight size={18} className={isActive(link.href) ? "text-accent" : "text-primary-300"} />
+                <ChevronRight size={18} className={isActive(link.href) ? "text-crimson" : "text-primary-300"} />
               </Link>
             ))}
             <Link
@@ -268,7 +270,7 @@ const Navbar = () => {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 py-4 rounded-xl bg-primary-50 text-primary font-semibold hover:bg-green-50 hover:text-green-700 transition-colors border border-brand-border"
+                className="flex items-center justify-center gap-2 py-4 rounded-xl bg-primary-50 text-primary font-semibold hover:bg-[#1A7F37]/10 hover:text-[#1A7F37] transition-colors border border-brand-border"
                 aria-label="WhatsApp"
               >
                 <MessageCircle size={18} />

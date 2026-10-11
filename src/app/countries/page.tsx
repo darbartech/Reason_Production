@@ -1,8 +1,9 @@
+import Link from "next/link";
 import CountryCard from "@/components/CountryCard";
 import CTA from "@/components/CTA";
 import PageHero from "@/components/PageHero";
 import SectionHeader from "@/components/SectionHeader";
-import { HelpCircle, GraduationCap, MapPin, Globe } from "lucide-react";
+import { HelpCircle, GraduationCap, MapPin, Globe, ArrowRight } from "lucide-react";
 import { company } from "@/lib/company";
 import { buildMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/Schema";
@@ -45,9 +46,21 @@ export default function CountriesPage() {
     <div className="bg-white">
       <Breadcrumbs items={[{ name: "Countries", path: "/countries" }]} />
       <PageHero
+        variant="editorial"
         crumbs={[{ name: "Countries" }]}
+        eyebrow="Destinations"
         title="Study Destinations for Nepali Students"
         intro="Compare 7 popular destinations — intakes, tuition ranges and visa paths — then book a free session to build a shortlist that fits your profile and budget."
+        actions={
+          <Link href="/contact" className="btn-primary btn-lg group w-full sm:w-auto">
+            Book a free session
+            <ArrowRight
+              size={18}
+              className="transition-transform group-hover:translate-x-0.5"
+              aria-hidden="true"
+            />
+          </Link>
+        }
       />
 
       <section className="section-padding">
