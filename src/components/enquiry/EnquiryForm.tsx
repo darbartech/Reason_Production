@@ -198,6 +198,27 @@ const EnquiryForm = ({ sourcePage: propSource, prefill }: EnquiryFormProps) => {
     focusFirstError();
   };
 
+  // Enter inside a text field must never submit or reload the page — it
+  // advances focus to the next visible field instead.
+  const handleFormKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (e.key !== "Enter") return;
+    const target = e.target as HTMLElement;
+    if (target.tagName !== "INPUT") return;
+    e.preventDefault();
+    const fields = Array.from(
+      e.currentTarget.querySelectorAll<HTMLElement>(
+        'input:not([type="hidden"]), select, textarea'
+      )
+    ).filter((el) => !el.hidden && !el.closest('[aria-hidden="true"]'));
+    const i = fields.indexOf(target);
+    if (i === -1) return;
+    if (i < fields.length - 1) {
+      fields[i + 1].focus();
+    } else if (step === 1) {
+      handleContinue();
+    }
+  };
+
   const handleReset = () => {
     reset();
     setTurnstileToken("");
@@ -261,6 +282,7 @@ const EnquiryForm = ({ sourcePage: propSource, prefill }: EnquiryFormProps) => {
 
           <form
             onSubmit={handleSubmit(onSubmit as Parameters<typeof handleSubmit>[0], onInvalid)}
+            onKeyDown={handleFormKeyDown}
             className="space-y-5"
             noValidate
           >

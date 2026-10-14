@@ -96,7 +96,8 @@ const Navbar = () => {
     setIsOpen(false);
   }, [pathname]);
 
-  const isActive = (path: string) => pathname === path;
+  const isActive = (path: string) =>
+    pathname === path || pathname.startsWith(path + "/");
 
   return (
     <>
@@ -142,7 +143,7 @@ const Navbar = () => {
                     key={link.name}
                     href={link.href}
                     aria-current={isActive(link.href) ? "page" : undefined}
-                    className={`relative px-3 py-2 text-[0.9375rem] font-medium transition-colors ${
+                    className={`relative px-3 py-2 text-sm font-medium transition-colors ${
                       isActive(link.href)
                         ? "text-primary after:absolute after:inset-x-3 after:-bottom-2 after:h-0.5 after:bg-crimson"
                         : "text-primary/80 hover:text-primary"
@@ -153,7 +154,13 @@ const Navbar = () => {
                 ))}
 
                 <div className="ml-4">
-                  <Link href="/contact" className="btn-primary h-10 px-5 text-sm">
+                  <Link
+                    href="/contact"
+                    aria-current={isActive("/contact") ? "page" : undefined}
+                    className={`btn-primary h-10 px-5 text-sm ${
+                      isActive("/contact") ? "brightness-95" : ""
+                    }`}
+                  >
                     Free counselling
                   </Link>
                 </div>

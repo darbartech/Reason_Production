@@ -25,12 +25,13 @@ const EnquirySuccess = ({ onReset }: EnquirySuccessProps) => {
         What happens next: A counsellor will call you within one working day (Sunday–Friday, 10&nbsp;am–5&nbsp;pm) to discuss suitable options. If we can&apos;t reach you by phone, we&apos;ll send a WhatsApp message.
       </p>
 
-      <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+      {/* One knob: max-w-sm keeps the three actions stacked, one per row. */}
+      <div className="mx-auto flex w-full max-w-sm flex-col items-stretch gap-3">
         <a
           href={whatsappLink("Hello Reasons Education, I just submitted my study assessment profile.")}
           target="_blank"
           rel="noopener noreferrer"
-          className="btn-whatsapp btn-lg w-full sm:w-auto"
+          className="btn-whatsapp btn-lg w-full"
         >
           <MessageCircle size={20} />
           Talk on WhatsApp
@@ -40,7 +41,7 @@ const EnquirySuccess = ({ onReset }: EnquirySuccessProps) => {
           href={mapsLink}
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 w-full sm:w-auto btn-outline"
+          className="inline-flex items-center justify-center gap-2 w-full btn-outline"
         >
           <MapPin size={20} />
           Get directions to our office
@@ -49,7 +50,7 @@ const EnquirySuccess = ({ onReset }: EnquirySuccessProps) => {
         <Link
           href="/"
           onClick={onReset}
-          className="inline-flex items-center justify-center gap-2 w-full sm:w-auto btn-outline"
+          className="inline-flex items-center justify-center gap-2 w-full btn-outline"
         >
           <ArrowLeft size={20} />
           Return to Website

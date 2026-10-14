@@ -6,7 +6,8 @@ export default function robots(): MetadataRoute.Robots {
     rules: {
       userAgent: "*",
       allow: "/",
-      disallow: ["/admin/", "/api/"],
+      // The staff portal is deliberately absent from robots.txt so its path is not advertised.
+      disallow: ["/api/"],
     },
     sitemap: `${company.url}/sitemap.xml`,
   };

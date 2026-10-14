@@ -27,6 +27,12 @@ type Props = {
   badge?: Badge;
   chips?: Chip[];
   variant?: Variant;
+  /** Tailwind max-w class for the compact/editorial text column, e.g. "max-w-4xl". */
+  contentMaxWidth?: string;
+  /** Tailwind max-w class replacing the shared container's max-w-content (1200px). */
+  containerMaxWidth?: string;
+  /** Tailwind px classes for the hero container's side padding. */
+  containerPadding?: string;
   /** Transparent HD cutout subject (preferred over `image`). */
   subject?: Subject;
   /** Primary/secondary calls to action, rendered directly under the intro. */
@@ -46,6 +52,9 @@ export default function PageHero({
   badge,
   chips = [],
   variant,
+  contentMaxWidth,
+  containerMaxWidth,
+  containerPadding = "px-5 sm:px-8 lg:px-10",
   subject,
   actions,
 }: Props) {
@@ -223,7 +232,7 @@ export default function PageHero({
     effective === "editorial"
       ? "max-w-2xl"
       : effective === "compact"
-      ? "max-w-3xl"
+      ? contentMaxWidth ?? "max-w-3xl"
       : undefined;
 
   const copyCols = hasSubject ? "lg:col-span-6" : "lg:col-span-7";
@@ -231,7 +240,7 @@ export default function PageHero({
 
   return (
     <section className={sectionClasses}>
-      <div className="container-custom">
+      <div className={`mx-auto w-full ${containerPadding} ${containerMaxWidth ?? "max-w-content"}`}>
         {crumbs.length > 0 && (
           <nav aria-label="Breadcrumb" className={`${crumbClasses} mb-6`}>
             <ol className="flex flex-wrap items-center gap-2">

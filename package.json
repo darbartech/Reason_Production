@@ -19,7 +19,7 @@
     "clsx": "^2.1.0",
     "express": "^5.2.1",
     "lucide-react": "^0.330.0",
-    "next": "^14.2.35",
+    "next": "^16.4.0",
     "pg": "^8.23.1",
     "react": "^18",
     "react-dom": "^18",
@@ -36,9 +36,9 @@
     "@types/sanitize-html": "^2.11.0",
     "autoprefixer": "^10.4.17",
     "eslint": "^8",
-    "eslint-config-next": "^14.2.35",
+    "eslint-config-next": "^16.4.0",
     "postcss": "^8",
-    "tailwindcss": "^3.3.0",
+    "tailwindcss": "^3.4.19",
     "typescript": "^5"
   }
 }

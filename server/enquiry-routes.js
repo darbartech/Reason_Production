@@ -153,6 +153,21 @@ router.post('/enquiries', allowedOrigin, limiter, async (req, res) => {
     );
     if (dup.rowCount) return res.status(200).json({ success: true, leadNumber: dup.rows[0].lead_number });
 
+    // Unique email: one enquiry per mail address, ever. Reject instead of creating a 2nd lead.
+    if (d.email) {
+      const dupEmail = await query(
+        `SELECT lead_number FROM student_enquiries WHERE lower(btrim(email)) = lower($1) LIMIT 1`,
+        [d.email]
+      );
+      if (dupEmail.rowCount) {
+        return res.status(409).json({
+          success: false,
+          emailTaken: true,
+          message: 'This email has already been used for an enquiry. Each email address can submit once — our counsellors already have your details.',
+        });
+      }
+    }
+
     const inserted = await tx(async (c) => {
       const { rows } = await c.query(
         `INSERT INTO student_enquiries (
@@ -174,6 +189,14 @@ router.post('/enquiries', allowedOrigin, limiter, async (req, res) => {
 
     return res.status(201).json({ success: true, leadNumber: inserted.lead_number });
   } catch (err) {
+    if (err.code === '23505' && err.constraint === 'enquiries_email_unique_idx') {
+      // Race between the pre-check and the insert: the unique email index caught it.
+      return res.status(409).json({
+        success: false,
+        emailTaken: true,
+        message: 'This email has already been used for an enquiry. Each email address can submit once — our counsellors already have your details.',
+      });
+    }
     if (err.code === '23505') {
       // Fingerprint or lead_number collision: treat as duplicate, don't show error to the user.
       // Look up the existing lead number by fingerprint so the UI always gets a consistent value.

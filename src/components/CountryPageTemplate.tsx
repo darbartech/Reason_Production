@@ -159,6 +159,7 @@ const CountryPageTemplate = ({
     <div className="bg-white">
       <PageHero
         variant="compact"
+        containerMaxWidth="max-w-[1400px]"
         crumbs={[
           { name: "Countries", href: "/countries" },
           { name: country },
@@ -218,7 +219,7 @@ const CountryPageTemplate = ({
         aria-label="Page sections"
         className="sticky top-[68px] z-30 bg-white/95 backdrop-blur border-b border-line"
       >
-        <div className="container-custom">
+        <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-10">
           <div className="lg:hidden -mx-5 px-5 overflow-x-auto snap-x snap-mandatory hide-scrollbar">
             <div className="flex gap-2 w-max py-3">
               {tabs.map((tab) => (
@@ -257,10 +258,10 @@ const CountryPageTemplate = ({
       </nav>
 
       <section className="section-padding">
-        <div className="container-custom">
+        <div className="mx-auto w-full max-w-[1400px] px-5 sm:px-8 lg:px-10">
           <div id="overview" className="scroll-mt-[140px]" />
           <div className="lg:grid lg:grid-cols-12 lg:gap-8 lg:gap-x-12">
-            <div className="lg:col-span-8 space-y-14 lg:space-y-20">
+            <div className="lg:col-span-9 space-y-14 lg:space-y-20">
               <SectionWrapper
                 id="requirements"
                 eyebrow="Admission requirements"
@@ -472,7 +473,7 @@ const CountryPageTemplate = ({
               </SectionWrapper>
             </div>
 
-            <aside className="lg:col-span-4 mt-12 lg:mt-0">
+            <aside className="lg:col-span-3 mt-12 lg:mt-0">
               <div className="sticky top-28 lg:top-[140px] space-y-5">
                 <div className="surface-dark p-6 sm:p-7 rounded-xl text-white shadow-card">
                   <h3 className="eyebrow !text-on-dark-link mb-5">Quick facts</h3>

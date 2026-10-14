@@ -49,7 +49,7 @@ export default function AdminEnquiriesPage() {
   useEffect(() => {
     if (!filters) return;
     const q = toQuery(filters, page);
-    window.history.replaceState(null, "", `/admin/enquiries${q ? `?${q}` : ""}`);
+    window.history.replaceState(null, "", `/portal/admin_access/enquiries${q ? `?${q}` : ""}`);
     const mine = ++reqId.current;
     setLoading(true);
     const t = setTimeout(() => {

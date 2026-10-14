@@ -101,6 +101,11 @@ ALTER TABLE IF EXISTS student_enquiries DROP COLUMN IF EXISTS stage;
 ALTER TABLE student_enquiries ADD COLUMN IF NOT EXISTS fingerprint text;
 CREATE UNIQUE INDEX IF NOT EXISTS enquiries_fingerprint_idx ON student_enquiries(fingerprint) WHERE fingerprint IS NOT NULL;
 
+-- One enquiry per email address: the website form must never create a second lead for the same mail.
+CREATE UNIQUE INDEX IF NOT EXISTS enquiries_email_unique_idx
+  ON student_enquiries(lower(btrim(email)))
+  WHERE email IS NOT NULL AND btrim(email) <> '';
+
 -- updated_at trigger so updates actually update themselves on every row UPDATE.
 CREATE OR REPLACE FUNCTION set_updated_at() RETURNS trigger AS $$
 BEGIN

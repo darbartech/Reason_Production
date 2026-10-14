@@ -4,14 +4,14 @@ import { usePathname } from "next/navigation";
 import { LayoutDashboard, Users } from "lucide-react";
 
 const ITEMS = [
-  { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/admin/enquiries", label: "Enquiries", icon: Users },
+  { href: "/portal/admin_access", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/portal/admin_access/enquiries", label: "Enquiries", icon: Users },
 ];
 
 // Plain <a> links on purpose: admin pages are served per-request behind the session check.
 export default function AdminSidebar() {
   const pathname = (usePathname() || "").replace(/\/$/, "");
-  const active = (href: string) => (href === "/admin" ? pathname === "/admin" : pathname.startsWith(href));
+  const active = (href: string) => (href === "/portal/admin_access" ? pathname === "/portal/admin_access" : pathname.startsWith(href));
 
   return (
     <aside className="bg-primary text-white md:w-56 md:min-h-screen md:fixed md:inset-y-0 md:left-0 flex md:flex-col">

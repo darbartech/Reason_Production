@@ -59,7 +59,7 @@ app.use('/api', (req, res) => {
 });
 
 // Admin UI pages (Phase 4): HTML is only served to signed-in users.
-// Must stay BEFORE express.static so out/admin*.html is never served publicly.
+// Must stay BEFORE express.static so out/portal/admin_access*.html is never served publicly.
 app.use(adminPages);
 
 // Serve static files from the out directory (extensions: ['html'] lets /contact
