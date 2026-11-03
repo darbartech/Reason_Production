@@ -126,6 +126,24 @@ export interface Analytics {
   dueNow: Enquiry[];
 }
 
+export interface StaffUser {
+  id: string;
+  email: string;
+  name: string;
+  role: Role;
+  active: boolean;
+  createdAt: string;
+  lastLoginAt: string | null;
+}
+
+export interface StaffUserInput {
+  name: string;
+  role: Role;
+  active?: boolean;
+  email?: string;
+  password?: string;
+}
+
 export class ApiError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -149,7 +167,7 @@ export function goToLogin() {
 
 export async function api<T>(
   path: string,
-  init: { method?: string; body?: unknown; redirectOn401?: boolean } = {}
+  init: { method?: string; body?: unknown; redirectOn401?: boolean; csrf?: boolean } = {}
 ): Promise<T> {
   const method = (init.method ?? "GET").toUpperCase();
 
@@ -159,7 +177,8 @@ export async function api<T>(
     headers["Content-Type"] = "application/json";
   }
 
-  if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
+  // Login and logout are exempt from CSRF on the server, and no token exists yet while signing in.
+  if (init.csrf !== false && !["GET", "HEAD", "OPTIONS"].includes(method)) {
     if (!csrfToken) {
       throw new ApiError(
         "Security token is missing. Please refresh the page and sign in again.",

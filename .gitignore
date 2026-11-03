@@ -12,3 +12,8 @@ build
 *.zip
 *.tsbuildinfo
 raw-images
+src-photos
+.lighthouseci
+lighthouse-report*
+# Real enquiries and staff accounts — never commit a data dump.
+db/data.sql

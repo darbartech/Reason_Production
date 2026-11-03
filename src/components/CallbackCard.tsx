@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { ArrowRight } from "lucide-react";
 import { PREFERRED_DESTINATIONS } from "@/lib/validations/enquiry";
+import { saveHandoff } from "@/lib/callback-handoff";
 
 type Props = {
   defaultDestination?: (typeof PREFERRED_DESTINATIONS)[number];
@@ -22,13 +23,13 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
   const validate = () => {
     const next: Record<string, string> = {};
     if (!fullName.trim() || fullName.trim().length < 2) {
-      next.fullName = "Please enter your full name";
+      next.fullName = "Please enter your name.";
     }
     if (!phone.trim() || phone.trim().length < 7) {
-      next.phone = "Please enter a valid phone number";
+      next.phone = "Please enter a phone number we can call.";
     }
     if (!preferredDestination) {
-      next.preferredDestination = "Please select a preferred destination";
+      next.preferredDestination = 'Please choose a country, or "Not sure yet".';
     }
     setErrors(next);
     return Object.keys(next).length === 0;
@@ -37,12 +38,8 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    const params = new URLSearchParams({
-      fullName,
-      phone,
-      preferredDestination,
-    });
-    router.push(`/contact?${params.toString()}#enquiry`);
+    saveHandoff({ fullName, phone, preferredDestination });
+    router.push("/contact#enquiry");
   };
 
   return (
@@ -51,9 +48,11 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
       className={`card shadow-lift ${compact ? "p-5" : "p-6 sm:p-8"} bg-white`}
     >
       <div className="mb-5">
-        <h3 className="text-primary">Book a free counselling session</h3>
+        <h2 className="font-sans text-[1.125rem] font-semibold leading-snug text-primary">
+          Book a free session
+        </h2>
         <p className="mt-1.5 text-sm text-muted">
-          Three fields. We'll reply within one working day.
+          Name, phone and country. That&apos;s all we need.
         </p>
       </div>
 
@@ -63,7 +62,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
             htmlFor="cb-fullname"
             className="block mb-1.5 text-[0.875rem] font-medium text-primary"
           >
-            Your full name
+            Full name
           </label>
           <input
             id="cb-fullname"
@@ -89,7 +88,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
             htmlFor="cb-phone"
             className="block mb-1.5 text-[0.875rem] font-medium text-primary"
           >
-            Phone number
+            Phone (98XXXXXXXX)
           </label>
           <input
             id="cb-phone"
@@ -115,7 +114,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
             htmlFor="cb-destination"
             className="block mb-1.5 text-[0.875rem] font-medium text-primary"
           >
-            Preferred destination
+            Where would you like to study?
           </label>
           <select
             id="cb-destination"
@@ -125,7 +124,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
             aria-describedby={errors.preferredDestination ? "cb-dest-err" : undefined}
             className="w-full h-12 px-4 text-[1rem] rounded-lg border border-line bg-white text-primary focus:outline-none focus:ring-2 focus:ring-accent focus:border-accent transition-colors"
           >
-            <option value="">Select a destination</option>
+            <option value="">Select a country</option>
             {PREFERRED_DESTINATIONS.map((d) => (
               <option key={d} value={d}>
                 {d}
@@ -146,7 +145,7 @@ export default function CallbackCard({ defaultDestination, compact }: Props) {
       </button>
 
       <p className="mt-3 text-center text-xs text-muted">
-        No charge for the first session. We'll confirm by call or WhatsApp.
+        Free first session. We confirm by call or WhatsApp.
       </p>
     </form>
   );

@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Newsreader, Hanken_Grotesk } from "next/font/google";
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
@@ -16,7 +16,6 @@ const heading = Newsreader({
   variable: "--font-heading",
   style: ["normal", "italic"],
   axes: ["opsz"],
-  adjustFontFallback: false,
 });
 
 const body = Hanken_Grotesk({
@@ -57,9 +56,19 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/logo/favicon.png",
+    icon: [
+      { url: "/logo/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo/favicon-192.png", sizes: "192x192", type: "image/png" },
+    ],
     apple: "/logo/apple-touch-icon.png",
   },
+
+  manifest: "/manifest.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#071A33",
+  colorScheme: "light",
 };
 
 export default function RootLayout({

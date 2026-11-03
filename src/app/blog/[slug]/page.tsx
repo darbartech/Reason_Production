@@ -27,7 +27,7 @@ export function generateMetadata({ params }: BlogPostPageProps): Metadata {
   const url = `${company.url}/blog/${post.slug}`;
 
   return {
-    title: post.title,
+    title: { absolute: post.title },
     description: post.excerpt,
     alternates: { canonical: url },
     openGraph: {
@@ -64,9 +64,10 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
     description: post.excerpt,
     image: `${company.url}${post.image.src}`,
     author: { "@type": "Person", name: post.author },
+    reviewedBy: { "@type": "Person", name: post.reviewedBy },
     publisher: { "@id": `${company.url}/#organization` },
     datePublished: post.dateISO,
-    dateModified: post.dateISO,
+    dateModified: post.checkedISO,
     articleSection: post.category,
     mainEntityOfPage: { "@type": "WebPage", "@id": url },
   };
@@ -83,7 +84,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
       <JsonLd data={articleSchema} />
       <Breadcrumbs items={[{ name: "Blog", path: "/blog" }, { name: post.title, path: `/blog/${post.slug}` }]} />
 
-      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white relative overflow-hidden">
+      <section className="bg-primary pt-10 pb-12 lg:pt-14 lg:pb-16 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/4 h-full bg-accent/5 -skew-x-12 translate-x-1/2" aria-hidden="true" />
         <div className="container-custom relative z-10">
           <div className="mx-auto max-w-3xl text-center">
@@ -94,7 +95,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               <ArrowLeft className="mr-2" size={18} aria-hidden="true" /> All articles
             </Link>
 
-            <h1 className="text-white mb-6 text-balance">{post.title}</h1>
+            <h1 className="text-white mb-6 text-balance text-[clamp(2.35rem,1.4rem+2.8vw,3.75rem)]">{post.title}</h1>
 
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-white/60 font-bold uppercase tracking-widest">
               <span className="inline-flex items-center">
@@ -106,6 +107,9 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
               </span>
               <span className="inline-flex items-center">
                 <Tag size={16} className="mr-1.5 text-accent-light" aria-hidden="true" /> {post.category}
+              </span>
+              <span className="inline-flex items-center">
+                Checked {post.checkedDate}
               </span>
             </div>
           </div>
@@ -145,6 +149,15 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                 ))}
               </div>
             </div>
+
+            <div className="mb-8 rounded-2xl border border-line bg-paper p-6 sm:p-7">
+              <p className="eyebrow mb-2">Quick answer</p>
+              <p className="text-ink leading-relaxed">{post.quickAnswer}</p>
+            </div>
+
+            <p className="mb-8 text-sm text-muted">
+              By {post.author} · Reviewed on {post.checkedDate}.
+            </p>
 
             <div className="blog-body" dangerouslySetInnerHTML={{ __html: content }} />
           </div>

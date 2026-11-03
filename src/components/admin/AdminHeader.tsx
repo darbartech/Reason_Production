@@ -10,7 +10,7 @@ export default function AdminHeader({ user, title }: { user: AdminUser; title: s
   const logout = async () => {
     setBusy(true);
     try {
-      await api("/auth/logout", { method: "POST", body: {}, redirectOn401: false });
+      await api("/auth/logout", { method: "POST", body: {}, redirectOn401: false, csrf: false });
     } catch {
       /* session may already be gone */
     }

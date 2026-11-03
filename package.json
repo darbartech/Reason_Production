@@ -5,13 +5,17 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "images": "node scripts/build-images.mjs",
+    "og": "node scripts/build-og.mjs",
+    "prebuild": "node scripts/build-brand-assets.mjs && node scripts/build-images.mjs && node scripts/build-og.mjs",
     "start": "next start",
     "lint": "next lint",
     "typecheck": "tsc --noEmit",
     "serve": "node server.js",
     "db:migrate": "node server/migrate.js",
+    "db:export": "node scripts/export-db.mjs",
     "admin:create": "node server/create-admin.js",
-    "dev:api": "node --watch server.js"
+    "dev:api": "node --watch-path=server --watch-path=server.js server.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
@@ -38,6 +42,7 @@
     "eslint": "^8",
     "eslint-config-next": "^14.2.35",
     "postcss": "^8",
+    "sharp": "^0.35.5",
     "tailwindcss": "^3.3.0",
     "typescript": "^5"
   }

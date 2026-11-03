@@ -8,6 +8,7 @@ interface BlogCardProps {
   excerpt: string;
   category: string;
   date: string;
+  checkedDate: string;
   author: string;
   image: {
     src: string;
@@ -15,7 +16,7 @@ interface BlogCardProps {
   };
 }
 
-const BlogCard = ({ slug, title, excerpt, category, date, author, image }: BlogCardProps) => {
+const BlogCard = ({ slug, title, excerpt, category, date, checkedDate, author, image }: BlogCardProps) => {
   return (
     <article className="group bg-white rounded-xl border border-brand-border shadow-sm overflow-hidden card-hover">
       <Link
@@ -42,8 +43,11 @@ const BlogCard = ({ slug, title, excerpt, category, date, author, image }: BlogC
         <h3 className="text-primary mb-4 group-hover:text-accent transition-colors">
           <Link href={`/blog/${slug}`} aria-label={title}>{title}</Link>
         </h3>
-        <p className="text-brand-text-muted text-sm leading-relaxed mb-6 line-clamp-3">
+        <p className="text-brand-text-muted text-sm leading-relaxed mb-2 line-clamp-3">
           {excerpt}
+        </p>
+        <p className="mb-6 text-xs font-semibold text-brand-text-muted">
+          Checked {checkedDate}
         </p>
         <Link href={`/blog/${slug}`} className="inline-flex items-center text-accent text-sm font-bold group-hover:translate-x-2 transition-transform" aria-label={`Read more about ${title}`}>
           Read More <ArrowRight className="ml-2" size={18} aria-hidden="true" />

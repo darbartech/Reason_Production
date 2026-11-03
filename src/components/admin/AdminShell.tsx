@@ -28,7 +28,7 @@ useEffect(() => {
   return (
     <UserContext.Provider value={user}>
       <div className="min-h-screen bg-brand-light-bg">
-        <AdminSidebar />
+        <AdminSidebar role={user.role} />
         <div className="md:ml-56">
           <AdminHeader user={user} title={title} />
           <div className="p-4 md:p-6 max-w-[1400px]">{children}</div>

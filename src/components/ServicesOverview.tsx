@@ -1,12 +1,5 @@
 import Link from "next/link";
-import {
-  ArrowRight,
-  BookOpen,
-  ClipboardList,
-  FileCheck2,
-  GraduationCap,
-  PlaneTakeoff,
-} from "lucide-react";
+import { ArrowRight, BookOpen, ClipboardList, FileCheck2, GraduationCap } from "lucide-react";
 
 import type { LucideIcon } from "lucide-react";
 import SectionHeader from "./SectionHeader";
@@ -16,127 +9,78 @@ type ServiceCard = {
   text: string;
   href: string;
   icon: LucideIcon;
-  variant?: "tint" | "sand" | "default";
-  span?: "wide" | "tall";
 };
 
 const services: ServiceCard[] = [
   {
     title: "Study abroad counselling",
-    text: "Course, university and country matched to your results, budget and goals — with a ranked shortlist you can take away.",
-    href: "/study-abroad",
+    text: "Match course, country and budget to your results. You leave with a ranked shortlist.",
+    href: "/services",
     icon: GraduationCap,
-    variant: "tint",
-    span: "wide",
   },
   {
-    title: "IELTS / PTE preparation",
-    text: "Classes, mock tests and one-to-one feedback — all run in our centre by our own trainers.",
-    href: "/ielts",
-    icon: BookOpen,
-    variant: "sand",
-    span: "tall",
-  },
-  {
-    title: "Documentation support",
-    text: "We check, organise and, where needed, arrange certified translations of every document in your file.",
+    title: "Applications & documents",
+    text: "We check every document, then submit and follow up with the institution.",
     href: "/services",
     icon: FileCheck2,
   },
   {
-    title: "Visa application",
-    text: "Step-by-step help with forms, financial evidence and — where the country requires it — interview preparation.",
+    title: "Visa support",
+    text: "Forms, proof of funds and interview practice — with an honest view of your chances.",
     href: "/services",
     icon: ClipboardList,
   },
   {
-    title: "Application & admission",
-    text: "We prepare, submit and follow up on every application. You see every email and every offer as it arrives.",
-    href: "/services",
-    icon: ClipboardList,
-    span: "wide",
-  },
-  {
-    title: "Pre-departure briefing",
-    text: "Accommodation, flights, airport pickup and what to expect in your first month abroad — covered before you fly.",
-    href: "/services",
-    icon: PlaneTakeoff,
+    title: "IELTS & PTE classes",
+    text: "Taught here, with a mock test every Sunday and feedback on each module.",
+    href: "/ielts",
+    icon: BookOpen,
   },
 ];
-
-const variantClasses = (variant: ServiceCard["variant"]) => {
-  switch (variant) {
-    case "tint":
-      return "bg-tint border-line";
-    case "sand":
-      return "bg-sand border-line";
-    default:
-      return "bg-white border-line";
-  }
-};
-
-const spanClasses = (span: ServiceCard["span"]) => {
-  switch (span) {
-    case "wide":
-      return "lg:col-span-2";
-    case "tall":
-      return "lg:row-span-2";
-    default:
-      return "";
-  }
-};
 
 export default function ServicesOverview() {
   return (
     <section className="section-padding bg-white">
       <div className="container-custom">
-        <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 lg:mb-12 gap-6">
+        <div className="mb-10 flex flex-col gap-6 lg:mb-12 lg:flex-row lg:items-end lg:justify-between">
           <SectionHeader
             eyebrow="Services"
-            title={<>Everything from course choice to <em>visa filing.</em></>}
-            intro="One team, one file, no hand-offs between agents."
+            title="Four services. One office."
+            intro="Counselling, applications, visas and test preparation are handled by the same team."
           />
-          <Link href="/services" className="btn-secondary whitespace-nowrap hidden lg:flex group">
+          <Link href="/services" className="btn-secondary group hidden whitespace-nowrap lg:flex">
             All services
-            <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:grid-rows-[auto_auto_auto]">
+        <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-6">
           {services.map((s) => {
             const Icon = s.icon;
             return (
-              <Link
-                key={s.title}
-                href={s.href}
-                className={`group card card-hover p-6 sm:p-7 flex flex-col justify-between border ${variantClasses(
-                  s.variant
-                )} ${spanClasses(s.span)}`}
-              >
-                <div>
-                  <div className="w-11 h-11 rounded-xl bg-white border border-line flex items-center justify-center mb-5 shadow-sm">
-                    <Icon size={22} className="text-crimson" aria-hidden={true} />
-                  </div>
-                  <h3 className="group-hover:text-accent transition-colors">{s.title}</h3>
-                  <p className="mt-2 text-[0.9375rem] text-muted leading-relaxed">{s.text}</p>
+              <Link key={s.title} href={s.href} className="group card card-hover flex flex-col p-6 sm:p-7">
+                <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-white shadow-sm">
+                  <Icon size={22} className="text-crimson" aria-hidden={true} />
                 </div>
-                <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold">
-                  Learn more
+                <h3 className="transition-colors group-hover:text-accent">{s.title}</h3>
+                <p className="mt-2 text-[0.9375rem] leading-relaxed text-muted">{s.text}</p>
+                <span className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold">
+                  See details
                   <ArrowRight
                     size={16}
                     className="text-primary-300 transition-all group-hover:translate-x-1 group-hover:text-crimson"
                     aria-hidden={true}
                   />
-                </div>
+                </span>
               </Link>
             );
           })}
         </div>
 
         <div className="mt-8 lg:hidden">
-          <Link href="/services" className="btn-secondary w-full justify-center group">
+          <Link href="/services" className="btn-secondary group w-full justify-center">
             All services
-            <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight size={18} className="ml-2 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </div>

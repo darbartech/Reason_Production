@@ -1,14 +1,14 @@
 import Link from "next/link";
-import Image from "next/image";
 import { ArrowUpRight, HelpCircle } from "lucide-react";
+import Photo from "./Photo";
 
 type CountryCardProps =
   | {
       name: string;
+      slug: string;
       code?: string;
       href: string;
       description: string;
-      image: { src: string; alt: string };
       notSure?: false;
     }
   | {
@@ -24,7 +24,7 @@ export default function CountryCard(props: CountryCardProps) {
     return (
       <Link
         href={href}
-        className="group card card-hover flex h-full min-h-[420px] sm:min-h-[440px] lg:min-h-0 flex-col items-start justify-between surface-dark p-6 sm:p-7 border border-primary-900"
+        className="group flex h-full min-h-[420px] sm:min-h-[440px] lg:min-h-0 flex-col items-start justify-between surface-dark rounded-2xl border border-primary-900 bg-primary-950 p-6 sm:p-7 transition-shadow hover:shadow-float"
         aria-label="Not sure which country? Talk to our team"
       >
         <div className="w-12 h-12 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
@@ -46,15 +46,16 @@ export default function CountryCard(props: CountryCardProps) {
     );
   }
 
-  const { name, code, href, description, image } = props;
+  const { name, slug, code, href, description } = props;
   return (
     <Link href={href} className="group card card-hover block overflow-hidden relative aspect-[4/5]" aria-label={`Study in ${name} from Nepal`}>
-      <Image
-        src={image.src}
-        alt={image.alt}
-        fill
+      <Photo
+        name={`dest-${slug}`}
+        alt=""
+        widths={[640, 1200]}
         sizes="(min-width: 1024px) 280px, (min-width: 640px) 50vw, 85vw"
-        className="object-cover transition-transform duration-500 group-hover:scale-105"
+        fill
+        className="transition-transform duration-500 group-hover:scale-105"
       />
       <div
         aria-hidden="true"
@@ -64,7 +65,7 @@ export default function CountryCard(props: CountryCardProps) {
       {code && (
         <span
           aria-hidden="true"
-          className="absolute top-4 left-4 rounded-md bg-white/95 backdrop-blur-sm px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary shadow-sm border border-line"
+          className="absolute top-4 left-4 rounded-md bg-white px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary shadow-sm border border-line"
         >
           {code}
         </span>

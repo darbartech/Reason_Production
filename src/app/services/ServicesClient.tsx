@@ -1,228 +1,173 @@
-'use client';
-
-import Image from "next/image";
 import Link from "next/link";
-import { PhoneCall, FileText, Globe, GraduationCap, ArrowRight, ShieldCheck, Heart, Award, CheckCircle2, Star, Users, MapPin, Search, ClipboardCheck, Plane, Home, Building2, Handshake } from "lucide-react";
-import CTA from "@/components/CTA";
+import { ArrowRight, BookOpen, ClipboardList, FileCheck2, GraduationCap, Plane } from "lucide-react";
+import CtaBand from "@/components/CtaBand";
 import PageHero from "@/components/PageHero";
+import SectionHeader from "@/components/SectionHeader";
+import { pricing } from "@/content/pricing";
+import { buildMetadata } from "@/lib/seo";
+
+export const metadata = buildMetadata({
+  title: "Study Abroad Services in Kathmandu: Counselling, Visa, IELTS",
+  description:
+    "Counselling, applications, document checks, visa support and IELTS & PTE classes in New Baneshwor, Kathmandu. See what's included and what you bring.",
+  path: "/services",
+  image: "/og/services.png",
+});
+
+const services = [
+  {
+    id: "counselling",
+    title: "Study abroad counselling",
+    icon: GraduationCap,
+    get: "A ranked shortlist of courses and countries that fit your results, budget and timeline.",
+    bring: "Transcripts, any English test result, budget range.",
+    note: "Time: first session about 30 minutes — free.",
+    href: "/contact",
+    linkLabel: "Book a free session",
+  },
+  {
+    id: "applications",
+    title: "Applications & documents",
+    icon: FileCheck2,
+    get: "Every document checked, each application submitted and followed up, copies of every email and offer.",
+    bring: "Course choices, SOP draft, referee details.",
+    note: "We review and coach your SOP. The words and experience must be yours.",
+    href: "/study-abroad",
+    linkLabel: "See the six steps",
+  },
+  {
+    id: "visa",
+    title: "Visa support",
+    icon: ClipboardList,
+    get: "The checklist for your country, review of proof-of-funds documents, form checks and interview practice where an interview is required.",
+    bring: "Offer letter, passport, financial documents.",
+    note: "We can't promise a visa. We tell you where your file is strong or weak before you submit.",
+    href: "/countries",
+    linkLabel: "Read your country guide",
+  },
+  {
+    id: "ielts",
+    title: "IELTS & PTE classes",
+    icon: BookOpen,
+    get: "Classes taught here, a mock test every Sunday, feedback on each module.",
+    bring: "Your current level and target score. Nothing else is needed to start.",
+    note: `Fees: IELTS ${pricing.ielts.price} (${pricing.ielts.weeks} weeks) · PTE ${pricing.pte.price} (${pricing.pte.weeks} weeks).`,
+    href: "/ielts",
+    linkLabel: "See class details",
+  },
+];
+
+const alsoAvailable = [
+  {
+    title: "Scholarship search",
+    text: "We help you find and apply for awards that match your profile, and check the conditions attached to each one.",
+    icon: GraduationCap,
+  },
+  {
+    title: "Pre-departure briefing",
+    text: "Accommodation options, travel, banking and arrival, covered before you fly.",
+    icon: Plane,
+  },
+];
 
 const ServicesClient = () => {
-  const mainServices = [
-    {
-      title: "Study Abroad Counselling",
-      desc: "Our expert counsellors provide personalised guidance to help you choose the right course, university, and destination based on your academic background and career goals.",
-      icon: GraduationCap,
-      bg: "bg-accent/10",
-      text: "text-accent",
-      accent: "bg-accent",
-    },
-    {
-      title: "University & College Admission",
-      desc: "We assist with the entire application process, ensuring all documentation is accurate and submitted on time to maximize your chances of acceptance.",
-      icon: Building2,
-      bg: "bg-primary/10",
-      text: "text-primary",
-      accent: "bg-primary",
-    },
-    {
-      title: "Visa Assistance",
-      desc: "Comprehensive support for your visa application, including documentation verification, SOP guidance, and mock interview sessions so your file is complete before it is submitted.",
-      icon: ShieldCheck,
-      bg: "bg-accent/10",
-      text: "text-accent",
-      accent: "bg-accent",
-    },
-    {
-      title: "IELTS & PTE Preparation",
-      desc: "Achieve your target score with our expert-led preparation classes, featuring weekly mock tests, updated study materials, and personalized feedback.",
-      icon: ClipboardCheck,
-      bg: "bg-primary/10",
-      text: "text-primary",
-      accent: "bg-primary",
-    },
-    {
-      title: "Scholarship Guidance",
-      desc: "We help you identify and apply for various merit-based and need-based scholarships to make your international education more affordable.",
-      icon: Award,
-      bg: "bg-accent/10",
-      text: "text-accent",
-      accent: "bg-accent",
-    },
-    {
-      title: "B2B Educational Partnership",
-      desc: "Strategic collaborations with international institutions and local organizations to create seamless educational pathways for students.",
-      icon: Handshake,
-      bg: "bg-primary/10",
-      text: "text-primary",
-      accent: "bg-primary",
-    },
-  ];
-
-  const valueAddedServices = [
-    { 
-      title: "SOP & Essay Support", 
-      desc: "Expert guidance on crafting compelling Statements of Purpose and application essays that stand out to admission committees.", 
-      icon: FileText 
-    },
-    { 
-      title: "Pre-Departure Briefing", 
-      desc: "Essential sessions to prepare you for life abroad, covering cultural adjustment, health insurance, and banking essentials.", 
-      icon: Plane 
-    },
-    { 
-      title: "Post-Arrival Support", 
-      desc: "We stay connected even after you land, assisting with accommodation search and initial settlement in your new country.", 
-      icon: Home 
-    },
-  ];
-
   return (
     <div className="bg-white">
       <PageHero
         crumbs={[{ name: "Services" }]}
         title="Study abroad services in Kathmandu"
-        intro="Counselling, test prep, applications, documentation and visa — everything from one team in one office."
+        intro="Counselling, applications, visa support and test preparation, all handled by one team."
+        image={{
+          name: "services-documents",
+          alt: "Two colleagues celebrating with a high-five over documents and a laptop",
+        }}
       />
 
-      {/* Main Services Section */}
-      <section className="py-16 lg:py-24" aria-labelledby="main-services-heading">
+      <section className="section-padding" aria-labelledby="service-list-heading">
         <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-20">
-            <h2 id="main-services-heading" className="text-primary mb-6">
-              Our <span className="text-accent">Core Expertise</span>
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-primary/60 font-medium leading-relaxed">
-              We provide a full spectrum of services designed to help you navigate the complexities of international education with ease and confidence.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {mainServices.map((service, i) => (
-              <article 
-                key={i} 
-                className="group bg-white p-8 sm:p-10 rounded-xl border border-brand-border shadow-sm hover:shadow-md hover:border-accent/20 transition-colors duration-200 flex flex-col h-full card-hover"
-              >
-                <div className={`${service.bg} ${service.text} w-14 h-14 sm:w-16 sm:h-16 rounded-xl sm:rounded-xl flex items-center justify-center mb-6 sm:mb-8 group-hover:scale-105 transition-transform duration-200 shadow-sm`} aria-hidden="true">
-                  <service.icon size={28} className="sm:size-8" />
-                </div>
-                
-                <h3 className="text-primary mb-4 group-hover:text-accent transition-colors">
-                  {service.title}
-                </h3>
-                
-                <p className="text-sm sm:text-base text-primary/70 leading-relaxed font-medium mb-8 flex-grow">
-                  {service.desc}
-                </p>
-                
-                <div className="pt-6 border-t border-brand-border mt-auto">
-                  <Link 
-                    href="/contact" 
-                    className="inline-flex items-center text-accent font-bold uppercase tracking-widest text-[11px] sm:text-xs group/link"
-                    aria-label={`Inquire about ${service.title}`}
-                  >
-                    Inquire Now <ArrowRight className="ml-3 p-1.5 bg-accent/10 rounded-full group-hover/link:translate-x-2 group-hover/link:bg-accent group-hover/link:text-white transition-colors duration-200" size={24} />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Why Us Section */}
-      <section className="py-16 lg:py-24 bg-brand-light-bg" aria-labelledby="why-us-heading">
-        <div className="container-custom">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="order-2 lg:order-1">
-              <div className="inline-flex items-center space-x-2 bg-accent/10 text-accent px-4 py-1.5 rounded-full text-xs font-bold mb-6 border border-brand-border uppercase tracking-widest">
-                <Star size={14} className="fill-accent" aria-hidden="true" />
-                <span>The Reason Advantage</span>
-              </div>
-              
-              <h2 id="why-us-heading" className="text-primary mb-8">
-                Why Students Trust <span className="text-accent">Reasons Education</span>
-              </h2>
-              
-              <div className="space-y-6 sm:space-y-8">
-                {[
-                  { 
-                    title: "Expert Counselling", 
-                    desc: "Our counsellors have over 10 years of experience in the international education industry, ensuring you get the most accurate and up-to-date advice.", 
-                    icon: Users 
-                  },
-                  { 
-                    title: "Thorough Documentation Review", 
-                    desc: "Documentation is reviewed by two counsellors, SOPs are built around your actual background, and we run mock interviews before every visa appointment.", 
-                    icon: ShieldCheck 
-                  },
-                  { 
-                    title: "End-to-End Support", 
-                    desc: "From initial counselling and test preparation to pre-departure briefings and post-arrival support, we stay with you every step of the way.", 
-                    icon: CheckCircle2 
-                  },
-                ].map((item, i) => (
-                  <article key={i} className="flex gap-4 sm:gap-6 group">
-                    <div className="flex-shrink-0 w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-xl bg-white border border-brand-border flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-200 shadow-sm" aria-hidden="true">
-                      <item.icon size={24} className="sm:size-7" />
+          <h2 id="service-list-heading" className="sr-only">
+            Our services
+          </h2>
+          <div className="space-y-6">
+            {services.map((service) => {
+              const Icon = service.icon;
+              return (
+                <article
+                  key={service.id}
+                  id={service.id}
+                  className="scroll-mt-24 rounded-2xl border border-line bg-white p-6 sm:p-8"
+                >
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-line bg-paper">
+                      <Icon size={22} className="text-crimson" aria-hidden="true" />
                     </div>
-                    <div>
-                      <h4 className="text-primary mb-1.5 group-hover:text-accent transition-colors">{item.title}</h4>
-                      <p className="text-sm sm:text-base text-primary/60 font-medium leading-relaxed">{item.desc}</p>
+                    <div className="min-w-0">
+                      <h2 className="text-primary">{service.title}</h2>
+                      <dl className="mt-5 grid gap-5 sm:grid-cols-2">
+                        <div>
+                          <dt className="text-xs font-semibold uppercase tracking-wider text-muted">You get</dt>
+                          <dd className="mt-1 text-sm leading-relaxed text-ink">{service.get}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-xs font-semibold uppercase tracking-wider text-muted">You bring</dt>
+                          <dd className="mt-1 text-sm leading-relaxed text-ink">{service.bring}</dd>
+                        </div>
+                      </dl>
+                      <p className="mt-5 rounded-lg bg-paper px-4 py-3 text-sm leading-relaxed text-ink">
+                        {service.note}
+                      </p>
+                      <Link
+                        href={service.href}
+                        className="mt-5 inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-accent hover:underline"
+                      >
+                        {service.linkLabel}
+                        <ArrowRight size={14} aria-hidden="true" />
+                      </Link>
                     </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-
-            <div className="order-1 lg:order-2 relative">
-              <div className="relative aspect-[4/5] sm:aspect-square lg:aspect-[4/5] overflow-hidden rounded-xl border border-line bg-white shadow-sm">
-                <Image
-                  src="/images/visuals/services-counselling.webp"
-                  alt="Consultant and student working through application documents together at a desk"
-                  fill
-                  sizes="(min-width: 1024px) 40vw, 90vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      {/* Value Added Services */}
-      <section className="py-16 lg:py-24" aria-labelledby="value-added-heading">
+      <section className="section-padding bg-paper" aria-labelledby="also-heading">
         <div className="container-custom">
-          <div className="text-center max-w-3xl mx-auto mb-12 lg:mb-16">
-            <h2 id="value-added-heading" className="text-primary mb-6">
-              Beyond the Basics: <span className="text-accent">Specialized Services</span>
-            </h2>
-            <p className="text-base sm:text-lg md:text-xl text-primary/60 font-medium leading-relaxed">
-              We go the extra mile to ensure your transition to international student life is as smooth and stress-free as possible.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {valueAddedServices.map((service, i) => (
-              <article 
-                key={i} 
-                className="group bg-white p-8 sm:p-10 rounded-xl border border-brand-border shadow-sm hover:shadow-md hover:border-accent/20 transition-colors duration-200"
-              >
-                <div className="bg-primary/5 p-4 rounded-xl sm:rounded-xl text-primary w-fit mb-6 group-hover:bg-primary group-hover:text-white transition-colors duration-200 shadow-sm" aria-hidden="true">
-                   <service.icon size={24} className="sm:size-7" />
-                </div>
-                <h4 className="text-primary mb-3 group-hover:text-accent transition-colors">
-                  {service.title}
-                </h4>
-                <p className="text-sm sm:text-base text-primary/70 font-medium leading-relaxed">
-                  {service.desc}
-                </p>
-              </article>
-            ))}
+          <SectionHeader eyebrow="Also available" id="also-heading" title="Two things students often ask for." />
+          <div className="mt-8 grid gap-5 sm:grid-cols-2">
+            {alsoAvailable.map((item) => {
+              const Icon = item.icon;
+              return (
+                <article key={item.title} className="card p-6">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-white">
+                    <Icon size={20} className="text-crimson" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-primary">{item.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{item.text}</p>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
 
-      <CTA />
+      <section className="section-padding" aria-labelledby="fees-heading">
+        <div className="container-custom max-w-3xl">
+          <div className="rounded-2xl border border-line bg-paper p-6 sm:p-8">
+            <h2 id="fees-heading" className="text-primary">Our fees</h2>
+            <p className="mt-3 text-sm leading-relaxed text-ink sm:text-base">
+              Fees are listed in writing before you commit.
+            </p>
+            <Link href="/fees" className="mt-5 inline-flex min-h-11 items-center gap-1.5 font-semibold text-accent hover:underline">
+              See our fee schedule
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand />
     </div>
   );
 };

@@ -2,9 +2,15 @@
 
 import { usePathname } from "next/navigation";
 
-// Hides public-site chrome (navbar, footer, WhatsApp button) on the staff admin pages.
+// Routes that render on their own, without the public-site chrome.
+// /admin — staff screens; /enquiry — standalone logo + form landing page.
+const BARE_ROUTES = ["/admin", "/enquiry"];
+
 export default function PublicOnly({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  if (pathname === "/admin" || pathname?.startsWith("/admin/")) return null;
+  const isBare = BARE_ROUTES.some(
+    (route) => pathname === route || pathname?.startsWith(`${route}/`)
+  );
+  if (isBare) return null;
   return <>{children}</>;
 }

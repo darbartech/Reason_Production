@@ -1,97 +1,105 @@
+import Link from "next/link";
 import CTA from "@/components/CTA";
+import PageHero from "@/components/PageHero";
 import { buildMetadata } from "@/lib/seo";
-import { company } from "@/lib/company";
+import { company, LAST_CHECKED } from "@/lib/company";
 
 export const metadata = buildMetadata({
   title: "Terms of Service",
-  description: "Terms of engagement for Reasons Education's counselling, test-prep and visa-documentation services offered from our Kathmandu office.",
+  description:
+    "How Reasons Education works: what our services cover, fees and refunds, your responsibilities, and what we cannot guarantee. Written in plain language.",
   path: "/terms",
 });
 
 const TermsPage = () => {
   return (
     <div className="bg-white">
-      {/* Header */}
-      <section className="bg-primary pt-24 pb-16 lg:pt-32 text-white relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-accent/10 -skew-x-12 translate-x-1/2 blur-3xl opacity-30"></div>
-        <div className="container-custom relative z-10 text-center">
-          <h1 className="mb-6 max-w-4xl mx-auto">
-            Terms of Service
-          </h1>
-          <p className="text-lg md:text-xl text-white/70 max-w-2xl mx-auto leading-relaxed font-medium">
-            Please read these terms carefully before using our website or services.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        plain
+        crumbs={[{ name: "Terms of Service" }]}
+        title="Terms of Service"
+        intro="The short version: we give honest advice, you give us true documents, and no one can promise an admission or a visa."
+      />
 
-      {/* Content */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="prose prose-lg prose-slate max-w-none text-primary/70 font-medium leading-relaxed space-y-8">
+      <section className="section-padding">
+        <div className="container-custom">
+          <div className="mx-auto max-w-3xl">
+            <div className="prose prose-lg prose-slate max-w-none text-primary/70 font-medium leading-relaxed space-y-8">
             <div className="space-y-4">
-              <h2 className="text-primary">1. Acceptance of Terms</h2>
+              <h2 className="text-primary">1. Our services</h2>
               <p>
-                By accessing or using the services of {company.legalName} (“we,” “our,” or “us”), you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.
+                {company.legalName} provides study abroad counselling, application and
+                document support, visa guidance, and IELTS and PTE classes from our office in{" "}
+                {company.address.city}. We explain what is included before work starts.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-primary">2. Use of Services</h2>
+              <h2 className="text-primary">2. Fees and refunds</h2>
               <p>
-                Our services are provided for educational and information purposes. You agree to provide accurate and complete information when requested. Any fraudulent or misleading information may lead to the termination of our services.
+                Published class fees and service charges are on our{" "}
+                <Link
+                  href="/fees"
+                  className="text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
+                >
+                  fees page
+                </Link>
+                . Anything quoted in writing in your own case follows that quote. Government,
+                test, courier and institution fees are paid to those bodies, not to us.
+                Refund terms for a service are given in writing before you pay.
               </p>
+            </div>
+
+            <div className="space-y-4">
+              <h2 className="text-primary">3. Your responsibilities</h2>
               <ul className="list-disc pl-6 space-y-2">
-                <li>Counseling services are subject to availability.</li>
-                <li>Enrollment in IELTS/PTE classes is subject to payment of fees.</li>
-                <li>Admissions and visa guidance are based on current rules and regulations.</li>
+                <li>Give us true, complete documents and information.</li>
+                <li>Attend sessions and classes you have booked, or tell us in advance.</li>
+                <li>Follow the rules of institutions, test centres and visa authorities.</li>
+                <li>Pay agreed fees on time.</li>
               </ul>
-            </div>
-
-            <div className="space-y-4">
-              <h2 className="text-primary">3. User Responsibilities</h2>
               <p>
-                As a user, you are responsible for:
-              </p>
-              <ul className="list-disc pl-6 space-y-2">
-                <li>Providing authentic documents and information.</li>
-                <li>Complying with the rules of the educational institutions and visa authorities.</li>
-                <li>Attending scheduled counselling sessions and classes on time.</li>
-                <li>Paying any applicable fees as agreed.</li>
-              </ul>
-            </div>
-
-            <div className="space-y-4">
-              <h2 className="text-primary">4. Intellectual Property</h2>
-              <p>
-                All content on this website, including text, graphics, logos, and images, is the property of {company.legalName} and is protected by intellectual property laws. You may not reproduce or distribute any content without our prior written permission.
+                If documents turn out to be false or altered, we may stop work on the file.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-primary">5. Limitation of Liability</h2>
+              <h2 className="text-primary">4. What we do not guarantee</h2>
               <p>
-                While we strive for excellence, we do not guarantee admission to any institution or the approval of any visa application. Decisions are made by the respective institutions and government authorities. We are not liable for any direct or indirect losses arising from such decisions.
+                We do not guarantee admission, a scholarship, a visa or a particular test
+                score. Those decisions are made by institutions, test centres and
+                governments. We also cannot control processing times or rule changes.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-primary">6. Termination</h2>
+              <h2 className="text-primary">5. Complaints</h2>
               <p>
-                We reserve the right to terminate our services at any time for any violation of these terms or for any other reason.
+                If something goes wrong, tell us in writing at{" "}
+                <a
+                  href={`mailto:${company.email}`}
+                  className="text-accent underline decoration-accent/30 underline-offset-2 hover:decoration-accent"
+                >
+                  {company.email}
+                </a>{" "}
+                or at the office. We will confirm receipt and tell you who is handling it and
+                how long we expect it to take.
               </p>
             </div>
 
             <div className="space-y-4">
-              <h2 className="text-primary">7. Governing Law</h2>
+              <h2 className="text-primary">6. Governing law</h2>
               <p>
-                These Terms of Service are governed by and construed in accordance with the laws of Nepal. Any disputes will be subject to the exclusive jurisdiction of the courts in Kathmandu.
+                These terms are governed by the laws of Nepal. Disputes are subject to the
+                courts of Kathmandu.
               </p>
             </div>
 
             <div className="pt-8 border-t border-gray-100">
               <p className="text-sm font-bold text-primary/40 uppercase tracking-widest">
-                Last Updated: April 15, 2026
+                Last updated: {LAST_CHECKED}
               </p>
+            </div>
             </div>
           </div>
         </div>

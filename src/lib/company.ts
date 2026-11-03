@@ -22,13 +22,35 @@ export const company = {
     number: "",
     pan: "",
   },
+  // Publish the licence line only once the owner supplies the number and authority.
+  licence: {
+    authority: "",
+    number: "",
+    validUntil: "",
+  },
   social: {
     facebook: "",
     instagram: "",
     linkedin: "",
     youtube: "",
+    tiktok: "",
+    googleBusiness: "",
   },
 } as const;
 
-export const whatsappLink = (msg = "Hello, I'd like to ask about studying abroad.") =>
+export const LAST_CHECKED = "2 Nov 2026";
+export const LAST_CHECKED_ISO = "2026-11-02";
+export const REVIEWED_BY = "Reasons Education counselling team";
+
+export const hasLicence = () => Boolean(company.licence.number);
+
+export const licenceLine = () => {
+  if (!company.licence.number) return null;
+  return [
+    company.licence.authority ? `Licensed by ${company.licence.authority}` : "Licensed",
+    `licence no. ${company.licence.number}`,
+  ].join(" · ");
+};
+
+export const whatsappLink = (msg = "Hello Reasons Education, I'd like to book a free session.") =>
   `https://wa.me/${company.whatsappNumber}?text=${encodeURIComponent(msg)}`;

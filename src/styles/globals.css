@@ -43,8 +43,9 @@
 
 @layer components {
   .container-custom { @apply mx-auto w-full max-w-content px-5 sm:px-8 lg:px-10; }
-  .section-padding  { @apply py-20 md:py-28 lg:py-32; }
-  .section-tight    { @apply py-12 md:py-16; }
+  .container-wide   { @apply mx-auto w-full max-w-[1600px] px-5 sm:px-8 lg:px-10; }
+  .section-padding  { @apply py-14 md:py-20 lg:py-24; }
+  .section-tight    { @apply py-10 md:py-14; }
 
   .eyebrow {
     @apply inline-flex items-center gap-3 text-[0.75rem] font-semibold uppercase text-accent;
@@ -113,11 +114,17 @@
         animation-timeline: view();
         animation-range: entry 0% entry 35%;
       }
+      .pen-line {
+        animation: pen-draw linear both;
+        animation-timeline: view();
+        animation-range: entry 10% cover 40%;
+      }
     }
   }
 }
 
 @keyframes reveal-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
+@keyframes pen-draw { from { transform: scaleX(0); } to { transform: scaleX(1); } }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }

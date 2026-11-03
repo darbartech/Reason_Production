@@ -1,14 +1,14 @@
 import { UseFormRegister, FieldErrors } from "react-hook-form";
 import {
+  EnquiryFormData,
   PREFERRED_DESTINATIONS,
-  PREFERRED_INTAKES,
-  EnquiryStep1,
+  STUDY_LEVELS,
 } from "@/lib/validations/enquiry";
-import { User, Phone, Mail, Globe, Calendar } from "lucide-react";
+import { User, Phone, Mail, Globe, GraduationCap } from "lucide-react";
 
 interface PersonalStudyStepProps {
-  register: UseFormRegister<EnquiryStep1>;
-  errors: FieldErrors<EnquiryStep1>;
+  register: UseFormRegister<EnquiryFormData>;
+  errors: FieldErrors<EnquiryFormData>;
 }
 
 const OptionSelect = <T extends string>({
@@ -24,9 +24,9 @@ const OptionSelect = <T extends string>({
   id: string;
   label: string;
   options: readonly T[];
-  registerId: keyof EnquiryStep1;
-  register: UseFormRegister<EnquiryStep1>;
-  errors: FieldErrors<EnquiryStep1>;
+  registerId: keyof EnquiryFormData;
+  register: UseFormRegister<EnquiryFormData>;
+  errors: FieldErrors<EnquiryFormData>;
   icon: React.ElementType;
   placeholder?: string;
 }) => {
@@ -38,7 +38,7 @@ const OptionSelect = <T extends string>({
         className="text-sm font-medium text-ink ml-1 flex items-center gap-2"
       >
         <Icon size={14} className="text-muted" />
-        {label}
+        {label} <span className="text-crimson">*</span>
       </label>
       <select
         id={id}
@@ -172,14 +172,14 @@ const PersonalStudyStep = ({ register, errors }: PersonalStudyStepProps) => {
       />
 
       <OptionSelect
-        id="preferredIntake"
-        label="Preferred Intake"
-        options={PREFERRED_INTAKES}
-        registerId="preferredIntake"
+        id="studyLevel"
+        label="Study Level"
+        options={STUDY_LEVELS}
+        registerId="studyLevel"
         register={register}
         errors={errors}
-        icon={Calendar}
-        placeholder="When would you like to start?"
+        icon={GraduationCap}
+        placeholder="What would you like to study?"
       />
     </div>
   );

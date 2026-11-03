@@ -28,6 +28,7 @@ export default function AdminLoginPage() {
     method: "POST",
     body: { email, password },
     redirectOn401: false,
+    csrf: false,
   });
 
   setCsrfToken(result.csrfToken);
@@ -48,8 +49,8 @@ export default function AdminLoginPage() {
         <Image
           src="/logo/logo.png"
           alt="Reasons Education"
-          width={480}
-          height={208}
+          width={657}
+          height={240}
           className="h-12 w-auto mb-5"
           priority
         />

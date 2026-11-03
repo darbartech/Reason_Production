@@ -1,13 +1,18 @@
 // Staff API, mounted at /api/admin. Everything except /auth/login and /auth/logout needs a session.
+const crypto = require('crypto');
 const express = require('express');
 const { query, tx } = require('./db');
 const {
-  verifyPassword, DUMMY_HASH, createSession, updateSessionMetadata, destroySession, requireAuth, sameOrigin,getCsrfToken, requireCsrf,
+  hashPassword, verifyPassword, DUMMY_HASH, createSession, updateSessionMetadata, destroySession, requireAuth, sameOrigin,getCsrfToken, requireCsrf,
 } = require('./auth');
 const rateLimit = require('./rate-limit');
-const { STATUSES, STAGES, STAGES_CLOSED, CLOSED_STATUSES, PRIORITIES, FORM } = require('./constants');
+const { STATUSES, STAGES, STAGES_CLOSED, CLOSED_STATUSES, PRIORITIES, ROLES, FORM } = require('./constants');
 
 const router = express.Router();
+router.use((req, res, next) => {
+  res.set('Cache-Control', 'no-store');
+  next();
+});
 router.use(express.json({ limit: '50kb' }));
 router.use(sameOrigin);
 
@@ -157,7 +162,7 @@ router.get('/meta', wrap(async (req, res) => {
   const [users, countries, intakes] = await Promise.all([
     query(`SELECT id, name, role FROM users WHERE active ORDER BY name`),
     query(`SELECT DISTINCT preferred_country AS v FROM student_enquiries`),
-    query(`SELECT DISTINCT preferred_intake AS v FROM student_enquiries`),
+    query(`SELECT DISTINCT preferred_intake AS v FROM student_enquiries WHERE preferred_intake IS NOT NULL`),
   ]);
   const union = (base, extra) => [...new Set([...base, ...extra.map((r) => r.v)])];
   const all = users.rows;
@@ -186,7 +191,7 @@ router.get('/analytics', wrap(async (req, res) => {
   ] = await Promise.all([
     counts(`SELECT preferred_country AS label, count(*)::int AS value FROM student_enquiries e ${where} GROUP BY preferred_country ORDER BY value DESC, label ASC`),
     counts(`SELECT status AS label, count(*)::int AS value FROM student_enquiries e ${where} GROUP BY status ORDER BY value DESC, label ASC`),
-    counts(`SELECT preferred_intake AS label, count(*)::int AS value FROM student_enquiries e ${where} GROUP BY preferred_intake ORDER BY value DESC, label ASC`),
+    counts(`SELECT COALESCE(preferred_intake, 'Not specified') AS label, count(*)::int AS value FROM student_enquiries e ${where} GROUP BY 1 ORDER BY value DESC, label ASC`),
     counts(`SELECT COALESCE(NULLIF(utm_source,''),'Direct / Organic') AS label, count(*)::int AS value FROM student_enquiries e ${where} GROUP BY 1 ORDER BY value DESC, label ASC LIMIT 10`),
     counts(`SELECT COALESCE(NULLIF(utm_campaign,''),'(none)') AS label, count(*)::int AS value FROM student_enquiries e ${where} GROUP BY 1 ORDER BY value DESC, label ASC LIMIT 10`),
     query(
@@ -312,7 +317,9 @@ router.get('/enquiries.csv', wrap(async (req, res) => {
 
   const esc = (v) => {
     if (v === null || v === undefined) return '';
-    const s = String(v);
+    const raw = String(v);
+    // Neutralise spreadsheet formulas before quoting.
+    const s = /^[=+\-@\t\r]/.test(raw) ? `'${raw}` : raw;
     return /[",\n\r]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
   };
 
@@ -470,6 +477,143 @@ router.post('/enquiries/:id/notes', wrap(async (req, res) => {
   });
   if (!out) return res.status(404).json({ message: 'Enquiry not found.' });
   res.json(out);
+}));
+
+// ---------- staff users (admins only) ----------
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const requireAdmin = (req, res, next) => {
+  if (!isAdmin(req.user)) return res.status(403).json({ message: 'Only admins can manage staff accounts.' });
+  next();
+};
+
+const USER_COLS = 'id, email, name, role, active, created_at, last_login_at';
+const mapUser = (r) => ({
+  id: r.id, email: r.email, name: r.name, role: r.role, active: r.active,
+  createdAt: new Date(r.created_at).toISOString(),
+  lastLoginAt: r.last_login_at ? new Date(r.last_login_at).toISOString() : null,
+});
+
+const tempPassword = () => crypto.randomBytes(12).toString('base64url');
+
+const countActiveAdmins = (db) =>
+  db.query(`SELECT count(*)::int AS n FROM users WHERE role = 'ADMIN' AND active`).then((r) => r.rows[0].n);
+
+// Shared by create and reset. Returns an error string, or the password to persist.
+function resolvePassword(value) {
+  const supplied = typeof value === 'string' ? value : '';
+  if (!supplied) return { password: tempPassword(), generated: true };
+  if (supplied.length < 8) return { error: 'Password must be at least 8 characters.' };
+  if (supplied.length > 200) return { error: 'Password is too long.' };
+  return { password: supplied, generated: false };
+}
+
+router.get('/users', requireAdmin, wrap(async (req, res) => {
+  const { rows } = await query(
+    `SELECT ${USER_COLS} FROM users ORDER BY active DESC, role ASC, name ASC`
+  );
+  res.json({ users: rows.map(mapUser) });
+}));
+
+router.post('/users', requireAdmin, wrap(async (req, res) => {
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+  const email = String(b.email || '').trim().toLowerCase();
+  const name = String(b.name || '').trim();
+  const role = String(b.role || '').trim().toUpperCase();
+
+  if (!EMAIL_RE.test(email) || email.length > 254) return res.status(400).json({ message: 'Enter a valid email address.' });
+  if (!name || name.length > 120) return res.status(400).json({ message: 'Enter a name (max 120 characters).' });
+  if (!ROLES.includes(role)) return res.status(400).json({ message: 'Choose a valid role.' });
+
+  const pw = resolvePassword(b.password);
+  if (pw.error) return res.status(400).json({ message: pw.error });
+
+  const exists = await query(`SELECT 1 FROM users WHERE lower(email) = $1`, [email]);
+  if (exists.rows[0]) return res.status(409).json({ message: 'A staff account with that email already exists.' });
+
+  const hash = await hashPassword(pw.password);
+  const { rows } = await query(
+    `INSERT INTO users (email, name, role, password_hash) VALUES ($1,$2,$3,$4) RETURNING ${USER_COLS}`,
+    [email, name, role, hash]
+  );
+  res.status(201).json({ user: mapUser(rows[0]), temporaryPassword: pw.generated ? pw.password : null });
+}));
+
+router.patch('/users/:id', requireAdmin, wrap(async (req, res) => {
+  const id = req.params.id;
+  if (!UUID_RE.test(id)) return res.status(404).json({ message: 'Staff account not found.' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+
+  const out = await tx(async (c) => {
+    const cur = (await c.query(`SELECT ${USER_COLS} FROM users WHERE id = $1 FOR UPDATE`, [id])).rows[0];
+    if (!cur) return { status: 404, body: { message: 'Staff account not found.' } };
+
+    const sets = []; const vals = [];
+    const set = (col, v) => { vals.push(v); sets.push(`${col} = $${vals.length}`); };
+    const self = cur.id === req.user.id;
+
+    if ('name' in b) {
+      const name = String(b.name || '').trim();
+      if (!name || name.length > 120) return { status: 400, body: { message: 'Enter a name (max 120 characters).' } };
+      if (name !== cur.name) set('name', name);
+    }
+
+    if ('role' in b) {
+      const role = String(b.role || '').trim().toUpperCase();
+      if (!ROLES.includes(role)) return { status: 400, body: { message: 'Choose a valid role.' } };
+      if (role !== cur.role) {
+        if (self) return { status: 400, body: { message: 'You cannot change your own role.' } };
+        if (cur.role === 'ADMIN' && cur.active && (await countActiveAdmins(c)) <= 1) {
+          return { status: 400, body: { message: 'At least one active admin is required.' } };
+        }
+        set('role', role);
+      }
+    }
+
+    let lockedOut = false;
+    if ('active' in b) {
+      const active = b.active === true;
+      if (active !== cur.active) {
+        if (!active) {
+          if (self) return { status: 400, body: { message: 'You cannot deactivate your own account.' } };
+          if (cur.role === 'ADMIN' && (await countActiveAdmins(c)) <= 1) {
+            return { status: 400, body: { message: 'At least one active admin is required.' } };
+          }
+        }
+        set('active', active);
+        lockedOut = !active;
+      }
+    }
+
+    if (!sets.length) return { status: 200, body: { user: mapUser(cur) } };
+
+    vals.push(id);
+    const { rows } = await c.query(
+      `UPDATE users SET ${sets.join(', ')} WHERE id = $${vals.length} RETURNING ${USER_COLS}`, vals
+    );
+    // Deactivation must take effect immediately rather than at cookie expiry.
+    if (lockedOut) await c.query('DELETE FROM sessions WHERE user_id = $1', [id]);
+    return { status: 200, body: { user: mapUser(rows[0]) } };
+  });
+
+  res.status(out.status).json(out.body);
+}));
+
+router.post('/users/:id/password', requireAdmin, wrap(async (req, res) => {
+  const id = req.params.id;
+  if (!UUID_RE.test(id)) return res.status(404).json({ message: 'Staff account not found.' });
+  const b = req.body && typeof req.body === 'object' ? req.body : {};
+
+  const pw = resolvePassword(b.password);
+  if (pw.error) return res.status(400).json({ message: pw.error });
+
+  const hash = await hashPassword(pw.password);
+  const { rows } = await query(`UPDATE users SET password_hash = $1 WHERE id = $2 RETURNING id`, [hash, id]);
+  if (!rows[0]) return res.status(404).json({ message: 'Staff account not found.' });
+
+  // Any session still holding the old password must be dropped.
+  await query('DELETE FROM sessions WHERE user_id = $1', [id]);
+  res.json({ ok: true, temporaryPassword: pw.generated ? pw.password : null });
 }));
 
 // ---------- errors ----------

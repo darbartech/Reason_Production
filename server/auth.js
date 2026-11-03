@@ -51,7 +51,12 @@ function parseCookies(header) {
   const out = {};
   String(header || '').split(';').forEach((part) => {
     const i = part.indexOf('=');
-    if (i > 0) out[part.slice(0, i).trim()] = decodeURIComponent(part.slice(i + 1).trim());
+    if (i > 0) {
+      const name = part.slice(0, i).trim();
+      const raw = part.slice(i + 1).trim();
+      try { out[name] = decodeURIComponent(raw); }
+      catch { out[name] = raw; }
+    }
   });
   return out;
 }

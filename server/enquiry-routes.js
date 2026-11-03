@@ -55,39 +55,25 @@ function validate(b) {
   if (d.email && !EMAIL_RE.test(d.email)) errors.email = 'Please enter a valid email address';
 
   oneOf('preferredDestination', FORM.destinations, 'Please select a preferred destination');
-  oneOf('preferredIntake', FORM.intakes, 'Please select a preferred intake');
-  oneOf('highestEducation', FORM.education, 'Please select your highest education');
-  oneOf('resultType', FORM.resultTypes, 'Please select a result type');
-  oneOf('englishTest', FORM.englishTests, 'Please select an English test option');
-  oneOf('studyLevel', FORM.studyLevels, 'Please select your preferred study level');
-  oneOf('budget', FORM.budgets, 'Please select a budget range');
-  oneOf('contactPreference', FORM.contactMethods, 'Please select a contact preference');
-  oneOf('bestContactTime', FORM.contactTimes, 'Please select the best time to contact you');
+  oneOf('studyLevel', FORM.studyLevels, 'Please select your study level');
 
-  d.resultValue = clean(b.resultValue, 50);
-  d.englishScore = clean(b.englishScore, 20);
-  d.preferredCourse = clean(b.preferredCourse, 200);
-  d.message = clean(b.message, 2000);
   d.sourcePage = clean(b.sourcePage, 500);
   d.referrer = clean(b.referrer, 500);
   for (const k of ['utmSource', 'utmMedium', 'utmCampaign', 'utmContent', 'utmTerm']) d[k] = clean(b[k], 200);
-
-  // Conditional validation — must match Phase 2 enquiry.ts superRefine exactly.
-  if (d.resultType && d.resultType !== 'Not sure' && d.resultValue.length === 0) {
-    errors.resultValue =
-      `Please enter your ${d.resultType.toLowerCase()} result, or choose "Not sure" as the result type`;
-  }
-  const scoredTests = ['IELTS', 'PTE', 'TOEFL', 'Duolingo'];
-  if (scoredTests.includes(d.englishTest) && d.englishScore.length === 0) {
-    errors.englishScore =
-      `Please enter your ${d.englishTest} score, or choose "Not taken yet" / "Not sure" instead`;
-  }
 
   return { errors, data: d };
 }
 
 function verifyTurnstile(response, remoteip) {
   return new Promise((resolve) => {
+    let settled = false;
+    let timer;
+    const finish = (value) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve(value);
+    };
     const postData = querystring.stringify({
       secret: process.env.TURNSTILE_SECRET_KEY,
       response,
@@ -106,11 +92,15 @@ function verifyTurnstile(response, remoteip) {
       let body = '';
       res.on('data', (chunk) => { body += chunk; });
       res.on('end', () => {
-        try { resolve(JSON.parse(body)); }
-        catch { resolve({ success: false }); }
+        try { finish(JSON.parse(body)); }
+        catch { finish({ success: false }); }
       });
     });
-    req.on('error', () => resolve({ success: false }));
+    timer = setTimeout(() => {
+      req.destroy();
+      finish({ success: false });
+    }, 5000);
+    req.on('error', () => finish({ success: false }));
     req.write(postData);
     req.end();
   });
@@ -156,17 +146,13 @@ router.post('/enquiries', allowedOrigin, limiter, async (req, res) => {
     const inserted = await tx(async (c) => {
       const { rows } = await c.query(
         `INSERT INTO student_enquiries (
-           full_name, phone, email, preferred_country, preferred_intake,
-           education_level, academic_result_type, academic_result, english_test, english_score,
-           study_level, preferred_course, budget_range, preferred_contact_method, preferred_contact_time,
-           message, source_page, referrer, utm_source, utm_medium, utm_campaign, utm_content, utm_term, fingerprint)
-         VALUES ($1,$2,NULLIF($3,''),$4,$5,$6,$7,NULLIF($8,''),$9,NULLIF($10,''),$11,NULLIF($12,''),$13,$14,$15,
-                 NULLIF($16,''),NULLIF($17,''),NULLIF($18,''),NULLIF($19,''),NULLIF($20,''),NULLIF($21,''),NULLIF($22,''),NULLIF($23,''),$24)
+           full_name, phone, email, preferred_country, study_level,
+           source_page, referrer, utm_source, utm_medium, utm_campaign, utm_content, utm_term, fingerprint)
+         VALUES ($1,$2,NULLIF($3,''),$4,$5,NULLIF($6,''),NULLIF($7,''),NULLIF($8,''),NULLIF($9,''),
+                 NULLIF($10,''),NULLIF($11,''),NULLIF($12,''),$13)
          RETURNING lead_number, id`,
-        [d.fullName, d.phone, d.email, d.preferredDestination, d.preferredIntake,
-         d.highestEducation, d.resultType, d.resultValue, d.englishTest, d.englishScore,
-         d.studyLevel, d.preferredCourse, d.budget, d.contactPreference, d.bestContactTime,
-         d.message, d.sourcePage, d.referrer, d.utmSource, d.utmMedium, d.utmCampaign, d.utmContent, d.utmTerm, fingerprint]
+        [d.fullName, d.phone, d.email, d.preferredDestination, d.studyLevel,
+         d.sourcePage, d.referrer, d.utmSource, d.utmMedium, d.utmCampaign, d.utmContent, d.utmTerm, fingerprint]
       );
       await c.query(`INSERT INTO enquiry_events (enquiry_id, type, actor_name) VALUES ($1,'RECEIVED','Website form')`, [rows[0].id]);
       return rows[0];

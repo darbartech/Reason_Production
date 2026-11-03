@@ -1,388 +1,423 @@
-import Image from "next/image";
 import Link from "next/link";
-import { CheckCircle, ArrowRight, Globe, Award, Heart, ShieldCheck, Star, GraduationCap, ChevronRight, Users, TrendingUp, BookOpen, Clock, DollarSign, Building2, Plane, FileCheck, Handshake, AlertTriangle } from "lucide-react";
-import CTA from "@/components/CTA";
+import { ArrowRight, CheckCircle2, GraduationCap, Home, Plane } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import CtaBand from "@/components/CtaBand";
 import PageHero from "@/components/PageHero";
+import Photo from "@/components/Photo";
+import SectionHeader from "@/components/SectionHeader";
 import { Breadcrumbs } from "@/components/Schema";
-import { company } from "@/lib/company";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Study Abroad from Nepal: Process & Visas",
-  description: "How to study abroad from Nepal: the process, costs in NPR, English tests, visa documentation and which destinations accept Nepali students. Counselling in New Baneshwor.",
+  title: "Study Abroad from Nepal: Process, Costs & Visa Steps",
+  description:
+    "How to study abroad from Nepal: six steps, a document checklist, English tests and when to start for your intake. Free counselling in Kathmandu.",
   path: "/study-abroad",
+  image: "/og/study-abroad.png",
 });
 
-const benefits = [
+const steps = [
   {
-    title: "Global Career Opportunities",
-    description: "Studying abroad exposes you to international job markets and gives you a competitive edge. Employers value cultural intelligence, adaptability, and language skills gained through overseas education.",
-    icon: TrendingUp,
-    color: "bg-accent",
+    n: "1",
+    title: "Choose a course and country",
+    when: "12–9 months before",
+    you: "Share results, budget, goals",
+    we: "Build a ranked shortlist",
   },
   {
-    title: "World-Class Education",
-    description: "Access cutting-edge research facilities, renowned professors, and diverse academic perspectives. Universities in Canada, Australia, and the UK are consistently ranked among the best globally.",
-    icon: GraduationCap,
-    color: "bg-primary",
+    n: "2",
+    title: "Prove English (IELTS, PTE, TOEFL…)",
+    when: "10–6 months before",
+    you: "Book and sit the test",
+    we: "Run classes and mock tests",
   },
   {
-    title: "Personal Growth & Independence",
-    description: "Living independently in a new country builds immense self-confidence, problem-solving skills, and a global mindset that shapes your character for life.",
-    icon: Users,
-    color: "bg-accent",
+    n: "3",
+    title: "Apply to institutions",
+    when: "9–6 months before",
+    you: "Provide documents, SOP, references",
+    we: "Check each file, submit, follow up",
   },
   {
-    title: "Cultural Immersion",
-    description: "Experience new cultures, traditions, and ways of thinking. Building a global network of friends and colleagues is invaluable in today's interconnected world.",
-    icon: Globe,
-    color: "bg-primary",
+    n: "4",
+    title: "Accept an offer",
+    when: "6–4 months before",
+    you: "Choose, pay deposit if required",
+    we: "Compare offers with you",
+  },
+  {
+    n: "5",
+    title: "Apply for the visa",
+    when: "4–2 months before",
+    you: "Show proof of funds",
+    we: "Review forms and evidence; practise interview",
+  },
+  {
+    n: "6",
+    title: "Prepare to travel",
+    when: "Last 4–6 weeks",
+    you: "Book flights, housing",
+    we: "Pre-departure briefing",
   },
 ];
 
-const processSteps = [
+const documents = [
+  "Passport (valid at least 6 months beyond your planned stay)",
+  "Academic transcripts and certificates (SEE, +2, Bachelor's)",
+  "English test result",
+  "Statement of Purpose (SOP) — written by you; we review and coach",
+  "Recommendation letters (when the course asks for them)",
+  "Proof of funds (bank statements, loan sanction, sponsor documents)",
+  "Police and medical certificates (when the country requires them)",
+  "Nepal NOC before you pay tuition abroad by bank (check the current process with the Ministry of Education)",
+];
+
+const costBuckets: { title: string; text: string; where: string; icon: LucideIcon }[] = [
   {
-    step: "01",
-    title: "Initial Counseling",
-    description: "We understand your goals, academic background, and budget to suggest the best-fit options for your study abroad journey.",
-    icon: Handshake,
+    title: "Study",
+    text: "Tuition for the first year.",
+    where: "Country guides (typical ranges) and the institution's page",
+    icon: GraduationCap,
   },
   {
-    step: "02",
-    title: "Test Preparation",
-    description: "Enroll in our top-rated IELTS/PTE classes to achieve the scores required by your target universities.",
-    icon: BookOpen,
+    title: "Live",
+    text: "Living costs; this is also your proof-of-funds amount.",
+    where: "Country guides, official government figure with date",
+    icon: Home,
   },
   {
-    step: "03",
-    title: "University Application",
-    description: "Our team handles the application process, ensuring all documents are perfect for a high acceptance rate.",
-    icon: Building2,
-  },
-  {
-    step: "04",
-    title: "Offer & Documentation",
-    description: "Once accepted, we help you with financial documentation and offer letter acceptance procedures.",
-    icon: FileCheck,
-  },
-  {
-    step: "05",
-    title: "Visa Application",
-    description: "Expert guidance on visa filing, SOP writing, and interview preparation to maximize your success rate.",
-    icon: ShieldCheck,
-  },
-  {
-    step: "06",
-    title: "Pre-Departure & Support",
-    description: "Assistance with travel, accommodation, and post-arrival support in your new country.",
+    title: "One-off",
+    text: "English test, application fees, visa and health fees, flights.",
+    where: "Your fee sheet from us + official fee pages",
     icon: Plane,
   },
 ];
 
-const requirements = [
-  "Valid Passport (minimum 6 months validity)",
-  "Academic Transcripts (SLC/SEE, +2, Bachelor's)",
-  "English Proficiency Scores (IELTS, PTE, or TOEFL)",
-  "Statement of Purpose (SOP)",
-  "Letters of Recommendation (LOR)",
-  "Evidence of Financial Support (bank statements, loan sanction letters, scholarship/ sponsorship proof).",
-  "Character Certificate",
-  "Medical & Police Clearance Certificates",
-];
-
-const destinations = [
-  { name: "USA", path: "/countries/usa", tag: "Funding options", flag: "🇺🇸" },
-  { name: "Canada", path: "/countries/canada", tag: "PR pathway", flag: "🇨🇦" },
-  { name: "United Kingdom", path: "/countries/uk", tag: "Short degrees", flag: "🇬🇧" },
-  { name: "Australia", path: "/countries/australia", tag: "Work rights", flag: "🇦🇺" },
-  { name: "New Zealand", path: "/countries/new-zealand", tag: "Small intakes", flag: "🇳🇿" },
-  { name: "Europe", path: "/countries/europe", tag: "Low-tuition public", flag: "🇪🇺" },
-  { name: "Japan", path: "/countries/japan", tag: "Part-time work", flag: "🇯🇵" },
+const comparison = [
+  {
+    country: "Canada",
+    href: "/countries/canada",
+    intakes: "Sep, Jan, May",
+    english: "IELTS / PTE (institution sets score)",
+    work: "PGWP (rules apply)",
+  },
+  {
+    country: "UK",
+    href: "/countries/uk",
+    intakes: "Sep, Jan",
+    english: "IELTS / PTE UKVI where required",
+    work: "Graduate route (changing in 2027)",
+  },
+  {
+    country: "Australia",
+    href: "/countries/australia",
+    intakes: "Feb, Jul",
+    english: "IELTS / PTE",
+    work: "Temporary Graduate visa (485)",
+  },
+  {
+    country: "USA",
+    href: "/countries/usa",
+    intakes: "Aug, Jan",
+    english: "IELTS / TOEFL / PTE",
+    work: "OPT / STEM OPT",
+  },
+  {
+    country: "New Zealand",
+    href: "/countries/new-zealand",
+    intakes: "Feb, Jul",
+    english: "IELTS / PTE",
+    work: "Post-study work visa",
+  },
+  {
+    country: "Germany",
+    href: "/countries/germany",
+    intakes: "Oct, Apr",
+    english: "IELTS/TOEFL or German",
+    work: "18-month job-search permit",
+  },
+  {
+    country: "Japan",
+    href: "/countries/japan",
+    intakes: "Apr, Oct",
+    english: "Japanese tests (JLPT/NAT)",
+    work: "Rules vary",
+  },
 ];
 
 const StudyAbroadPage = () => {
   return (
     <div className="bg-white">
-      <Breadcrumbs items={[{ name: "Study Abroad", path: "/study-abroad" }]} />
-      <section 
-        className="min-h-[80vh] lg:min-h-[70vh] flex items-center pt-24 pb-16 lg:pt-32 bg-primary text-white"
-        aria-label="Study Abroad Hero"
-      >
+      <Breadcrumbs items={[{ name: "Study abroad", path: "/study-abroad" }]} />
+
+      <PageHero
+        crumbs={[{ name: "Study abroad" }]}
+        title="How to study abroad from Nepal, step by step"
+        intro="The whole path — course choice, English tests, applications, money and the visa — in plain language, with the official links."
+        image={{
+          name: "hero-counselling",
+          alt: "Students and a counsellor talking at a table with laptops",
+          position: "center 45%",
+        }}
+      />
+
+      <section className="section-padding">
         <div className="container-custom">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
-            <div className="lg:col-span-7 text-center lg:text-left">
-              {/* Breadcrumbs */}
-              <div className="flex items-center justify-center lg:justify-start gap-2 mb-6">
-                <Link href="/" className="text-white/60 hover:text-accent-light transition-colors text-xs font-bold uppercase tracking-widest">Home</Link>
-                <ChevronRight size={14} className="text-white/30" />
-                <span className="text-accent-light text-xs font-bold uppercase tracking-widest">Study Abroad Guide</span>
-              </div>
-
-              {/* Guide Highlights */}
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-3 mb-8">
-                <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
-                  Global Education
-                </span>
-                <span className="px-4 py-1.5 bg-white/5 border border-white/10 rounded-full text-[10px] font-bold text-white uppercase tracking-widest">
-                  Since {company.established}
-                </span>
-              </div>
-
-              <h1 className="text-white mb-6">
-                Study abroad from Nepal
-                <br />
-                <span className="text-accent-light relative inline-block">
-                  how it works, one step at a time
-                </span>
-              </h1>
-              
-              <p className="text-base sm:text-lg md:text-xl text-white/70 mb-8 leading-relaxed max-w-xl mx-auto lg:mx-0 font-medium">
-                From picking a destination that fits your marks and budget, through test prep, applications and visa, to the day you board — the full process from one office in Kathmandu.
-              </p>
-
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-                <Link 
-                  href="/contact" 
-                  className="group w-full sm:w-auto px-8 py-4 bg-accent-light text-white rounded-xl font-semibold shadow-sm hover:bg-accent-light/90 transition-colors duration-200 flex items-center justify-center gap-3 text-base"
-                  aria-label="Get free study abroad consultation"
-                >
-                  <span className="flex items-center gap-2">
-                    Book a free session <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform duration-200" aria-hidden="true" />
-                  </span>
-                </Link>
-                <Link 
-                  href="#our-process" 
-                  className="w-full sm:w-auto px-8 py-4 bg-white/10 text-white border border-white/25 rounded-xl font-semibold hover:bg-white/15 transition-colors duration-200 flex items-center justify-center gap-3 text-base"
-                >
-                  Learn Our Process
-                </Link>
-              </div>
-
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 mt-10">
-                <div className="flex items-center gap-2">
-                  <CheckCircle size={18} className="text-green-400" aria-hidden="true" />
-                  <span className="text-sm font-semibold text-white/70">Free initial counselling</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle size={18} className="text-green-400" aria-hidden="true" />
-                  <span className="text-sm font-semibold text-white/70">IELTS &amp; PTE classes on-site</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <CheckCircle size={18} className="text-green-400" aria-hidden="true" />
-                  <span className="text-sm font-semibold text-white/70">{company.hours.label}</span>
-                </div>
+          <div className="grid gap-8 lg:grid-cols-12 lg:items-center lg:gap-12">
+            <div className="lg:col-span-7">
+              <div className="rounded-2xl border border-line bg-paper p-6 sm:p-8">
+                <h2 className="eyebrow mb-3">Quick answer</h2>
+                <p className="text-base leading-relaxed text-ink sm:text-lg">
+                  Most students start <strong>9–12 months before the intake</strong>. The path is: choose a course and
+                  country → take an English test → apply → accept an offer → show proof of funds → apply for the visa →
+                  prepare to travel. Requirements differ by country and institution, so check each country guide.
+                </p>
               </div>
             </div>
-
-            <div className="lg:col-span-5 relative mt-12 lg:mt-0 animate-fade-in" style={{ animationDelay: '0.6s' }}>
-              <div className="relative aspect-[4/5] rounded-b-xl rounded-t-[999px] overflow-hidden shadow-lg border border-line bg-white">
-                <Image
-                  src="/images/visuals/study-abroad-campus.webp"
-                  alt="University campus building behind a green lawn"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 40vw, 90vw"
-                  className="object-cover"
-                />
-              </div>
-            </div>
+            <figure className="overflow-hidden rounded-2xl border border-line lg:col-span-5">
+              <Photo
+                name="study-abroad"
+                alt="A university building and lawn on a campus abroad"
+                widths={[640, 1200]}
+                sizes="(min-width: 1024px) 38vw, 100vw"
+                ratio="aspect-[4/3]"
+                objectPosition="center 62%"
+              />
+            </figure>
           </div>
         </div>
       </section>
 
-      <section className="py-16 lg:py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="lg:grid lg:grid-cols-12 lg:gap-12">
-            <aside className="hidden lg:block lg:col-span-3">
-              <div className="sticky top-24 space-y-4">
-                <h3 className="text-primary mb-4 uppercase">Quick Navigation</h3>
-                <nav className="space-y-1" aria-label="Page sections">
-                  {["Benefits", "Our Process", "Requirements", "Destinations", "Why Us"].map((item) => (
-                    <a
-                      key={item}
-                      href={`#${item.toLowerCase().replace(/ /g, "-")}`}
-                      className="block py-2.5 px-4 rounded-xl text-sm text-primary/70 font-medium hover:bg-accent/5 hover:text-accent transition-all border-l-2 border-transparent hover:border-accent"
-                    >
-                      {item}
-                    </a>
-                  ))}
-                </nav>
-                <div className="mt-10 bg-accent/10 p-6 rounded-xl border border-accent/20">
-                  <h4 className="text-primary mb-3">Need Personalized Help?</h4>
-                  <p className="text-xs text-primary/70 mb-5 leading-relaxed font-medium">
-                    Our expert counsellors are ready to help you plan your journey.
+      <section className="pb-16 md:pb-20" aria-labelledby="six-steps-heading">
+        <div className="container-custom">
+          <SectionHeader
+            eyebrow="The six steps"
+            id="six-steps-heading"
+            title="What happens, and roughly when."
+            intro="Timings are typical. Your counsellor sets exact dates from the institution's deadlines."
+          />
+
+          <ol className="mt-8 space-y-3 lg:hidden">
+            {steps.map((step) => (
+              <li key={step.n} className="rounded-2xl border border-line bg-white p-5">
+                <div className="flex items-start gap-3">
+                  <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-tint text-sm font-semibold text-primary">
+                    {step.n}
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-primary">{step.title}</h3>
+                    <p className="mt-1 text-[0.6875rem] font-semibold uppercase tracking-wide text-muted">
+                      {step.when}
+                    </p>
+                    <dl className="mt-3 space-y-2 text-sm">
+                      <div className="flex gap-2">
+                        <dt className="w-9 shrink-0 font-semibold text-ink">You</dt>
+                        <dd className="text-muted">{step.you}</dd>
+                      </div>
+                      <div className="flex gap-2">
+                        <dt className="w-9 shrink-0 font-semibold text-ink">We</dt>
+                        <dd className="text-muted">{step.we}</dd>
+                      </div>
+                    </dl>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+
+          <div className="mt-8 hidden overflow-x-auto rounded-2xl border border-line lg:block">
+            <table className="w-full min-w-[46rem] border-collapse text-left text-sm">
+              <caption className="sr-only">Six steps to study abroad from Nepal</caption>
+              <thead className="bg-paper">
+                <tr>
+                  <th scope="col" className="p-4 font-semibold text-primary">#</th>
+                  <th scope="col" className="p-4 font-semibold text-primary">Step</th>
+                  <th scope="col" className="p-4 font-semibold text-primary">When (typical)</th>
+                  <th scope="col" className="p-4 font-semibold text-primary">You</th>
+                  <th scope="col" className="p-4 font-semibold text-primary">We</th>
+                </tr>
+              </thead>
+              <tbody>
+                {steps.map((step) => (
+                  <tr key={step.n} className="border-t border-line align-top">
+                    <td className="p-4 font-heading text-crimson">{step.n}</td>
+                    <th scope="row" className="p-4 font-semibold text-primary">{step.title}</th>
+                    <td className="p-4 text-muted">{step.when}</td>
+                    <td className="p-4 text-muted">{step.you}</td>
+                    <td className="p-4 text-muted">{step.we}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-paper" aria-labelledby="documents-heading">
+        <div className="container-custom grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <SectionHeader
+              eyebrow="Documents"
+              id="documents-heading"
+              title="What you'll usually need."
+              intro="The exact list depends on the country, course and institution."
+            />
+            <figure className="mt-6 hidden overflow-hidden rounded-2xl border border-line lg:block">
+              <Photo
+                name="blog-sop"
+                alt="A student writing an application document by hand"
+                widths={[640, 1200]}
+                sizes="32vw"
+                ratio="aspect-[4/3]"
+              />
+            </figure>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2 lg:col-span-8">
+            {documents.map((document) => (
+              <li key={document} className="flex gap-3 rounded-xl border border-line bg-white p-4 text-sm leading-relaxed text-ink">
+                <CheckCircle2 size={18} className="mt-0.5 shrink-0 text-crimson" aria-hidden="true" />
+                <span>{document}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section className="section-padding" aria-labelledby="costs-heading">
+        <div className="container-custom">
+          <SectionHeader
+            eyebrow="Costs"
+            id="costs-heading"
+            title="Three buckets to plan for."
+            intro="Add them up before you apply, not after your offer arrives."
+          />
+          <div className="mt-8 grid gap-5 md:grid-cols-3">
+            {costBuckets.map((bucket) => {
+              const Icon = bucket.icon;
+              return (
+                <article key={bucket.title} className="card p-6 sm:p-7">
+                  <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-xl border border-line bg-paper">
+                    <Icon size={20} className="text-crimson" aria-hidden="true" />
+                  </div>
+                  <h3 className="text-primary">{bucket.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-muted">{bucket.text}</p>
+                  <p className="mt-4 text-xs leading-relaxed text-muted">
+                    <span className="font-semibold text-primary">Where to see the numbers:</span> {bucket.where}
                   </p>
-                  <Link href="/contact" className="btn-primary w-full text-center text-sm py-3">
-                    Talk to an Expert
+                </article>
+              );
+            })}
+          </div>
+          <p className="mt-6 text-sm text-muted">
+            Our own fees are on the{" "}
+            <Link href="/fees" className="font-semibold text-accent underline underline-offset-4">
+              Fees page
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+
+      <section className="section-padding bg-paper" aria-labelledby="compare-heading">
+        <div className="container-custom">
+          <SectionHeader
+            eyebrow="Compare"
+            id="compare-heading"
+            title="Countries at a glance."
+            intro="Read the country guide for the full rules, sources and costs."
+          />
+          <ul className="mt-8 space-y-3 lg:hidden">
+            {comparison.map((row) => (
+              <li key={row.country} className="rounded-2xl border border-line bg-white p-5">
+                <div className="flex items-center justify-between gap-3">
+                  <p className="font-semibold text-primary">{row.country}</p>
+                  <Link
+                    href={row.href}
+                    className="inline-flex min-h-11 items-center gap-1 text-sm font-semibold text-accent hover:underline"
+                  >
+                    Guide <ArrowRight size={14} aria-hidden="true" />
                   </Link>
                 </div>
-              </div>
-            </aside>
-
-            <div className="lg:col-span-9 space-y-16 lg:space-y-20">
-              <section id="benefits" aria-labelledby="benefits-heading">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-                    <Heart size={24} aria-hidden="true" />
+                <dl className="mt-1 grid gap-3 text-sm sm:grid-cols-2">
+                  <div>
+                    <dt className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted">Main intakes</dt>
+                    <dd className="mt-0.5 text-ink">{row.intakes}</dd>
                   </div>
-                  <h2 id="benefits-heading" className="text-primary">
-                    Benefits of Studying Abroad
-                  </h2>
-                </div>
-                
-                <div className="grid sm:grid-cols-2 gap-5 sm:gap-6">
-                  {benefits.map((benefit, index) => (
-                    <article 
-                      key={index}
-                      className="group bg-brand-light-bg p-6 sm:p-8 rounded-xl border border-brand-border hover:shadow-md hover:border-accent/20 transition-all duration-200"
-                    >
-                      <div className={`w-12 h-12 ${benefit.color} rounded-xl flex items-center justify-center mb-5 text-white group-hover:scale-105 transition-transform duration-200`} aria-hidden="true">
-                        <benefit.icon size={24} />
-                      </div>
-                      <h3 className="text-primary mb-3 group-hover:text-accent transition-colors">{benefit.title}</h3>
-                      <p className="text-sm text-primary/70 leading-relaxed font-medium">{benefit.description}</p>
-                    </article>
-                  ))}
-                </div>
-              </section>
-
-              <section id="our-process" aria-labelledby="process-heading">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                    <Award size={24} aria-hidden="true" />
+                  <div>
+                    <dt className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted">Typical English test</dt>
+                    <dd className="mt-0.5 text-ink">{row.english}</dd>
                   </div>
-                  <h2 id="process-heading" className="text-primary">
-                    Our 6-Step Process
-                  </h2>
-                </div>
-                
-                <div className="space-y-4 sm:space-y-5">
-                  {processSteps.map((step, index) => (
-                    <article key={index} className="flex items-start gap-4 sm:gap-6 p-5 sm:p-6 bg-white border border-brand-border rounded-xl sm:rounded-xl hover:shadow-md hover:border-accent/20 transition-all duration-200 group">
-                      <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-xl bg-accent/10 flex items-center justify-center text-accent font-semibold text-lg sm:text-xl group-hover:bg-accent group-hover:text-white transition-colors duration-200 flex-shrink-0" aria-hidden="true">
-                        {step.step}
-                      </div>
-                      <div className="flex-grow">
-                        <h3 className="text-primary mb-1 sm:mb-2 group-hover:text-accent transition-colors">{step.title}</h3>
-                        <p className="text-sm text-primary/70 font-medium leading-relaxed">{step.description}</p>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              </section>
-
-              <section id="requirements" aria-labelledby="requirements-heading">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-green-500/10 flex items-center justify-center text-green-600">
-                    <ShieldCheck size={24} aria-hidden="true" />
+                  <div>
+                    <dt className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted">Post-study work</dt>
+                    <dd className="mt-0.5 text-ink">{row.work}</dd>
                   </div>
-                  <h2 id="requirements-heading" className="text-primary">
-                    General Requirements
-                  </h2>
-                </div>
-                
-                <div className="bg-white p-6 sm:p-8 md:p-10 rounded-xl border border-brand-border shadow-sm">
-                  <p className="text-base text-primary/70 mb-8 font-medium leading-relaxed">
-                    While specific requirements vary by country and institution, most international students from Nepal will need to provide:
-                  </p>
-                  <ul className="grid sm:grid-cols-2 gap-4 sm:gap-6" role="list">
-                    {requirements.map((req, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <div className="w-6 h-6 rounded-full bg-green-100 flex items-center justify-center text-green-600 mt-0.5 flex-shrink-0" aria-hidden="true">
-                          <CheckCircle size={14} />
-                        </div>
-                        <span className="font-semibold text-sm text-primary/80 leading-relaxed">{req}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </section>
+                </dl>
+              </li>
+            ))}
+          </ul>
 
-              <section id="destinations" aria-labelledby="destinations-heading">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-                    <Globe size={24} aria-hidden="true" />
-                  </div>
-                  <h2 id="destinations-heading" className="text-primary">
-                    Top Destinations for Nepalese Students
-                  </h2>
-                </div>
-                
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-                  {destinations.map((country) => (
-                    <Link
-                      key={country.name}
-                      href={country.path}
-                      className="group bg-white border border-brand-border p-5 sm:p-6 rounded-xl hover:shadow-md hover:border-accent/20 transition-colors duration-200 text-center relative overflow-hidden"
-                      aria-label={`Study in ${country.name}`}
-                    >
-                      <div className="absolute top-0 right-0 bg-accent text-white text-[10px] font-bold px-3 py-1.5 rounded-bl-xl uppercase tracking-wider">
-                        {country.tag}
-                      </div>
-                      <h3 className="text-primary mb-2 group-hover:text-accent transition-colors">{country.name}</h3>
-                      <span className="inline-flex items-center text-accent text-sm font-bold group-hover:translate-x-2 transition-transform">
-                        Explore <ArrowRight className="ml-2" size={14} aria-hidden="true" />
-                      </span>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-
-              <section id="why-us" aria-labelledby="why-us-heading">
-                <div className="flex items-center gap-4 mb-8">
-                  <div className="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent">
-                    <Star size={24} aria-hidden="true" />
-                  </div>
-                  <h2 id="why-us-heading" className="text-primary">
-                    Why students come to our office
-                  </h2>
-                </div>
-                
-                <div className="grid sm:grid-cols-2 gap-5">
-                  {[
-                    { icon: Users, title: "Experienced counsellors", desc: "A small team that sees a limited number of students each intake so every file gets reviewed twice." },
-                    { icon: DollarSign, title: "Free initial counselling", desc: "First 30-minute meeting is always free — no obligation to sign up." },
-                    { icon: ShieldCheck, title: "Documentation review", desc: "SOP, LORs, bank statements and visa forms are reviewed by two people before submission." },
-                    { icon: FileCheck, title: "Personalized SOP guidance", desc: "We draft your study plan with you, not for you — so it reflects your actual background." },
-                    { icon: Users, title: "Mock interview sessions", desc: "Practice interviews to prepare you for visa interviews and real university questions." },
-                    { icon: Clock, title: "End-to-end support", desc: "From the first meeting at our New Baneshwor office through to the day you land." },
-                  ].map((item, index) => (
-                    <div key={index} className="flex items-start gap-4 p-5 bg-brand-light-bg rounded-xl border border-brand-border shadow-sm">
-                      <div className="w-10 h-10 rounded-lg bg-white border border-brand-border flex items-center justify-center text-primary flex-shrink-0" aria-hidden="true">
-                        <item.icon size={20} />
-                      </div>
-                      <div>
-                        <h4 className="text-primary mb-1">{item.title}</h4>
-                        <p className="text-sm text-primary/70 font-medium leading-relaxed">{item.desc}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-
-              <section aria-labelledby="no-promises-heading">
-                <div className="card card-hover border border-accent/20 bg-accent/5 p-6 sm:p-8">
-                  <div className="flex items-start gap-4">
-                    <div className="w-11 h-11 rounded-lg bg-accent/15 text-accent flex items-center justify-center shrink-0" aria-hidden="true">
-                      <AlertTriangle size={22} />
-                    </div>
-                    <div>
-                      <h3 id="no-promises-heading" className="text-primary">
-                        What we can&apos;t do
-                      </h3>
-                      <p className="mt-3 text-sm sm:text-base text-ink leading-relaxed">
-                        We can&apos;t guarantee a visa or an admission offer — those decisions belong to universities and embassies. What we do guarantee is that your file is accurate, complete and submitted on time, and that we tell you honestly where you stand.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </section>
-            </div>
+          <div className="mt-8 hidden overflow-x-auto rounded-2xl border border-line bg-white lg:block">
+            <table className="w-full min-w-[48rem] border-collapse text-left text-sm">
+              <caption className="sr-only">Compare study destinations</caption>
+              <thead className="bg-paper">
+                <tr>
+                  <th scope="col" className="p-4 font-semibold text-primary">Country</th>
+                  <th scope="col" className="p-4 font-semibold text-primary">Main intakes</th>
+                  <th scope="col" className="p-4 font-semibold text-primary">Typical English test</th>
+                  <th scope="col" className="p-4 font-semibold text-primary">Post-study work</th>
+                  <th scope="col" className="p-4 font-semibold text-primary">Read</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparison.map((row) => (
+                  <tr key={row.country} className="border-t border-line">
+                    <th scope="row" className="p-4 font-semibold text-primary">{row.country}</th>
+                    <td className="p-4 text-muted">{row.intakes}</td>
+                    <td className="p-4 text-muted">{row.english}</td>
+                    <td className="p-4 text-muted">{row.work}</td>
+                    <td className="p-4">
+                      <Link href={row.href} className="inline-flex min-h-11 items-center gap-1 font-semibold text-accent hover:underline">
+                        Guide <ArrowRight size={14} aria-hidden="true" />
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>
 
-      <CTA />
+      <section className="section-padding" aria-labelledby="courses-heading">
+        <div className="container-custom grid gap-10 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-4">
+            <SectionHeader
+              eyebrow="Course areas"
+              id="courses-heading"
+              title="What we advise on."
+              intro="Entry rules differ by institution; each country guide notes where these fields are strongest."
+            />
+          </div>
+          <div className="lg:col-span-8">
+            <ul className="grid gap-3 sm:grid-cols-2">
+              {[
+                "Business & management",
+                "IT & computing",
+                "Engineering",
+                "Health & sciences",
+                "Hospitality & tourism",
+                "Design & creative arts",
+              ].map((area) => (
+                <li key={area} className="rounded-xl border border-line bg-white p-4 text-sm font-medium text-ink">
+                  {area}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <CtaBand />
     </div>
   );
 };

@@ -42,17 +42,17 @@ CREATE TABLE IF NOT EXISTS student_enquiries (
   phone                    text NOT NULL,
   email                    text,
   preferred_country        text NOT NULL,
-  preferred_intake         text NOT NULL,
-  education_level          text NOT NULL,
-  academic_result_type     text NOT NULL,
+  preferred_intake         text,
+  education_level          text,
+  academic_result_type     text,
   academic_result          text,
-  english_test             text NOT NULL,
+  english_test             text,
   english_score            text,
   study_level              text NOT NULL,
   preferred_course         text,
-  budget_range             text NOT NULL,
-  preferred_contact_method text NOT NULL,
-  preferred_contact_time   text NOT NULL,
+  budget_range             text,
+  preferred_contact_method text,
+  preferred_contact_time   text,
   message                  text,
   source_page              text,
   referrer                 text,
@@ -77,6 +77,18 @@ CREATE INDEX IF NOT EXISTS enq_phone_idx     ON student_enquiries (phone, create
 
 CREATE INDEX IF NOT EXISTS idx_enquiries_priority ON student_enquiries(priority);
 CREATE INDEX IF NOT EXISTS idx_enquiries_country ON student_enquiries(preferred_country);
+
+-- The public form now asks only for name, contact, destination and study level.
+-- These columns stay so leads captured earlier keep their detail, but new rows leave
+-- them empty — relax the NOT NULL that the original, longer form required.
+ALTER TABLE student_enquiries
+  ALTER COLUMN preferred_intake         DROP NOT NULL,
+  ALTER COLUMN education_level          DROP NOT NULL,
+  ALTER COLUMN academic_result_type     DROP NOT NULL,
+  ALTER COLUMN english_test             DROP NOT NULL,
+  ALTER COLUMN budget_range             DROP NOT NULL,
+  ALTER COLUMN preferred_contact_method DROP NOT NULL,
+  ALTER COLUMN preferred_contact_time   DROP NOT NULL;
 
 -- Enforce the 13 canonical status values from STATUSES in constants.js.
 -- Use a DO block so ALTER TABLE ... ADD CONSTRAINT IF NOT EXISTS is not available in all Postgres versions.

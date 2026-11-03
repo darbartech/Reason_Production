@@ -20,16 +20,14 @@ const CLOSED_STATUSES = ['ENROLLED', 'LOST', 'NOT_INTERESTED', 'INVALID', 'DUPLI
 const PRIORITIES = ['LOW', 'NORMAL', 'HIGH', 'URGENT'];
 const ROLES = ['ADMIN', 'COUNSELOR'];
 
+// Allowed values for the public enquiry form (POST /api/enquiries).
+// Keep in sync with src/lib/validations/enquiry.ts.
 const FORM = {
-  destinations: ['Australia', 'Canada', 'United Kingdom', 'USA', 'New Zealand', 'Japan', 'Europe', 'Not sure / Need guidance'],
-  intakes: ['Next available intake', '2027 February', '2027 May', '2027 September', 'Not sure'],
-  education: ['SEE', '+2', 'Bachelor', 'Master', 'Other'],
-  resultTypes: ['GPA', 'Percentage', 'Division', 'Not sure'],
-  englishTests: ['IELTS', 'PTE', 'TOEFL', 'Duolingo', 'Not taken yet', 'Not sure'],
+  destinations: ['Australia', 'Canada', 'United Kingdom', 'USA', 'New Zealand', 'Germany', 'Japan', 'Europe', 'Not sure yet'],
   studyLevels: ['Diploma', 'Bachelor', 'Master', 'PhD', 'Not sure'],
-  budgets: ['Under NPR 15 lakh', 'NPR 15–25 lakh', 'NPR 25–40 lakh', 'NPR 40+ lakh', 'Need guidance'],
-  contactMethods: ['Phone call', 'WhatsApp', 'Office visit', 'Online meeting'],
-  contactTimes: ['Morning', 'Afternoon', 'Evening', 'Any time'],
+  // No longer asked on the form; kept so the admin filter still offers the intakes
+  // recorded against leads captured before the form was shortened.
+  intakes: ['Next available intake', '2027 February', '2027 May', '2027 September', 'Not sure'],
 };
 
 module.exports = { STATUSES, STAGES, STAGES_CLOSED, CLOSED_STATUSES, PRIORITIES, ROLES, FORM };

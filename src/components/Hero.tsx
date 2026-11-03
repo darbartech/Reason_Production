@@ -1,84 +1,61 @@
 import Link from "next/link";
-import Image from "next/image";
-import { ArrowRight, Phone } from "lucide-react";
-import { company } from "@/lib/company";
+import { ArrowRight } from "lucide-react";
+import { company, licenceLine } from "@/lib/company";
 import CallbackCard from "./CallbackCard";
+import Photo from "./Photo";
 
-const proof = [
-  { value: "7", label: "Study destinations" },
-  { value: "Free", label: "First counselling session" },
-  { value: "In-house", label: "IELTS & PTE classes" },
-  { value: `Since ${company.established}`, label: "Counselling Nepali students" },
-];
+const trustParts = [
+  `Advising Nepali students since ${company.established}`,
+  licenceLine(),
+  company.hours.label,
+].filter(Boolean) as string[];
 
 export default function Hero() {
   return (
-    <section className="bg-paper pt-10 pb-14 md:pt-16 md:pb-20 lg:pb-24" aria-labelledby="hero-heading">
-      <div className="container-custom">
+    <section className="relative isolate overflow-hidden bg-primary-950" aria-labelledby="hero-heading">
+      <div className="absolute inset-0 -z-10">
+        <Photo name="hero-counselling" alt="" sizes="100vw" fill priority />
+        <div className="absolute inset-0 bg-gradient-to-r from-primary-950 via-primary-950/80 to-primary-950/45" />
+      </div>
+
+      <div className="container-custom py-12 md:py-16 lg:py-20">
         <div className="grid items-start gap-10 lg:grid-cols-12 lg:gap-14">
-          <div className="lg:col-span-7">
+          <div className="surface-dark bg-transparent lg:col-span-7 lg:pt-4">
             <p className="eyebrow mb-6">Education consultancy · New Baneshwor, Kathmandu</p>
 
             <h1 id="hero-heading" className="text-balance max-w-[18ch] sm:max-w-[20ch]">
-              Study abroad, <em>planned one step at a time.</em>
+              Study abroad counselling in Kathmandu
             </h1>
 
             <p className="lead mt-6 max-w-xl">
-              Course and country selection, applications, IELTS/PTE preparation and visa
-              documents — handled by one counselling team you can meet in person.
+              Honest advice on courses, costs and visas — with IELTS &amp; PTE classes in the same office.
             </p>
 
-            <div className="mt-9 flex flex-col gap-3 sm:flex-row sm:items-center">
+            <p lang="ne" className="mt-4 max-w-xl text-base text-white/80">
+              विदेशमा पढ्ने योजना, एक–एक चरणमा। पहिलो सत्र निःशुल्क।
+            </p>
+
+            <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Link href="/contact" className="btn-primary group w-full sm:w-auto">
-                Book a free counselling session
+                Book a free session
                 <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
               </Link>
-              <a href={`tel:${company.phoneTel}`} className="btn-secondary w-full sm:w-auto">
-                <Phone size={16} aria-hidden="true" />
-                Call {company.phoneDisplay}
-              </a>
+              <Link
+                href="/eligibility"
+                className="group inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white"
+              >
+                Check your eligibility
+                <ArrowRight size={14} aria-hidden="true" className="transition-transform group-hover:translate-x-0.5" />
+              </Link>
             </div>
 
-            {company.registration.number && (
-              <p className="mt-5 text-sm text-muted">
-                Registered{company.registration.authority ? ` with ${company.registration.authority}` : ""} · Reg. No. {company.registration.number}
-                {company.registration.pan ? ` · PAN ${company.registration.pan}` : ""}
-              </p>
-            )}
+            <p className="mt-6 text-sm text-white/70">{trustParts.join(" · ")}</p>
           </div>
 
-          <div className="lg:col-span-5 space-y-6">
-            <CallbackCard />
-
-            <figure className="relative mx-auto w-full max-w-sm sm:max-w-md lg:max-w-none">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-3xl border border-line bg-white shadow-card">
-                <Image
-                  src="/images/hero/counselling-session.webp"
-                  alt="Students reviewing course options together on laptops"
-                  fill
-                  priority
-                  sizes="(min-width: 1024px) 40vw, 90vw"
-                  className="object-cover"
-                />
-              </div>
-              <figcaption className="mt-4 text-sm text-muted">
-                Free first session · {company.address.street}, {company.address.city}.
-              </figcaption>
-            </figure>
+          <div className="hidden lg:col-span-4 lg:col-start-9 lg:block">
+            <CallbackCard compact />
           </div>
         </div>
-
-        <dl className="mt-14 grid grid-cols-2 gap-x-6 gap-y-8 border-t border-line pt-8 sm:grid-cols-4 lg:mt-16">
-          {proof.map((p) => (
-            <div key={p.label}>
-              <dt className="sr-only">{p.label}</dt>
-              <dd>
-                <span className="block font-heading text-2xl font-medium text-primary md:text-3xl">{p.value}</span>
-                <span className="mt-1 block text-sm text-muted">{p.label}</span>
-              </dd>
-            </div>
-          ))}
-        </dl>
       </div>
     </section>
   );

@@ -14,7 +14,8 @@ export function JsonLd({ data }: { data: object | object[] }) {
 }
 
 export default function Schema() {
-  const sameAs = Object.values(company.social).filter(Boolean) as string[];
+  const { googleBusiness, ...socialLinks } = company.social;
+  const sameAs = Object.values(socialLinks).filter(Boolean) as string[];
 
   const org: Record<string, unknown> = {
     "@context": "https://schema.org",
@@ -48,6 +49,15 @@ export default function Schema() {
       },
     ],
     areaServed: { "@type": "Country", name: "Nepal" },
+    contactPoint: {
+      "@type": "ContactPoint",
+      telephone: company.phoneTel,
+      email: company.email,
+      contactType: "customer service",
+      areaServed: "NP",
+      availableLanguage: ["English", "Nepali"],
+    },
+    priceRange: "Free first counselling session",
     knowsAbout: [
       "Study abroad counselling",
       "IELTS preparation",
@@ -58,6 +68,31 @@ export default function Schema() {
 
   if (sameAs.length) {
     org.sameAs = sameAs;
+  }
+
+  const identifiers: Record<string, string>[] = [];
+  if (company.licence.number) {
+    identifiers.push({
+      "@type": "PropertyValue",
+      name: company.licence.authority
+        ? `Licence issued by ${company.licence.authority}`
+        : "Licence number",
+      value: company.licence.number,
+    });
+  }
+  if (company.registration.pan) {
+    identifiers.push({
+      "@type": "PropertyValue",
+      name: "PAN",
+      value: company.registration.pan,
+    });
+  }
+  if (identifiers.length) {
+    org.identifier = identifiers;
+  }
+
+  if (googleBusiness) {
+    org.hasMap = googleBusiness;
   }
 
   const website = {
