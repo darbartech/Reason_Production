@@ -8,7 +8,7 @@ Express + PostgreSQL backend used by `server.js`.
 | `create-admin.js` | Creates a staff login |
 | `enquiry-routes.js` | `POST /api/enquiries` (public form) |
 | `admin-routes.js` | `/api/admin/*` (login, stats, list, detail, notes) |
-| `admin-pages.js` | Serves exported `/admin*` pages only to signed-in staff |
+| `admin-pages.js` | Serves exported `/admin*` pages only to signed-in staff (enforced CSP, `noindex`) |
 | `auth.js`, `db.js`, `rate-limit.js`, `constants.js` | Helpers |
 
 ## Setup

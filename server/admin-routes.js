@@ -79,10 +79,15 @@ const loginLimiter = rateLimit({
   key: (req) => `${req.ip}|${String(req.body?.email || '').toLowerCase()}`,
   message: 'Too many sign-in attempts. Please wait a few minutes and try again.',
 });
+// Per-IP cap stops credential spraying across many email addresses.
+const loginIpLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, max: 30,
+  message: 'Too many sign-in attempts from your network. Please wait a few minutes and try again.',
+});
 
-router.post('/auth/login', loginLimiter, wrap(async (req, res) => {
-  const email = String(req.body?.email || '').trim().toLowerCase();
-  const password = String(req.body?.password || '');
+router.post('/auth/login', loginIpLimiter, loginLimiter, wrap(async (req, res) => {
+  const email = String(req.body?.email || '').trim().toLowerCase().slice(0, 254);
+  const password = String(req.body?.password || '').slice(0, 200);
   const { rows } = await query(
     `SELECT id, email, name, role, password_hash FROM users WHERE lower(email) = $1 AND active`, [email]
   );
@@ -295,7 +300,7 @@ router.get('/enquiries', wrap(async (req, res) => {
   }
 
   const w = where.length ? `WHERE ${where.join(' AND ')}` : '';
-  const page = Math.max(parseInt(str('page') || '1', 10) || 1, 1);
+  const page = Math.min(Math.max(parseInt(str('page') || '1', 10) || 1, 1), 10_000);
 
   const count = await query(`SELECT count(*)::int AS n FROM student_enquiries e ${w}`, p);
   const total = count.rows[0].n;

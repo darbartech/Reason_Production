@@ -31,6 +31,9 @@ function sslOption() {
   if (ca) {
     return { rejectUnauthorized: true, ca };
   }
+  // Encrypted, but the server certificate is not verified. Set DATABASE_CA_CERT
+  // (the provider's CA) if the database host is not on a trusted network path.
+  console.warn('[db] DATABASE_SSL is on without DATABASE_CA_CERT; certificate verification is disabled.');
   return { rejectUnauthorized: false };
 }
 
@@ -48,7 +51,14 @@ let pool;
 function getPool() {
   if (!pool) {
     assertConfigured();
-    pool = new Pool({ connectionString: process.env.DATABASE_URL, ssl: sslOption(), max: 10 });
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: sslOption(),
+      max: 10,
+      idleTimeoutMillis: 30_000,
+      connectionTimeoutMillis: 5_000,
+      application_name: 'reasons-site',
+    });
     pool.on('error', (err) => console.error('[db] idle client error:', err.message));
   }
   return pool;

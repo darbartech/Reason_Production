@@ -58,27 +58,17 @@ export default function Footer() {
     <footer className="surface-dark pt-16 md:pt-20 pb-24 lg:pb-8 relative">
       <div className="absolute top-0 left-0 w-full h-px bg-white/10"></div>
 
-      <div className="container-custom reveal relative z-10">
+      <div className="container-custom relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
           {/* Column 1 — Brand */}
           <div className="lg:col-span-4 space-y-6">
-<<<<<<< HEAD
             <Link href="/" className="inline-flex min-h-11 items-center">
-=======
-            <Link href="/" className="inline-block rounded-lg bg-white p-2.5" aria-label={company.displayName}>
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
               <Image
                 src="/logo/logo-reversed.png"
                 alt={company.displayName}
-<<<<<<< HEAD
                 width={657}
                 height={240}
                 className="h-10 w-auto object-contain"
-=======
-                width={480}
-                height={208}
-                className="h-9 w-auto object-contain"
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
               />
             </Link>
 
@@ -106,7 +96,6 @@ export default function Footer() {
 
           {/* Column 2 — Countries */}
           <div className="lg:col-span-2">
-<<<<<<< HEAD
             <h2 className="text-white mb-5 uppercase tracking-wider text-xs font-semibold">Countries</h2>
             <ul className="space-y-1">
               {countries.map((dest) => (
@@ -115,18 +104,6 @@ export default function Footer() {
                     <ArrowRight size={12} className="mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform text-crimson" />
                     <CountryFlag code={dest.code} className="mr-2.5 h-4 w-4" />
                     {dest.name}
-=======
-            <h4 className="text-white mb-5 uppercase tracking-wide text-sm font-semibold">Destinations</h4>
-            <ul className="space-y-3">
-              {destinations.map((dest) => (
-                <li key={dest.name}>
-                  <Link
-                    href={dest.href}
-                    className="flex items-center group"
-                  >
-                    <ArrowRight size={12} className="mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform text-crimson" aria-hidden="true" />
-                    <span>Study in {dest.name}</span>
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
                   </Link>
                 </li>
               ))}
@@ -135,7 +112,6 @@ export default function Footer() {
 
           {/* Column 3 — Company */}
           <div className="lg:col-span-3">
-<<<<<<< HEAD
             <h2 className="text-white mb-5 uppercase tracking-wider text-xs font-semibold">Company</h2>
             <ul className="space-y-1">
               {companyLinks.map((link) => (
@@ -143,18 +119,6 @@ export default function Footer() {
                   <Link href={link.href} className="group flex min-h-11 items-center">
                     <ArrowRight size={12} className="mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform text-crimson" />
                     {link.name}
-=======
-            <h4 className="text-white mb-5 uppercase tracking-wide text-sm font-semibold">Services</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="flex items-center group"
-                  >
-                    <ArrowRight size={12} className="mr-2 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-transform text-crimson" aria-hidden="true" />
-                    <span>{link.name}</span>
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
                   </Link>
                 </li>
               ))}
@@ -163,11 +127,7 @@ export default function Footer() {
 
           {/* Column 4 — Visit us */}
           <div className="lg:col-span-3 space-y-5">
-<<<<<<< HEAD
             <h2 className="text-white mb-2 uppercase tracking-wider text-xs font-semibold">Visit us</h2>
-=======
-            <h4 className="text-white mb-2 uppercase tracking-wide text-sm font-semibold">Visit & contact</h4>
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
 
             <div className="flex items-start gap-3">
               <MapPin size={16} className="text-crimson mt-0.5 shrink-0" aria-hidden="true" />

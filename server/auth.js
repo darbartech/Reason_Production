@@ -4,14 +4,23 @@ const { query } = require('./db');
 
 const scrypt = promisify(crypto.scrypt);
 const COOKIE = 'reason_admin_session';
-const SESSION_HOURS = Number(process.env.ADMIN_SESSION_HOURS || 12);
+const SESSION_HOURS_RAW = Number(process.env.ADMIN_SESSION_HOURS || 12);
+const SESSION_HOURS =
+  Number.isFinite(SESSION_HOURS_RAW) && SESSION_HOURS_RAW > 0 && SESSION_HOURS_RAW <= 168
+    ? SESSION_HOURS_RAW
+    : 12;
+if (SESSION_HOURS !== SESSION_HOURS_RAW) {
+  console.warn('[auth] ADMIN_SESSION_HOURS must be between 1 and 168; using 12.');
+}
 const N = 16384, R = 8, P = 1;
 
 // CSRF tokens are derived from the session token, so they survive restarts and need no storage.
 // Without SESSION_SECRET a per-boot key is used, which invalidates tokens on every restart.
 const SESSION_SECRET = process.env.SESSION_SECRET || crypto.randomBytes(32).toString('hex');
 if (!process.env.SESSION_SECRET && process.env.NODE_ENV === 'production') {
-  console.warn('[auth] SESSION_SECRET is not set; admin sessions will need re-login after every restart.');
+  console.error(
+    '[auth] SESSION_SECRET is not set. Set a stable random value (openssl rand -hex 32) or every restart invalidates admin CSRF tokens and forces re-login.'
+  );
 }
 const CSRF_KEY = crypto.createHmac('sha256', SESSION_SECRET).update('reason-admin-csrf').digest();
 
@@ -161,13 +170,14 @@ function sameOrigin(req, res, next) {
   try {
     const originUrl = new URL(origin);
 
-    // Production: strict same-origin check.
+    // Production: strict same-origin check. Only trust X-Forwarded-Host when the
+    // deployment has declared a reverse proxy; otherwise the client can set it.
     if (process.env.NODE_ENV === 'production') {
-      const forwardedHost =
-        req.headers['x-forwarded-host'] ||
-        req.headers.host;
+      const forwardedHost = process.env.TRUST_PROXY
+        ? String(req.headers['x-forwarded-host'] || req.headers.host || '').split(',')[0].trim()
+        : req.headers.host;
 
-      if (originUrl.host !== forwardedHost) {
+      if (!forwardedHost || originUrl.host.toLowerCase() !== forwardedHost.toLowerCase()) {
         return res.status(403).json({ message: 'Request blocked.' });
       }
 

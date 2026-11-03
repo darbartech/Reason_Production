@@ -33,7 +33,7 @@ export default function AdminLoginPage() {
 
   setCsrfToken(result.csrfToken);
 
-  window.location.assign("/portal/admin_access");
+  window.location.assign("/admin");
 } catch (err) {
   setError((err as ApiError).message);
   setBusy(false);

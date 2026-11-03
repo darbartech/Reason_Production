@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
+import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Calendar, Facebook, Linkedin, MessageCircle, Tag, Twitter, User } from "lucide-react";
+import { ArrowLeft, Calendar, Facebook, Linkedin, MessageCircle, Tag, Twitter, User } from "lucide-react";
 import CTA from "@/components/CTA";
-import PageHero from "@/components/PageHero";
 import { Breadcrumbs, JsonLd } from "@/components/Schema";
 import { blogPosts } from "@/lib/blog-data";
 import { sanitizeBlogContent } from "@/lib/blog-sanitize";
@@ -84,7 +84,6 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
       <JsonLd data={articleSchema} />
       <Breadcrumbs items={[{ name: "Blog", path: "/blog" }, { name: post.title, path: `/blog/${post.slug}` }]} />
 
-<<<<<<< HEAD
       <section className="bg-primary pt-10 pb-12 lg:pt-14 lg:pb-16 text-white relative overflow-hidden">
         <div className="absolute top-0 right-0 w-1/4 h-full bg-accent/5 -skew-x-12 translate-x-1/2" aria-hidden="true" />
         <div className="container-custom relative z-10">
@@ -113,29 +112,9 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
                 Checked {post.checkedDate}
               </span>
             </div>
-=======
-      <PageHero
-        tone="paper"
-        variant="compact"
-        crumbs={[{ name: "Blog", href: "/blog" }, { name: post.title }]}
-        eyebrow={post.category}
-        title={post.title}
-        meta={
-          <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-muted">
-            <span className="inline-flex items-center">
-              <Calendar size={16} className="mr-1.5 text-crimson" aria-hidden="true" />
-              <time dateTime={post.dateISO}>{post.date}</time>
-            </span>
-            <span className="inline-flex items-center">
-              <User size={16} className="mr-1.5 text-crimson" aria-hidden="true" /> {post.author}
-            </span>
-            <span className="inline-flex items-center">
-              <Tag size={16} className="mr-1.5 text-crimson" aria-hidden="true" /> {post.category}
-            </span>
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
           </div>
-        }
-      />
+        </div>
+      </section>
 
       <article className="py-16">
         <div className="container-custom">
@@ -154,7 +133,7 @@ const BlogPostPage = ({ params }: BlogPostPageProps) => {
             </figure>
 
             <div className="mb-12 flex flex-wrap items-center gap-4">
-              <span className="text-sm font-bold text-muted uppercase tracking-widest">Share</span>
+              <span className="text-xs font-bold text-muted uppercase tracking-widest">Share</span>
               <div className="flex items-center gap-3">
                 {shareLinks.map(({ Icon, href, label }) => (
                   <a

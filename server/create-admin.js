@@ -20,13 +20,14 @@ function args() {
   const name = String(a.name || '').trim();
   const role = String(a.role || 'COUNSELOR').trim().toUpperCase();
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !name || !ROLES.includes(role)) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !name || name.length > 120 || !ROLES.includes(role)) {
     console.error('Usage: npm run admin:create -- --email you@example.com --name "Your Name" --role ADMIN|COUNSELOR [--password "..."]');
     process.exit(1);
   }
   let password = a.password;
   const generated = !password;
   if (generated) password = crypto.randomBytes(12).toString('base64url');
+  else console.warn('  Warning: --password is visible in shell history and process listings; omit it to generate one.');
   if (password.length < 8) { console.error('Password must be at least 8 characters.'); process.exit(1); }
 
   try {
@@ -40,6 +41,10 @@ function args() {
        RETURNING (xmax = 0) AS inserted`,
       [email, name, role, hash]
     );
+    if (!rows[0].inserted) {
+      // A password reset must not leave old sessions usable.
+      await pool.query(`DELETE FROM sessions WHERE user_id = (SELECT id FROM users WHERE lower(email) = $1)`, [email]);
+    }
     console.log(`✔ ${rows[0].inserted ? 'Created' : 'Updated'} ${role} account: ${email}`);
     if (generated) console.log(`  Temporary password (shown once): ${password}`);
     await pool.end();

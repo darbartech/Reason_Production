@@ -23,6 +23,9 @@ const staticPaths = [
 
 const lastChecked = new Date(LAST_CHECKED_ISO);
 
+// Static export: metadata routes must be explicitly static in Next 16.
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes = staticPaths.map((path) => ({
     url: `${company.url}${path}`,

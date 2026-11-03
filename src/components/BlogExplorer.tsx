@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Image from "next/image";
 import { Search } from "lucide-react";
-import PageHero from "@/components/PageHero";
 import BlogCard from "@/components/BlogCard";
 import { blogCategories, blogPosts } from "@/lib/blog-data";
 
@@ -26,31 +26,8 @@ const BlogExplorer = () => {
     });
   }, [query, category]);
 
-  const searchField = (
-    <div>
-      <label htmlFor="blog-search" className="block text-sm font-medium text-primary mb-2">
-        Search articles
-      </label>
-      <div className="relative group">
-        <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none text-muted group-focus-within:text-accent transition-colors">
-          <Search size={18} aria-hidden="true" />
-        </div>
-        <input
-          id="blog-search"
-          type="search"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="Search for articles, guides..."
-          aria-label="Search articles"
-          className="w-full h-12 px-4 pl-11 rounded-xl border border-line bg-white text-primary placeholder:text-muted focus:ring-2 focus:ring-accent focus:border-accent text-base focus:outline-none"
-        />
-      </div>
-    </div>
-  );
-
   return (
     <>
-<<<<<<< HEAD
       <section className="bg-primary pt-12 pb-14 lg:pt-16 text-white">
         <div className="container-custom">
           <div className="lg:grid lg:grid-cols-12 lg:gap-12 items-center">
@@ -91,21 +68,9 @@ const BlogExplorer = () => {
           </div>
         </div>
       </section>
-=======
-      <PageHero
-        tone="paper"
-        variant="editorial"
-        crumbs={[{ name: "Blog" }]}
-        eyebrow="Blog & insights"
-        title={<>Guides and advice <em>straight from our team.</em></>}
-        intro="Expert insights, comprehensive guides, and the latest tips to help you navigate and succeed in your international education journey."
-        aside={searchField}
-      />
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
 
       <section className="py-12 lg:py-14">
         <div className="container-custom">
-<<<<<<< HEAD
           <h2 className="sr-only">All guides</h2>
           <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by category">
@@ -132,13 +97,6 @@ const BlogExplorer = () => {
                 : `${results.length} ${results.length === 1 ? "guide" : "guides"}`}
             </p>
           </div>
-=======
-          <p className="text-sm font-semibold text-muted mb-8" aria-live="polite">
-            {query.trim()
-              ? `${results.length} ${results.length === 1 ? "article" : "articles"} matching "${query.trim()}"`
-              : `${blogPosts.length} articles`}
-          </p>
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
 
           {results.length > 0 ? (
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -150,11 +108,7 @@ const BlogExplorer = () => {
             <div className="rounded-xl border border-line bg-paper px-6 py-16 text-center">
               <h2 className="mb-3">No guides found</h2>
               <p className="mx-auto text-muted">
-<<<<<<< HEAD
                 Try a different keyword such as “IELTS”, “funds”, “SOP” or “Canada”.
-=======
-                Try a different keyword such as &ldquo;IELTS&rdquo;, &ldquo;visa&rdquo;, &ldquo;SOP&rdquo; or &ldquo;Canada&rdquo;.
->>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
               </p>
             </div>
           )}
