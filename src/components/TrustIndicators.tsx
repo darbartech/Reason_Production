@@ -41,8 +41,13 @@ export default function TrustIndicators() {
         <ul className="grid gap-5 sm:grid-cols-3 sm:gap-6">
           {promises.map((promise) => (
             <li
+<<<<<<< HEAD
               key={promise.n}
               className="flex h-full flex-col rounded-2xl border border-white/10 bg-white/[0.04] p-6 sm:p-7"
+=======
+              key={r.n}
+              className="reveal rounded-xl p-6 sm:p-7 border border-white/10 bg-white/[0.04]"
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
             >
               <span aria-hidden="true" className="mb-4 block font-heading text-3xl font-normal text-on-dark-link sm:text-4xl">
                 {promise.n}

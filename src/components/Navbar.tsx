@@ -111,9 +111,14 @@ const Navbar = () => {
     setOpenMenu(null);
   }, [pathname]);
 
+<<<<<<< HEAD
   const isActive = (path: string) => pathname === path;
   const studyActive =
     pathname.startsWith("/study-abroad") || pathname.startsWith("/countries") || pathname.startsWith("/eligibility");
+=======
+  const isActive = (path: string) =>
+    pathname === path || pathname.startsWith(path + "/");
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
 
   return (
     <>
@@ -248,7 +253,12 @@ const Navbar = () => {
                   <Link
                     key={link.name}
                     href={link.href}
+<<<<<<< HEAD
                     className={`relative inline-flex min-h-11 items-center px-3 py-2 text-[0.9375rem] font-medium transition-colors ${
+=======
+                    aria-current={isActive(link.href) ? "page" : undefined}
+                    className={`relative px-3 py-2 text-sm font-medium transition-colors ${
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
                       isActive(link.href)
                         ? "text-primary after:absolute after:inset-x-3 after:bottom-0 after:h-0.5 after:bg-crimson"
                         : "text-primary/80 hover:text-primary"
@@ -259,8 +269,19 @@ const Navbar = () => {
                 ))}
 
                 <div className="ml-4">
+<<<<<<< HEAD
                   <Link href="/contact" className="btn-primary h-11 px-5 text-sm">
                     Book a free session
+=======
+                  <Link
+                    href="/contact"
+                    aria-current={isActive("/contact") ? "page" : undefined}
+                    className={`btn-primary h-10 px-5 text-sm ${
+                      isActive("/contact") ? "brightness-95" : ""
+                    }`}
+                  >
+                    Free counselling
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
                   </Link>
                 </div>
               </div>
@@ -380,12 +401,24 @@ const Navbar = () => {
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
+<<<<<<< HEAD
                 className={`flex min-h-[56px] items-center justify-between rounded-xl px-5 py-4 transition-colors ${
                   isActive(link.href) ? "bg-accent/10 text-accent" : "text-primary hover:bg-primary-50"
                 }`}
               >
                 <span className="text-lg font-semibold">{link.name}</span>
                 <ChevronRight size={18} className="text-primary-300" />
+=======
+                aria-current={isActive(link.href) ? "page" : undefined}
+                className={`flex items-center justify-between px-5 py-4 rounded-xl transition-colors ${
+                  isActive(link.href)
+                    ? "bg-crimson/5 text-crimson"
+                    : "text-primary hover:bg-primary-50"
+                }`}
+              >
+                <span className="text-lg font-semibold">{link.name}</span>
+                <ChevronRight size={18} className={isActive(link.href) ? "text-crimson" : "text-primary-300"} />
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
               </Link>
             ))}
 
@@ -424,8 +457,13 @@ const Navbar = () => {
                 href={whatsappLink()}
                 target="_blank"
                 rel="noopener noreferrer"
+<<<<<<< HEAD
                 className="btn-secondary"
                 aria-label="Chat on WhatsApp"
+=======
+                className="flex items-center justify-center gap-2 py-4 rounded-xl bg-primary-50 text-primary font-semibold hover:bg-[#1A7F37]/10 hover:text-[#1A7F37] transition-colors border border-brand-border"
+                aria-label="WhatsApp"
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
               >
                 <MessageCircle size={18} />
                 <span>WhatsApp</span>

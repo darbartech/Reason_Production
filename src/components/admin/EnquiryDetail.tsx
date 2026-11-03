@@ -67,7 +67,7 @@ export default function EnquiryDetail() {
     return (
       <div className={`${card} p-8 text-center`}>
         <div className="text-sm text-primary mb-4">{error}</div>
-        <a href="/admin/enquiries" className="text-sm font-medium text-accent hover:underline">Back to enquiries</a>
+        <a href="/portal/admin_access/enquiries" className="text-sm font-medium text-accent hover:underline">Back to enquiries</a>
       </div>
     );
   }
@@ -116,7 +116,7 @@ export default function EnquiryDetail() {
 
   return (
     <div className="space-y-4">
-      <a href="/admin/enquiries" className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline">
+      <a href="/portal/admin_access/enquiries" className="inline-flex items-center gap-1.5 text-sm font-medium text-accent hover:underline">
         <ArrowLeft size={14} /> All enquiries
       </a>
 

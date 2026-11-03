@@ -76,7 +76,7 @@ app.use('/api', (req, res) => {
 });
 
 // Admin UI pages (Phase 4): HTML is only served to signed-in users.
-// Must stay BEFORE express.static so out/admin*.html is never served publicly.
+// Must stay BEFORE express.static so out/portal/admin_access*.html is never served publicly.
 app.use(adminPages);
 
 // Block encoded or case-variant admin paths from falling through to express.static.

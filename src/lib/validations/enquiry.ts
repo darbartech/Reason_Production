@@ -46,20 +46,110 @@ export const enquirySchema = z.object({
       nepalPhoneRegex,
       "Please enter a valid Nepali mobile or landline number"
     ),
-  email: z
-    .string()
-    .optional()
-    .or(z.literal(""))
-    .refine(
-      (v) => !v || z.string().email().safeParse(v).success,
-      "Please enter a valid email address"
-    ),
   preferredDestination: z.enum(PREFERRED_DESTINATIONS, {
     message: "Please select a preferred destination",
   }),
+<<<<<<< HEAD
   studyLevel: z.enum(STUDY_LEVELS, {
     message: "Please select your study level",
   }),
+=======
+});
+
+const step2Schema = z
+  .object({
+    email: z
+      .string()
+      .optional()
+      .or(z.literal(""))
+      .refine(
+        (v) => !v || z.string().email().safeParse(v).success,
+        "Please enter a valid email address"
+      ),
+    preferredIntake: z
+      .enum(PREFERRED_INTAKES)
+      .optional()
+      .or(z.literal("")),
+    highestEducation: z.enum(HIGHEST_EDUCATION, {
+      message: "Please select your highest education",
+    }),
+    resultType: z.enum(RESULT_TYPES, {
+      message: "Please select a result type",
+    }),
+    resultValue: z
+      .string()
+      .optional()
+      .or(z.literal(""))
+      .refine(
+        (v) => {
+          if (!v) return true;
+          return v.length <= 50;
+        },
+        "Result is too long"
+      ),
+    englishTest: z.enum(ENGLISH_TESTS, {
+      message: "Please select an English test option",
+    }),
+    englishScore: z
+      .string()
+      .optional()
+      .or(z.literal(""))
+      .refine(
+        (v) => {
+          if (!v) return true;
+          return v.length <= 20;
+        },
+        "Score is too long"
+      ),
+    studyLevel: z.enum(STUDY_LEVELS, {
+      message: "Please select your preferred study level",
+    }),
+    preferredCourse: z
+      .string()
+      .max(200, "Course/subject is too long")
+      .optional()
+      .or(z.literal("")),
+    budget: z.enum(BUDGETS, {
+      message: "Please select a budget range",
+    }),
+    contactPreference: z.enum(CONTACT_PREFERENCES, {
+      message: "Please select a contact preference",
+    }),
+    bestContactTime: z.enum(CONTACT_TIMES, {
+      message: "Please select the best time to contact you",
+    }),
+  })
+  .superRefine((data, ctx) => {
+    if (
+      data.resultType !== "Not sure" &&
+      data.resultType !== undefined &&
+      data.resultValue !== undefined &&
+      data.resultValue !== null
+    ) {
+      const trimmed = data.resultValue.trim();
+      if (trimmed.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["resultValue"],
+          message: `Please enter your ${data.resultType.toLowerCase()} result, or choose "Not sure" as the result type`,
+        });
+      }
+    }
+    const scoredTests = ["IELTS", "PTE", "TOEFL", "Duolingo"] as const;
+    if (scoredTests.includes(data.englishTest as (typeof scoredTests)[number])) {
+      const trimmed = (data.englishScore ?? "").trim();
+      if (trimmed.length === 0) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["englishScore"],
+          message: `Please enter your ${data.englishTest} score, or choose "Not taken yet" / "Not sure" instead`,
+        });
+      }
+    }
+  });
+
+export const enquirySchema = step1Schema.merge(step2Schema).extend({
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
   sourcePage: z.string().optional(),
   referrer: z.string().optional(),
   utmSource: z.string().optional(),

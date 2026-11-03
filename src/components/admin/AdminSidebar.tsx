@@ -6,16 +6,25 @@ import { LayoutDashboard, Users, UserCog } from "lucide-react";
 import { Role } from "@/lib/admin/api";
 
 const ITEMS = [
+<<<<<<< HEAD
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard, adminOnly: false },
   { href: "/admin/enquiries", label: "Enquiries", icon: Users, adminOnly: false },
   { href: "/admin/users", label: "Users", icon: UserCog, adminOnly: true },
+=======
+  { href: "/portal/admin_access", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/portal/admin_access/enquiries", label: "Enquiries", icon: Users },
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
 ];
 
 // Plain <a> links on purpose: admin pages are served per-request behind the session check.
 export default function AdminSidebar({ role }: { role: Role }) {
   const pathname = (usePathname() || "").replace(/\/$/, "");
+<<<<<<< HEAD
   const active = (href: string) => (href === "/admin" ? pathname === "/admin" : pathname.startsWith(href));
   const items = ITEMS.filter((i) => !i.adminOnly || role === "ADMIN");
+=======
+  const active = (href: string) => (href === "/portal/admin_access" ? pathname === "/portal/admin_access" : pathname.startsWith(href));
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
 
   return (
     <aside className="bg-primary text-white md:w-56 md:min-h-screen md:fixed md:inset-y-0 md:left-0 flex md:flex-col">

@@ -32,9 +32,15 @@ const steps = [
 
 export default function Process() {
   return (
+<<<<<<< HEAD
     <section className="section-padding bg-white" aria-labelledby="process-heading">
       <div className="container-custom">
         <div className="mb-10 flex flex-col gap-6 lg:mb-14 lg:flex-row lg:items-end lg:justify-between">
+=======
+    <section className="section-padding bg-tint">
+      <div className="container-custom grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className="lg:col-span-4 lg:sticky lg:top-32 self-start">
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
           <SectionHeader
             eyebrow="Process"
             id="process-heading"
@@ -47,6 +53,7 @@ export default function Process() {
           </Link>
         </div>
 
+<<<<<<< HEAD
         <ol className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5 lg:gap-0">
           {steps.map((step, index) => (
             <li
@@ -63,6 +70,33 @@ export default function Process() {
             </li>
           ))}
         </ol>
+=======
+        <div className="lg:col-span-8">
+          <ol>
+            {steps.map((s, i) => {
+              return (
+                <li
+                  key={s.n}
+                  className="reveal grid grid-cols-[auto_1fr] gap-6 border-t border-primary/15 py-8 first:border-t-0 first:pt-0"
+                >
+                  <span className="font-heading text-5xl md:text-6xl leading-none text-crimson">
+                    {s.n}
+                  </span>
+                  <div>
+                    <h3>{s.title}</h3>
+                    <p className="mt-2 text-[0.9375rem] text-muted leading-relaxed">
+                      {s.text}
+                    </p>
+                    <p className="mt-4 inline-block rounded-md bg-white px-3 py-1 text-sm font-medium text-primary-700">
+                      {s.duration}
+                    </p>
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
       </div>
     </section>
   );

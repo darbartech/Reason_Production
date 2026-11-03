@@ -16,7 +16,32 @@ export const metadata = buildMetadata({
   image: "/og/ielts.png",
 });
 
+<<<<<<< HEAD
 const batchMessage = "Hello, I'd like details of the next IELTS/PTE batch.";
+=======
+const features = [
+  {
+    n: "01",
+    title: "Expert Trainers",
+    description: "Certified instructors with years of experience in IELTS/PTE coaching and proven track records.",
+  },
+  {
+    n: "02",
+    title: "Weekly Mock Tests",
+    description: "Full-length practice tests every Sunday to track progress and build test-taking confidence.",
+  },
+  {
+    n: "03",
+    title: "Updated Materials",
+    description: "Comprehensive and up-to-date study materials, practice books, and online resources included.",
+  },
+  {
+    n: "04",
+    title: "Flexible Batches",
+    description: "Morning, afternoon, and evening batches available to fit your schedule perfectly.",
+  },
+];
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
 
 const courses = [
   {
@@ -55,6 +80,7 @@ const classPoints = [
 
 const whichTest: { lead: string; text: string; icon: LucideIcon }[] = [
   {
+<<<<<<< HEAD
     lead: "Check first:",
     text: "the institution's or visa's accepted tests and minimum scores.",
     icon: SearchCheck,
@@ -68,6 +94,26 @@ const whichTest: { lead: string; text: string; icon: LucideIcon }[] = [
     lead: "Not sure?",
     text: "bring your course list to a free session. We'll tell you which test fits and what score to aim for.",
     icon: MessageCircle,
+=======
+    title: "Listening",
+    description: "Practice diverse accents and question types with our audio training sessions.",
+    icon: Headphones,
+  },
+  {
+    title: "Reading",
+    description: "Master skimming, scanning, and detailed reading techniques for high scores.",
+    icon: BookOpen,
+  },
+  {
+    title: "Writing",
+    description: "Learn structured writing approaches with personalized feedback on your essays.",
+    icon: PenTool,
+  },
+  {
+    title: "Speaking",
+    description: "Build confidence with regular one-on-one practice sessions and mock interviews.",
+    icon: Mic,
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
   },
 ];
 
@@ -75,6 +121,7 @@ const IELTSPage = () => {
   return (
     <div className="bg-white">
       <PageHero
+<<<<<<< HEAD
         crumbs={[{ name: "IELTS & PTE" }]}
         title="IELTS &amp; PTE classes in New Baneshwor"
         intro="Small-batch classes, a mock test every Sunday and feedback on every module."
@@ -82,10 +129,50 @@ const IELTSPage = () => {
           name: "blog-hero",
           alt: "Open books and handwritten notes on a desk",
         }}
+=======
+        variant="split"
+        crumbs={[{ name: "IELTS / PTE" }]}
+        eyebrow="Test preparation"
+        title={<>IELTS &amp; PTE classes in <em>New Baneshwor</em></>}
+        intro="Small-batch classes, weekly mock tests and one-on-one feedback until you reach the band you need."
+        subject={{
+          src: "/images/hero/photos/ielts-exam.jpg",
+          alt: "An exam paper and pencil ready on a classroom desk for a mock test",
+          width: 1200,
+          height: 1500,
+        }}
+        badge={{
+          icon: <GraduationCap size={20} />,
+          title: "Small-batch classes",
+          subtitle: "Weekly mock tests included",
+        }}
+        actions={
+          <>
+            <Link href="/contact" className="btn-primary btn-lg group w-full sm:w-auto">
+              Book a demo class
+              <ArrowRight
+                size={18}
+                className="transition-transform group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </Link>
+            <a
+              href={whatsappLink("Hello, I'd like to know about your IELTS/PTE classes.")}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-secondary btn-lg w-full sm:w-auto"
+            >
+              <MessageCircle size={18} aria-hidden="true" />
+              Chat on WhatsApp
+            </a>
+          </>
+        }
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
       />
 
       <section className="section-padding" aria-labelledby="courses-heading">
         <div className="container-custom">
+<<<<<<< HEAD
           <SectionHeader eyebrow="Choose your course" id="courses-heading" title="Two courses, clear fees." />
 
           <ul className="mt-8 grid gap-4 md:hidden">
@@ -102,6 +189,82 @@ const IELTSPage = () => {
                     <dt className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted">Length</dt>
                     <dd className="mt-0.5 text-ink">{course.length}</dd>
                   </div>
+=======
+          <SectionHeader
+            eyebrow="Why choose us"
+            title={<>What sets <em>us apart</em></>}
+            intro="Our proven methodology and experienced trainers ensure you get the best preparation for your English proficiency tests."
+          />
+          
+          <div className="mt-12">
+            <ol>
+              {features.map((feature, index) => (
+                <li
+                  key={index}
+                  className="grid grid-cols-[auto_1fr] gap-6 border-t border-primary/15 py-8 first:border-t-0 first:pt-0"
+                >
+                  <span className="font-heading text-5xl md:text-6xl leading-none text-crimson">
+                    {feature.n}
+                  </span>
+                  <div>
+                    <h3>{feature.title}</h3>
+                    <p className="mt-2 text-[0.9375rem] text-muted leading-relaxed max-w-prose">
+                      {feature.description}
+                    </p>
+                  </div>
+                </li>
+              ))}
+            </ol>
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding" aria-labelledby="exam-modules-heading">
+        <div className="container-custom">
+          <SectionHeader
+            eyebrow="Exam modules"
+            title={<>Comprehensive <em>test preparation</em></>}
+            intro="Master all four modules with targeted practice and expert guidance tailored for Nepalese students."
+          />
+          
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 mt-10">
+            {examModules.map((module, index) => (
+              <article 
+                key={index} 
+                className="card card-hover p-6 sm:p-7"
+              >
+                <module.icon size={28} className="text-crimson mb-5" aria-hidden="true" />
+                <h3 className="mb-2">{module.title}</h3>
+                <p className="text-sm text-muted leading-relaxed">{module.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="section-padding bg-paper" aria-labelledby="courses-heading">
+        <div className="container-custom">
+          <SectionHeader
+            eyebrow="Our courses"
+            title={<>Choose your <em>preparation path</em></>}
+            intro="Affordable and comprehensive courses designed for your success. All courses include study materials."
+          />
+          
+          <div className="grid md:grid-cols-3 gap-5 mt-10">
+            {courses.map((course, index) => (
+              <article 
+                key={index} 
+                className={`card card-hover p-6 sm:p-7 relative ${course.popular ? 'ring-1 ring-crimson' : ''}`}
+              >
+                {course.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-crimson text-white px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wide">
+                    Most Popular
+                  </div>
+                )}
+                
+                <div className="flex items-center gap-4 mb-5">
+                  <course.icon size={28} className="text-crimson" aria-hidden="true" />
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
                   <div>
                     <dt className="text-[0.6875rem] font-semibold uppercase tracking-wide text-muted">Format</dt>
                     <dd className="mt-0.5 text-ink">{course.format}</dd>
@@ -116,6 +279,7 @@ const IELTSPage = () => {
                     </li>
                   ))}
                 </ul>
+<<<<<<< HEAD
                 <a
                   href={whatsappLink(batchMessage)}
                   target="_blank"
@@ -126,6 +290,16 @@ const IELTSPage = () => {
                   {course.ask}
                 </a>
               </li>
+=======
+                
+                <Link 
+                  href="/contact" 
+                  className={`w-full ${course.popular ? "btn-primary" : "btn-secondary"}`}
+                >
+                  Enrol Now
+                </Link>
+              </article>
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
             ))}
           </ul>
 
@@ -206,6 +380,7 @@ const IELTSPage = () => {
         </div>
       </section>
 
+<<<<<<< HEAD
       <section className="section-padding bg-paper" aria-labelledby="foundation-heading">
         <div className="container-custom">
           <div className="rounded-2xl border border-line bg-white p-6 sm:p-8">
@@ -223,10 +398,57 @@ const IELTSPage = () => {
               <MessageCircle size={16} aria-hidden="true" />
               Ask about this course
             </a>
+=======
+      <section className="section-padding" aria-labelledby="schedule-heading">
+        <div className="container-custom">
+          <SectionHeader
+            eyebrow="Schedule"
+            title={<>Schedule &amp; <em>upcoming batches</em></>}
+            intro="Current batch timings and upcoming intake dates. Updated weekly — contact us to reserve your seat."
+          />
+          
+          <div className="mt-12 card overflow-hidden">
+            <div className="grid grid-cols-3 bg-brand-light-bg border-b border-line">
+              <div className="p-5 sm:p-6 text-sm font-semibold uppercase tracking-wide text-primary/60">
+                Batch
+              </div>
+              <div className="p-5 sm:p-6 text-sm font-semibold uppercase tracking-wide text-primary/60 border-l border-line">
+                Days
+              </div>
+              <div className="p-5 sm:p-6 text-sm font-semibold uppercase tracking-wide text-primary/60 border-l border-line">
+                Time
+              </div>
+            </div>
+
+            <div className="divide-y divide-line">
+              <div className="grid grid-cols-3 items-center p-5 sm:p-6 text-center">
+                <div className="text-base font-medium text-primary/80 sm:text-left col-span-3 sm:col-span-1">
+                  Contact for current schedule
+                </div>
+                <div className="hidden sm:block text-primary/60 border-l border-line py-1">
+                  <span className="text-primary/30">—</span>
+                </div>
+                <div className="hidden sm:block text-primary/60 border-l border-line py-1">
+                  <span className="text-primary/30">—</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="p-5 sm:p-6 bg-accent/5 border-t border-line flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <p className="text-sm text-muted">
+                <span className="font-semibold text-primary">Schedule coming soon.</span> Batch timings will be published once the next intake is confirmed.
+              </p>
+              <Link href="/contact" className="link-arrow text-sm">
+                Ask for current timetable
+                <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </div>
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
           </div>
         </div>
       </section>
 
+<<<<<<< HEAD
       <section className="section-padding" aria-labelledby="which-test-heading">
         <div className="container-custom grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
@@ -316,6 +538,9 @@ const IELTSPage = () => {
         title="Want to check your target score first?"
         intro="Bring your course list and any test result. We'll tell you which test to take and what score the course actually needs."
       />
+=======
+      <CTA />
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
     </div>
   );
 };

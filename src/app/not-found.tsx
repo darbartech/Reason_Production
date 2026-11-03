@@ -2,9 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Home, MessageSquare } from "lucide-react";
 
-// The static export also injects <meta name="robots" content="noindex"> into out/404.html,
-// but the root layout would otherwise contribute its "index, follow" tag here — the explicit
-// override keeps both tags restrictive instead of contradictory.
 export const metadata: Metadata = {
   title: "Page Not Found",
   description:
@@ -26,30 +23,24 @@ const NotFoundPage = () => {
     <div className="bg-white">
       <section className="surface-dark section-padding">
         <div className="container-custom">
-          <div className="flex flex-col items-start gap-10 lg:flex-row lg:items-center lg:justify-between">
-            <div className="max-w-2xl">
-              <p className="eyebrow">Error 404</p>
-              <h1 className="mt-6">Page Not Found</h1>
-              <p className="lead mt-6">
-                The page you are looking for has been moved, renamed or never existed. The links below
-                reach the same information by a different route.
-              </p>
-              <div className="mt-10 flex flex-wrap gap-4">
-                <Link href="/" className="btn-primary group">
-                  <Home size={18} aria-hidden="true" />
-                  Back to Home
-                </Link>
-                <Link href="/contact" className="btn-on-dark group">
-                  <MessageSquare size={18} aria-hidden="true" />
-                  Contact Us
-                  <ArrowRight size={16} aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
-                </Link>
-              </div>
-            </div>
-
-            <p aria-hidden="true" className="hidden shrink-0 select-none font-heading text-[9rem] leading-none text-white/10 lg:block">
-              404
+          <div className="max-w-2xl">
+            <p className="eyebrow">Error 404</p>
+            <h1 className="mt-6">Page Not Found</h1>
+            <p className="lead mt-6">
+              The page you are looking for has been moved, renamed or never existed. The links below
+              reach the same information by a different route.
             </p>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link href="/" className="btn-primary group">
+                <Home size={18} aria-hidden="true" />
+                Back to Home
+              </Link>
+              <Link href="/contact" className="btn-on-dark group">
+                <MessageSquare size={18} aria-hidden="true" />
+                Contact Us
+                <ArrowRight size={16} aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>

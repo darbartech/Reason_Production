@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import Link from "next/link";
 import { ArrowRight, CheckCircle2, GraduationCap, Home, Plane } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
@@ -5,8 +6,11 @@ import CtaBand from "@/components/CtaBand";
 import PageHero from "@/components/PageHero";
 import Photo from "@/components/Photo";
 import SectionHeader from "@/components/SectionHeader";
+=======
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
 import { Breadcrumbs } from "@/components/Schema";
 import { buildMetadata } from "@/lib/seo";
+import StudyAbroadClient from "./StudyAbroadClient";
 
 export const metadata = buildMetadata({
   title: "Study Abroad from Nepal: Process, Costs & Visa Steps",
@@ -16,6 +20,7 @@ export const metadata = buildMetadata({
   image: "/og/study-abroad.png",
 });
 
+<<<<<<< HEAD
 const steps = [
   {
     n: "1",
@@ -423,3 +428,13 @@ const StudyAbroadPage = () => {
 };
 
 export default StudyAbroadPage;
+=======
+export default function StudyAbroadPage() {
+  return (
+    <>
+      <Breadcrumbs items={[{ name: "Study Abroad", path: "/study-abroad" }]} />
+      <StudyAbroadClient />
+    </>
+  );
+}
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e

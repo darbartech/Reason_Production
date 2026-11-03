@@ -56,7 +56,7 @@ export default function AdminDashboardPage() {
                     Overdue and scheduled within the next 48 hours
                   </div>
                 </div>
-                <a href="/admin/enquiries?followUp=due" className="text-sm font-medium text-accent hover:underline">
+                <a href="/portal/admin_access/enquiries?followUp=due" className="text-sm font-medium text-accent hover:underline">
                   View all due
                 </a>
               </div>
@@ -75,10 +75,10 @@ export default function AdminDashboardPage() {
                       return (
                         <tr key={r.id} className="hover:bg-primary-50/60">
                           <td className="px-2.5 py-2.5 whitespace-nowrap">
-                            <a href={`/admin/enquiries/${r.id}`} className="font-medium text-accent hover:underline">{r.leadNumber}</a>
+                            <a href={`/portal/admin_access/enquiries/${r.id}`} className="font-medium text-accent hover:underline">{r.leadNumber}</a>
                           </td>
                           <td className="px-2.5 py-2.5">
-                            <a href={`/admin/enquiries/${r.id}`} className="font-medium text-primary hover:underline whitespace-nowrap">{r.fullName}</a>
+                            <a href={`/portal/admin_access/enquiries/${r.id}`} className="font-medium text-primary hover:underline whitespace-nowrap">{r.fullName}</a>
                             <div className="text-xs text-brand-text-muted">{r.phone}</div>
                           </td>
                           <td className="px-2.5 py-2.5">{r.country}</td>
@@ -118,7 +118,7 @@ export default function AdminDashboardPage() {
           <div>
             <div className="flex items-center justify-between mb-2">
               <div className="text-sm font-semibold text-primary">Recent enquiries</div>
-              <a href="/admin/enquiries" className="text-sm font-medium text-accent hover:underline">View all</a>
+              <a href="/portal/admin_access/enquiries" className="text-sm font-medium text-accent hover:underline">View all</a>
             </div>
             <EnquiryTable rows={data.recent} emptyText="No enquiries yet. New submissions from the website will appear here." />
           </div>

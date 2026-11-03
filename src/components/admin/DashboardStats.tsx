@@ -5,10 +5,10 @@ export interface Stats extends DashboardStats {}
 
 export default function DashboardStats({ stats }: { stats: Stats }) {
   const cards = [
-    { label: "New Leads", value: stats.newLeads, href: "/admin/enquiries?status=NEW" },
-    { label: "Follow-ups Due", value: stats.followUpsDue, href: "/admin/enquiries?followUp=due" },
-    { label: "Total Enquiries", value: stats.total, href: "/admin/enquiries" },
-    { label: "Enquiries This Month", value: stats.thisMonth, href: `/admin/enquiries?dateFrom=${nepalMonthStart()}` },
+    { label: "New Leads", value: stats.newLeads, href: "/portal/admin_access/enquiries?status=NEW" },
+    { label: "Follow-ups Due", value: stats.followUpsDue, href: "/portal/admin_access/enquiries?followUp=due" },
+    { label: "Total Enquiries", value: stats.total, href: "/portal/admin_access/enquiries" },
+    { label: "Enquiries This Month", value: stats.thisMonth, href: `/portal/admin_access/enquiries?dateFrom=${nepalMonthStart()}` },
   ];
 
   const hasFollowupStats =
@@ -19,10 +19,10 @@ export default function DashboardStats({ stats }: { stats: Stats }) {
 
   const followupCards = hasFollowupStats
     ? [
-        { label: "Today's Follow-ups", value: stats.dueToday, href: "/admin/enquiries?followUp=today" },
-        { label: "Overdue", value: stats.overdue, href: "/admin/enquiries?followUp=overdue" },
-        { label: "Upcoming (7 days)", value: stats.upcomingNext7, href: "/admin/enquiries?followUp=upcoming" },
-        { label: "No Follow-up", value: stats.noFollowup, href: "/admin/enquiries?followUp=none" },
+        { label: "Today's Follow-ups", value: stats.dueToday, href: "/portal/admin_access/enquiries?followUp=today" },
+        { label: "Overdue", value: stats.overdue, href: "/portal/admin_access/enquiries?followUp=overdue" },
+        { label: "Upcoming (7 days)", value: stats.upcomingNext7, href: "/portal/admin_access/enquiries?followUp=upcoming" },
+        { label: "No Follow-up", value: stats.noFollowup, href: "/portal/admin_access/enquiries?followUp=none" },
       ]
     : [];
 

@@ -5,7 +5,11 @@ import { company, whatsappLink } from "@/lib/company";
 export default function MobileActionBar() {
   return (
     <div
+<<<<<<< HEAD
       className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white lg:hidden"
+=======
+      className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white/95 backdrop-blur shadow-[0_-8px_24px_-12px_rgba(12,39,73,.18)] lg:hidden"
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
       style={{ paddingBottom: "env(safe-area-inset-bottom)" }}
       role="region"
       aria-label="Quick contact"

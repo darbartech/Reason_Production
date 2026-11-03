@@ -162,7 +162,7 @@ export function clearCsrfToken() {
 }
 
 export function goToLogin() {
-  if (typeof window !== "undefined") window.location.replace("/admin/login");
+  if (typeof window !== "undefined") window.location.replace("/portal/admin_access/login");
 }
 
 export async function api<T>(
@@ -177,8 +177,16 @@ export async function api<T>(
     headers["Content-Type"] = "application/json";
   }
 
+<<<<<<< HEAD
   // Login and logout are exempt from CSRF on the server, and no token exists yet while signing in.
   if (init.csrf !== false && !["GET", "HEAD", "OPTIONS"].includes(method)) {
+=======
+  // The server exempts these from CSRF (they run before requireCsrf); the token
+  // cannot exist yet at login time.
+  const csrfExempt = path === "/auth/login" || path === "/auth/logout";
+
+  if (!["GET", "HEAD", "OPTIONS"].includes(method) && !csrfExempt) {
+>>>>>>> b1b6701386924f18880d04f958a0725ebed25e8e
     if (!csrfToken) {
       throw new ApiError(
         "Security token is missing. Please refresh the page and sign in again.",
