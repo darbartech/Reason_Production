@@ -52,6 +52,10 @@ const ADMIN_HEADER_KEY = isProduction ? "Content-Security-Policy" : "Content-Sec
 const ADMIN_HEADER_VALUE = isProduction ? ADMIN_CSP : `${ADMIN_CSP}; report-uri /csp-report`;
 
 const nextConfig = {
+  // pg declares pg-native as an optional native dependency. Loading it from node_modules
+  // instead of tracing it into the bundle is what Next recommends for packages like this.
+  serverExternalPackages: ["pg"],
+
   images: {
     unoptimized: true,
   },

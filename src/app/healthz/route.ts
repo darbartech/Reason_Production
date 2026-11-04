@@ -9,7 +9,9 @@ export async function GET() {
   try {
     await query('SELECT 1');
     return json({ ok: true });
-  } catch {
+  } catch (err: any) {
+    // The body stays generic; the reason belongs in the platform's runtime logs.
+    console.error('[healthz] database unavailable:', err?.code || err?.name || 'unknown', err?.message);
     return json({ ok: false }, 503);
   }
 }

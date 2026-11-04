@@ -48,7 +48,13 @@ Next.js server.
 
 `PORT` and the old two-terminal `dev:api`/`serve` scripts are gone. `TRUST_PROXY` still exists but
 only gates whether `sameOrigin()` may read `X-Forwarded-Host`; leave it unset unless your proxy
-overwrites that header.
+overwrites that header. Both are inert on Vercel — remove them there.
+
+Environment variables are snapshotted per deployment. Editing one in the panel does **not** change
+the running functions: the new value only takes effect on the next build/deploy. If `/healthz` returns
+`{"ok":false}` after you fix `DATABASE_URL`, check the deployment is newer than the edit before
+chasing anything else. Paste values with a text editor that shows whitespace — a trailing newline in
+`DATABASE_URL` makes `pg` throw before it ever reaches the server.
 
 **`SESSION_SECRET`** signs the derived CSRF tokens. If it is unset each warm container generates
 its own at boot, so a staff member's CSRF token can stop matching their still-valid session cookie
@@ -101,11 +107,45 @@ see everything.
 ```
 npm run db:migrate          # create or update the schema; safe to re-run
 npm run admin:create -- --email you@example.com --name "Your Name" --role ADMIN
+npm run admin:create        # same, reading ADMIN_EMAIL / ADMIN_NAME / ADMIN_ROLE / ADMIN_PASSWORD
 npm run db:export           # writes db/schema.sql and db/data.sql
 ```
 
+Flags take precedence over the environment; with no password from either source a strong one is
+generated and printed once. Never set `--password` on a shared machine — it is visible in shell
+history and process listings; use `ADMIN_PASSWORD` and delete it afterwards.
+
 `admin:create` imports the app's own scrypt module, so hashes it writes always verify at login; that
 needs Node 22.18+ or 23.6+. Resetting an existing account deletes that user's sessions.
+
+### First staff account on a deployment
+
+Vercel has no shell, so the CLI cannot run there. Provision the deployed database from your machine
+instead — it is the same Postgres the app talks to:
+
+1. Put the deployment's `DATABASE_URL` (the port `6543` pooler form) in local `.env`.
+2. `npm run db:migrate`
+3. `npm run admin:create` — with the `ADMIN_*` variables set, or with explicit flags.
+4. Remove the `ADMIN_*` entries from `.env` and do not add `ADMIN_PASSWORD` to Vercel at all.
+
+The app itself never writes schema or accounts, so a redeploy cannot reset a staff password.
+
+## When login says "Something went wrong on the server."
+
+That string comes from the catch-all in `src/lib/server/guard.ts`; the real exception is logged as
+`[admin] error:` in the deployment's runtime logs (Vercel → Deployments → latest → Logs). Read that
+line before changing code. The usual signatures:
+
+| Log shows | Cause |
+|---|---|
+| `relation "users" does not exist` | the deployment points at a database that was never migrated |
+| `Cannot find module` / `pg-native` | `pg` got bundled — `serverExternalPackages: ["pg"]` in `next.config.mjs` prevents it |
+| `connect ETIMEDOUT` / `getaddrinfo` / SSL errors | direct `5432` URL instead of the pooler, `DATABASE_SSL` unset, or a network restriction blocking Vercel |
+| `CSRF check failed` after a successful sign-in | `SESSION_SECRET` unset, so each warm instance holds a different key |
+
+`GET /healthz` narrows it down: `{"ok":true}` means `pg` loaded and the database answered `SELECT 1`,
+so the failure is below the connection layer.
+
 
 ## Health
 

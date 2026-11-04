@@ -1,6 +1,9 @@
 // Create (or reset the password of) a staff account.
-//   npm run admin:create -- --email you@example.com --name "Your Name" --role ADMIN [--password "..."]
-// If --password is omitted a strong random one is generated and printed once.
+//   npm run admin:create -- --email you@example.com --name "Your Name" --role ADMIN
+// Every value also has an environment fallback, so the same command works with no flags:
+//   ADMIN_EMAIL, ADMIN_NAME, ADMIN_ROLE, ADMIN_PASSWORD
+// Flags win over the environment. With no password from either source a strong random one
+// is generated and printed once.
 //
 // Needs Node 22.18+ / 23.6+: it imports the app's own scrypt module directly
 // (src/lib/server/password.ts) so hashes written here always verify at login.
@@ -19,19 +22,28 @@ function args() {
 }
 
 const a = args();
-const email = String(a.email || '').trim().toLowerCase();
-const name = String(a.name || '').trim();
-const role = String(a.role || 'COUNSELOR').trim().toUpperCase();
+const from = (flag, envKey) => String(a[flag] || process.env[envKey] || '').trim();
+
+const email = from('email', 'ADMIN_EMAIL').toLowerCase();
+const name = from('name', 'ADMIN_NAME');
+const role = (from('role', 'ADMIN_ROLE') || 'COUNSELOR').toUpperCase();
+const passwordFlag = a.password || process.env.ADMIN_PASSWORD || '';
+const fromEnvPassword = !a.password && !!process.env.ADMIN_PASSWORD;
+const generated = !passwordFlag;
+const password = generated ? tempPassword() : passwordFlag;
 
 if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || !name || name.length > 120 || !ROLES.includes(role)) {
   console.error('Usage: npm run admin:create -- --email you@example.com --name "Your Name" --role ADMIN|COUNSELOR [--password "..."]');
+  console.error('       Or set ADMIN_EMAIL / ADMIN_NAME / ADMIN_ROLE / ADMIN_PASSWORD and run it with no flags.');
   process.exit(1);
 }
 
-let password = a.password;
-const generated = !password;
-if (generated) password = tempPassword();
-else console.warn('  Warning: --password is visible in shell history and process listings; omit it to generate one.');
+if (a.password) {
+  console.warn('  Warning: --password is visible in shell history and process listings; use ADMIN_PASSWORD or omit it to generate one.');
+} else if (fromEnvPassword) {
+  console.warn(`  Using the password from ADMIN_PASSWORD (${email}). Remove it from the environment once you have signed in.`);
+}
+
 if (password.length < 8) {
   console.error('Password must be at least 8 characters.');
   process.exit(1);
