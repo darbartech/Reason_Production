@@ -10,13 +10,10 @@
 //   psql "<target-url>" -v ON_ERROR_STOP=1 -f db/data.sql
 //
 // No Supabase-specific objects are involved — this is plain PostgreSQL DDL and DML.
-import { createRequire } from "node:module";
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-
-const require = createRequire(import.meta.url);
-const { getPool, assertConfigured } = require("../server/db.js");
+import { getPool, assertConfigured } from "./db-tool.mjs";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const OUT_DIR = path.join(ROOT, "db");

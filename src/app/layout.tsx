@@ -75,7 +75,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${heading.variable} ${body.variable}`}>
+    // Third-party extensions write properties like crxlauncher onto <html> before React
+    // hydrates. This silences attribute mismatches on this element only, not its children.
+    <html lang="en" className={`${heading.variable} ${body.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased text-primary selection:bg-brand-blue/20 overflow-x-hidden">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">Skip to content</a>
         <PublicOnly>
