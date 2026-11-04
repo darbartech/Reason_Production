@@ -117,10 +117,6 @@ export default function CountryPageTemplate({ data }: { data: CountryPageData })
       <JsonLd data={[articleSchema, faqSchema]} />
 
       <PageHero
-        crumbs={[
-          { name: "Countries", href: "/countries" },
-          { name: country },
-        ]}
         title={h1}
         intro={overview}
         image={{ name: photo, alt: photoAlt }}

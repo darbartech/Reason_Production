@@ -75,7 +75,6 @@ const IELTSPage = () => {
   return (
     <div className="bg-white">
       <PageHero
-        crumbs={[{ name: "IELTS & PTE" }]}
         title="IELTS &amp; PTE classes in New Baneshwor"
         intro="Small-batch classes, a mock test every Sunday and feedback on every module."
         image={{

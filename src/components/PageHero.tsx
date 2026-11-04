@@ -3,7 +3,6 @@ import { ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import Photo from "@/components/Photo";
 
-type Crumb = { name: string; href?: string };
 type HeroImage = { name: string; alt: string; position?: string };
 
 const defaultImage: HeroImage = {
@@ -15,7 +14,6 @@ const defaultImage: HeroImage = {
 export default function PageHero({
   title,
   intro,
-  crumbs = [],
   plain = false,
   image,
   ctaHref = "/contact",
@@ -23,7 +21,6 @@ export default function PageHero({
 }: {
   title: ReactNode;
   intro?: string;
-  crumbs?: Crumb[];
   plain?: boolean;
   image?: HeroImage;
   ctaHref?: string;
@@ -67,29 +64,6 @@ export default function PageHero({
           className={`grid items-end gap-8 ${plain ? "" : "lg:min-h-[300px] lg:grid-cols-12 lg:gap-12"}`}
         >
           <div className={plain ? "max-w-3xl" : "lg:col-span-7"}>
-            {crumbs.length > 0 && (
-              <nav aria-label="Breadcrumb" className="mb-4 text-sm text-white/60">
-                <ol className="flex flex-wrap items-center gap-2">
-                  <li>
-                    <Link href="/" className="inline-flex min-h-11 min-w-11 items-center hover:text-white">
-                      Home
-                    </Link>
-                  </li>
-                  {crumbs.map((c) => (
-                    <li key={c.name} className="flex items-center gap-2">
-                      <span aria-hidden="true" className="text-white/30">/</span>
-                      {c.href ? (
-                        <Link href={c.href} className="inline-flex min-h-11 items-center hover:text-white">
-                          {c.name}
-                        </Link>
-                      ) : (
-                        <span aria-current="page" className="text-white">{c.name}</span>
-                      )}
-                    </li>
-                  ))}
-                </ol>
-              </nav>
-            )}
             <h1 className="max-w-[24ch] text-balance text-[clamp(2.35rem,1.4rem+2.8vw,3.75rem)]">{title}</h1>
             {intro && <p className={`lead mt-4 ${plain ? "max-w-3xl" : "max-w-2xl"}`}>{intro}</p>}
           </div>

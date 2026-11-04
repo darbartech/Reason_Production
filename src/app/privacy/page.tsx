@@ -15,7 +15,6 @@ const PrivacyPage = () => {
     <div className="bg-white">
       <PageHero
         plain
-        crumbs={[{ name: "Privacy Policy" }]}
         title="Privacy Policy"
         intro="What we collect, why we collect it, and how to ask us to change or delete it."
       />

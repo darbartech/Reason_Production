@@ -1,8 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Phone, MessageCircle } from "lucide-react";
 import { company, whatsappLink } from "@/lib/company";
 
 export default function MobileActionBar() {
+  const pathname = usePathname();
+  // On the home page the hero already owns an enquiry popup, so the CTA asks it
+  // to open instead of navigating away. Everywhere else it links to /contact.
+  const isHome = pathname === "/";
+
   return (
     <div
       className="fixed inset-x-0 bottom-0 z-40 border-t border-line bg-white lg:hidden"
@@ -19,9 +27,19 @@ export default function MobileActionBar() {
           <MessageCircle size={18} aria-hidden="true" />
           <span className="sr-only">WhatsApp</span>
         </a>
-        <Link href="/contact" className="btn-primary h-11">
-          Book a free session
-        </Link>
+        {isHome ? (
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new Event("reasons:open-enquiry"))}
+            className="btn-primary h-11"
+          >
+            Book a free session
+          </button>
+        ) : (
+          <Link href="/contact" className="btn-primary h-11">
+            Book a free session
+          </Link>
+        )}
       </div>
     </div>
   );

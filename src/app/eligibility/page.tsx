@@ -13,7 +13,6 @@ export default function EligibilityPage() {
   return (
     <div className="bg-white">
       <PageHero
-        crumbs={[{ name: "Eligibility check" }]}
         title="Check your study abroad options in 2 minutes"
         intro="Five questions. We suggest country guides to read, and pass your answers to a counsellor only if you choose."
         image={{

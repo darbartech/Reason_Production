@@ -198,10 +198,6 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
 
       <div className="mb-6">
         <h3 className="text-primary">Tell us about you</h3>
-        <p className="text-sm md:text-base text-brand-text-muted mt-2 leading-relaxed">
-          Takes a minute. Just your name, contact details, destination and study level — a
-          counsellor gathers the rest on the call.
-        </p>
       </div>
 
       <form

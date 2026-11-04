@@ -80,7 +80,6 @@ export default function B2bClient() {
   return (
     <div className="bg-white">
       <PageHero
-        crumbs={[{ name: "For partners" }]}
         title="Partner with Reasons Education"
         intro="We work with institutions and local counsellors who want accurate, well-documented student files."
         image={{

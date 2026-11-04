@@ -16,7 +16,6 @@ const TermsPage = () => {
     <div className="bg-white">
       <PageHero
         plain
-        crumbs={[{ name: "Terms of Service" }]}
         title="Terms of Service"
         intro="The short version: we give honest advice, you give us true documents, and no one can promise an admission or a visa."
       />

@@ -74,7 +74,6 @@ const ServicesClient = () => {
   return (
     <div className="bg-white">
       <PageHero
-        crumbs={[{ name: "Services" }]}
         title="Study abroad services in Kathmandu"
         intro="Counselling, applications, visa support and test preparation, all handled by one team."
         image={{

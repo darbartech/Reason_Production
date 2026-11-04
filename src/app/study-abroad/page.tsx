@@ -151,7 +151,6 @@ const StudyAbroadPage = () => {
       <Breadcrumbs items={[{ name: "Study abroad", path: "/study-abroad" }]} />
 
       <PageHero
-        crumbs={[{ name: "Study abroad" }]}
         title="How to study abroad from Nepal, step by step"
         intro="The whole path — course choice, English tests, applications, money and the visa — in plain language, with the official links."
         image={{

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { company, licenceLine } from "@/lib/company";
 import CallbackCard from "./CallbackCard";
+import HeroEnquiryCta from "./HeroEnquiryCta";
 import Photo from "./Photo";
 
 const trustParts = [
@@ -36,10 +37,7 @@ export default function Hero() {
             </p>
 
             <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
-              <Link href="/contact" className="btn-primary group w-full sm:w-auto">
-                Book a free session
-                <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" aria-hidden="true" />
-              </Link>
+              <HeroEnquiryCta />
               <Link
                 href="/eligibility"
                 className="group inline-flex min-h-11 items-center gap-1.5 text-sm font-semibold text-white underline decoration-white/40 underline-offset-4 hover:decoration-white"

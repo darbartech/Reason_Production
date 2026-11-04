@@ -36,7 +36,6 @@ export default function StoriesPage() {
   return (
     <div className="bg-white">
       <PageHero
-        crumbs={[{ name: "Student stories" }]}
         title="Student stories"
         intro="Real students, shared with their written consent."
         image={{

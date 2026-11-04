@@ -93,7 +93,6 @@ export default function FeesPage() {
       <Breadcrumbs items={[{ name: "Fees", path: "/fees" }]} />
 
       <PageHero
-        crumbs={[{ name: "Fees" }]}
         title="Our fees"
         intro={`You see what each service costs before you agree to anything. Updated ${LAST_CHECKED}.`}
         image={{

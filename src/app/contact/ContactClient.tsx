@@ -1,7 +1,6 @@
 "use client";
 
 import { ArrowRight, CheckCircle2, Mail, MapPin, MessageCircle, Phone } from "lucide-react";
-import Link from "next/link";
 import CTA from "@/components/CTA";
 import EnquiryForm from "@/components/enquiry/EnquiryForm";
 import PageHero from "@/components/PageHero";
@@ -38,7 +37,6 @@ const ContactClient = () => {
   return (
     <div className="bg-white">
       <PageHero
-        crumbs={[{ name: "Contact" }]}
         title="Book a free session"
         intro="Choose what's easiest: fill the short form, call, WhatsApp or visit us."
         image={{
@@ -122,13 +120,6 @@ const ContactClient = () => {
           <div className="lg:col-span-7" id="enquiry">
             <div className="rounded-2xl border border-line bg-white p-6 shadow-sm md:p-8">
               <EnquiryForm sourcePage="/contact" />
-              <p className="mt-5 text-xs leading-relaxed text-muted">
-                We can&apos;t guarantee a visa or an offer. Read our{" "}
-                <Link href="/privacy" className="underline hover:text-accent">
-                  privacy policy
-                </Link>
-                .
-              </p>
             </div>
           </div>
         </div>

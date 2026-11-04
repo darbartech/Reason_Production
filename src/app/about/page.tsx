@@ -37,7 +37,6 @@ const AboutPage = () => {
   return (
     <div className="bg-white">
       <PageHero
-        crumbs={[{ name: "About" }]}
         title="About Reasons Education"
         intro="A counselling and test-prep team in Kathmandu, advising Nepali students since 2015."
         image={{

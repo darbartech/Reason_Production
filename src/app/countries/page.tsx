@@ -93,7 +93,6 @@ export default function CountriesPage() {
     <div className="bg-white">
       <Breadcrumbs items={[{ name: "Countries", path: "/countries" }]} />
       <PageHero
-        crumbs={[{ name: "Countries" }]}
         title="Study destinations for Nepali students"
         intro="Compare seven destinations, then book a free session to build a shortlist that fits your profile and budget."
         image={{

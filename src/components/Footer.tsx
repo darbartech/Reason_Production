@@ -182,10 +182,23 @@ export default function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-4 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/10 pt-4">
-          <p className="text-sm text-center md:text-left">
-            {licence && <>{licence} · </>}
-            &copy; {new Date().getFullYear()} {company.legalName}
-          </p>
+          <div className="text-center text-sm md:text-left">
+            <p>
+              {licence && <>{licence} · </>}
+              &copy; {new Date().getFullYear()} {company.legalName}
+            </p>
+            <p className="mt-1 text-white/60">
+              Developed &amp; coordinated by{" "}
+              <a
+                href="https://darbartech.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline transition-colors hover:text-white"
+              >
+                Darbar Tech
+              </a>
+            </p>
+          </div>
           <div className="flex flex-wrap justify-center gap-6 text-sm">
             <Link href="/privacy" className="inline-flex min-h-11 items-center hover:text-white transition-colors">
               Privacy

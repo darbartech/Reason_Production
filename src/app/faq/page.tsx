@@ -33,7 +33,6 @@ export default function FAQPage() {
       <JsonLd data={faqSchema} />
 
       <PageHero
-        crumbs={[{ name: "FAQ" }]}
         title="Study abroad questions, answered"
         intro="Short answers to what students and parents ask first. Can't find yours? Call or drop in."
         image={{

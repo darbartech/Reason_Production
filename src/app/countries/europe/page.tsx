@@ -50,10 +50,6 @@ export default function EuropePage() {
       />
 
       <PageHero
-        crumbs={[
-          { name: "Countries", href: "/countries" },
-          { name: "Europe" },
-        ]}
         title="Study in Europe from Nepal"
         intro="“Europe” is many countries with different rules. Start with a country, not a continent."
         image={{
