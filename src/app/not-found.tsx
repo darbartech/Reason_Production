@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 const LINKS = [
   { href: "/study-abroad", label: "Study Abroad", blurb: "The process, costs in NPR, English tests and visa documentation." },
-  { href: "/countries", label: "Destinations", blurb: "Canada, Australia, UK, USA, New Zealand, Europe and Japan." },
+  { href: "/countries", label: "Destinations", blurb: "UK, USA, Canada, Australia, New Zealand, Europe and Japan." },
   { href: "/ielts", label: "IELTS & PTE", blurb: "Weekday and weekend preparation classes in New Baneshwor." },
   { href: "/services", label: "Our Services", blurb: "Applications, SOP/LOR writing, visa filing and pre-departure briefings." },
   { href: "/blog", label: "Blog", blurb: "Guides and visa tips written by our counsellors." },

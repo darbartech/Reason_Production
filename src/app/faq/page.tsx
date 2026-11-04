@@ -1,4 +1,4 @@
-import { HelpCircle } from "lucide-react";
+import { HelpCircle, AlertTriangle } from "lucide-react";
 import Link from "next/link";
 import CtaBand from "@/components/CtaBand";
 import FaqAccordion from "@/components/FaqAccordion";
@@ -57,7 +57,21 @@ export default function FAQPage() {
             ))}
           </div>
 
-          
+          <div className="mt-12 card border border-accent/20 bg-accent/5 p-8">
+            <div className="flex items-start gap-4">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-accent/15 text-accent" aria-hidden="true">
+                <AlertTriangle size={22} />
+              </div>
+              <div>
+                <h2 className="text-primary">What we can&apos;t do</h2>
+                <p className="mt-3 text-sm leading-relaxed text-ink sm:text-base">
+                  We can&apos;t guarantee a visa or an admission offer. We can promise an accurate file, honest advice
+                  and clear fees.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="mt-12 overflow-hidden rounded-2xl border border-line bg-paper">
             <div className="grid md:grid-cols-2">
               <div className="p-8">

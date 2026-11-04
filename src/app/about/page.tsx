@@ -136,26 +136,15 @@ const AboutPage = () => {
             title="Meet the people you'll work with."
             intro="Counselling, operations, visa work and test preparation are handled by this team. You can ask for any of them by name when you book."
           />
-          <ul className="mt-10 grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {team.map((member) => (
-              <li key={member.slug} className="flex flex-col items-center text-center">
-                {member.photo && (
-                  <div className="relative h-32 w-32 overflow-hidden rounded-full ring-4 ring-white shadow-card sm:h-36 sm:w-36 lg:h-[8.5rem] lg:w-[8.5rem]">
-                    <Photo
-                      name={member.photo}
-                      alt={`${member.name}, ${member.role}`}
-                      widths={[640]}
-                      sizes="(min-width: 1024px) 140px, (min-width: 640px) 144px, 128px"
-                      fill
-                    />
-                  </div>
-                )}
-                <h3 className="mt-4 text-base">{member.name}</h3>
+              <li key={member.slug} className="rounded-2xl border border-line bg-white p-6">
+                <h3 className="text-primary">{member.name}</h3>
                 <p className="mt-1 text-xs font-semibold uppercase tracking-wider text-muted">{member.role}</p>
                 {member.languages && member.languages.length > 0 && (
-                  <p className="mt-2 text-sm text-muted">Languages: {member.languages.join(", ")}</p>
+                  <p className="mt-3 text-sm text-muted">Languages: {member.languages.join(", ")}</p>
                 )}
-                {member.bio && <p className="mt-2 text-sm leading-relaxed text-muted">{member.bio}</p>}
+                {member.bio && <p className="mt-3 text-sm leading-relaxed text-muted">{member.bio}</p>}
               </li>
             ))}
           </ul>

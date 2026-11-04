@@ -15,6 +15,7 @@ import {
 import PersonalStudyStep from "./PersonalStudyStep";
 import { takeHandoff } from "@/lib/callback-handoff";
 import { takeQuizHandoff } from "@/lib/quiz-handoff";
+import { notifyOfficeByEmail } from "@/lib/enquiry-notify";
 
 interface EnquiryFormProps {
   sourcePage?: string;
@@ -40,7 +41,6 @@ declare global {
 }
 
 const TURNSTILE_SITE_KEY = process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ?? "";
-const WEB3FORMS_ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY ?? "";
 
 const UTM_KEYS = [
   ["utm_source", "utmSource"],
@@ -62,41 +62,6 @@ const captureUtm = () => {
     if (v) (meta as Record<string, string>)[k] = v;
   });
   return meta;
-};
-
-// Tells the office a new lead has arrived. Web3Forms only accepts browser submissions on
-// its free plan, so this runs after the API has already stored the enquiry — a mail failure
-// never loses the lead (docs/03_PHASE_3_ENQUIRY_BACKEND_DATABASE.md, "Email notification").
-const notifyByEmail = async (data: EnquiryFormData, leadNumber?: string) => {
-  if (!WEB3FORMS_ACCESS_KEY) return;
-
-  const form = new FormData();
-  form.append("access_key", WEB3FORMS_ACCESS_KEY);
-  form.append("subject", `New study enquiry — ${data.fullName} (${data.preferredDestination})`);
-  form.append("from_name", "Reasons Education website");
-  if (data.email) form.append("email", data.email);
-  if (leadNumber) form.append("Reference", leadNumber);
-  form.append("Name", data.fullName);
-  form.append("Phone", data.phone);
-  form.append("Destination", data.preferredDestination);
-  form.append("Study level", data.studyLevel);
-  if (data.sourcePage) form.append("Source page", data.sourcePage);
-  if (data.referrer) form.append("Referrer", data.referrer);
-
-  // A hung provider must not keep the student waiting on the thank-you page.
-  const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), 5000);
-  try {
-    await fetch("https://api.web3forms.com/submit", {
-      method: "POST",
-      body: form,
-      signal: controller.signal,
-    });
-  } catch {
-    // Deliberately ignored: the lead is already saved.
-  } finally {
-    clearTimeout(timer);
-  }
 };
 
 const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
@@ -200,7 +165,7 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
       }
 
       if (response.ok && result.success) {
-        await notifyByEmail(data, result.leadNumber);
+        await notifyOfficeByEmail(data, result.leadNumber);
         // The thank-you page carries the lead number so the student can quote it.
         const reference = result.leadNumber ? `?ref=${encodeURIComponent(result.leadNumber)}` : "";
         window.location.assign(`/thank-you${reference}`);
@@ -308,6 +273,9 @@ const EnquiryForm = ({ sourcePage: propSource }: EnquiryFormProps) => {
             )}
           </button>
         </div>
+        <p className="pt-1 text-center text-xs text-muted">
+          Free first session · No obligation · We never share your details.
+        </p>
       </form>
     </div>
   );

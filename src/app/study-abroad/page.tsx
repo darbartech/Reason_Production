@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, GraduationCap, Home, Plane } from "lucide-react";
+import { AlertTriangle, ArrowRight, CheckCircle2, GraduationCap, Home, Plane } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import CtaBand from "@/components/CtaBand";
 import PageHero from "@/components/PageHero";
@@ -95,18 +95,18 @@ const costBuckets: { title: string; text: string; where: string; icon: LucideIco
 
 const comparison = [
   {
-    country: "Canada",
-    href: "/countries/canada",
-    intakes: "Sep, Jan, May",
-    english: "IELTS / PTE (institution sets score)",
-    work: "PGWP (rules apply)",
-  },
-  {
     country: "UK",
     href: "/countries/uk",
     intakes: "Sep, Jan",
     english: "IELTS / PTE UKVI where required",
     work: "Graduate route (changing in 2027)",
+  },
+  {
+    country: "Canada",
+    href: "/countries/canada",
+    intakes: "Sep, Jan, May",
+    english: "IELTS / PTE (institution sets score)",
+    work: "PGWP (rules apply)",
   },
   {
     country: "Australia",
@@ -413,6 +413,21 @@ const StudyAbroadPage = () => {
                 </li>
               ))}
             </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="pb-16 md:pb-20">
+        <div className="container-custom">
+          <div className="flex items-start gap-4 rounded-2xl border border-crimson/20 bg-crimson/5 p-6 sm:p-8">
+            <AlertTriangle size={22} className="mt-0.5 shrink-0 text-crimson" aria-hidden="true" />
+            <div>
+              <h2 className="text-primary">What we can&apos;t do</h2>
+              <p className="mt-3 text-sm leading-relaxed text-ink sm:text-base">
+                We can&apos;t guarantee a visa or an offer. Universities and governments decide. We make sure your
+                file is accurate, complete and on time, and we tell you honestly where you stand.
+              </p>
+            </div>
           </div>
         </div>
       </section>

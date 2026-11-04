@@ -6,9 +6,9 @@ import { company, licenceLine, whatsappLink } from "@/lib/company";
 import CountryFlag from "@/components/CountryFlag";
 
 const countries = [
+  { name: "UK", href: "/countries/uk", code: "gb" },
   { name: "USA", href: "/countries/usa", code: "us" },
   { name: "Canada", href: "/countries/canada", code: "ca" },
-  { name: "UK", href: "/countries/uk", code: "gb" },
   { name: "Australia", href: "/countries/australia", code: "au" },
   { name: "New Zealand", href: "/countries/new-zealand", code: "nz" },
   { name: "Germany & Europe", href: "/countries/europe", code: "eu" },
@@ -178,8 +178,10 @@ export default function Footer() {
           </div>
         </div>
 
+       
+
         {/* Bottom bar */}
-        <div className="mt-12 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/10 pt-4">
+        <div className="mt-4 flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/10 pt-4">
           <p className="text-sm text-center md:text-left">
             {licence && <>{licence} · </>}
             &copy; {new Date().getFullYear()} {company.legalName}

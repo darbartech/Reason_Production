@@ -1,4 +1,5 @@
 import Hero from "@/components/Hero";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import ServicesOverview from "@/components/ServicesOverview";
 import StudyDestinations from "@/components/StudyDestinations";
 import Process from "@/components/Process";
@@ -19,6 +20,7 @@ export default function Home() {
   return (
     <>
       <Hero />
+      <WhyChooseUs />
       <ServicesOverview />
       <StudyDestinations />
       <Process />

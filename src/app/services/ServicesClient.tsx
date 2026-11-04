@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, ClipboardList, FileCheck2, GraduationCap, Plane } from "lucide-react";
+import { AlertTriangle, ArrowRight, BookOpen, ClipboardList, FileCheck2, GraduationCap, Plane } from "lucide-react";
 import CtaBand from "@/components/CtaBand";
 import PageHero from "@/components/PageHero";
 import SectionHeader from "@/components/SectionHeader";
@@ -152,10 +152,23 @@ const ServicesClient = () => {
         </div>
       </section>
 
-      <section className="section-padding" aria-labelledby="fees-heading">
-        <div className="container-custom max-w-3xl">
+      <section className="section-padding" aria-labelledby="limits-heading">
+        <div className="container-custom grid gap-8 lg:grid-cols-2">
+          <div className="rounded-2xl border border-crimson/20 bg-crimson/5 p-6 sm:p-8">
+            <div className="flex items-start gap-4">
+              <AlertTriangle size={22} className="mt-0.5 shrink-0 text-crimson" aria-hidden="true" />
+              <div>
+                <h2 id="limits-heading" className="text-primary">What we can&apos;t do</h2>
+                <p className="mt-3 text-sm leading-relaxed text-ink sm:text-base">
+                  We can&apos;t guarantee admission or a visa. We can promise a complete, consistent file and an
+                  honest assessment.
+                </p>
+              </div>
+            </div>
+          </div>
+
           <div className="rounded-2xl border border-line bg-paper p-6 sm:p-8">
-            <h2 id="fees-heading" className="text-primary">Our fees</h2>
+            <h2 className="text-primary">Our fees</h2>
             <p className="mt-3 text-sm leading-relaxed text-ink sm:text-base">
               Fees are listed in writing before you commit.
             </p>

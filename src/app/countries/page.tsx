@@ -11,21 +11,12 @@ import { buildMetadata } from "@/lib/seo";
 export const metadata = buildMetadata({
   title: "Study Destinations for Nepali Students: Compare 7 Countries",
   description:
-    "Compare the USA, Canada, UK, Australia, New Zealand, Germany/Europe and Japan: intakes, costs, English tests and visa steps for Nepali students.",
+    "Compare the UK, USA, Canada, Australia, New Zealand, Germany/Europe and Japan: intakes, costs, English tests and visa steps for Nepali students.",
   path: "/countries",
   image: "/og/countries.png",
 });
 
 const rows = [
-  {
-    name: "Canada",
-    flag: "ca",
-    href: "/countries/canada",
-    tuition: "CAD 15,000–35,000",
-    living: "CAD 23,448 proof of funds (1 Sep 2026)",
-    intakes: "Sep, Jan, May",
-    work: "PGWP",
-  },
   {
     name: "UK",
     flag: "gb",
@@ -34,6 +25,15 @@ const rows = [
     living: "£1,570/£1,203 per month from 30 Nov 2026",
     intakes: "Sep, Jan",
     work: "Graduate route",
+  },
+  {
+    name: "Canada",
+    flag: "ca",
+    href: "/countries/canada",
+    tuition: "CAD 15,000–35,000",
+    living: "CAD 23,448 proof of funds (1 Sep 2026)",
+    intakes: "Sep, Jan, May",
+    work: "PGWP",
   },
   {
     name: "Australia",

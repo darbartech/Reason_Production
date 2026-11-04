@@ -21,7 +21,7 @@ export const faqCategories: FaqCategory[] = [
       },
       {
         q: "Which countries do you cover?",
-        a: "USA, Canada, UK, Australia, New Zealand, Japan and European countries such as Germany. Each has a guide with current requirements and official links.",
+        a: "UK, USA, Canada, Australia, New Zealand, Japan and European countries such as Germany. Each has a guide with current requirements and official links.",
       },
       {
         q: "Can you guarantee my visa or admission?",

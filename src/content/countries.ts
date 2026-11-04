@@ -17,6 +17,19 @@ export interface Country {
 
 export const countries: Country[] = [
   {
+    name: "United Kingdom",
+    slug: "uk",
+    description:
+      "Shorter degrees — most master's courses take one year — at a long-established university sector.",
+    flagCode: "gb",
+    code: "UK",
+    summary: "Shorter degrees; most master's courses take one year.",
+    intakes: "Sep · Jan",
+    tuition: "£12,000–30,000",
+    funds: "£1,570/month from 30 Nov 2026",
+    postStudy: "Graduate route",
+  },
+  {
     name: "USA",
     slug: "usa",
     description:
@@ -41,19 +54,6 @@ export const countries: Country[] = [
     tuition: "CAD 15,000–35,000",
     funds: "CAD 23,448",
     postStudy: "PGWP",
-  },
-  {
-    name: "United Kingdom",
-    slug: "uk",
-    description:
-      "Shorter degrees — most master's courses take one year — at a long-established university sector.",
-    flagCode: "gb",
-    code: "UK",
-    summary: "Shorter degrees; most master's courses take one year.",
-    intakes: "Sep · Jan",
-    tuition: "£12,000–30,000",
-    funds: "£1,570/month from 30 Nov 2026",
-    postStudy: "Graduate route",
   },
   {
     name: "Australia",

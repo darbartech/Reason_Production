@@ -15,7 +15,7 @@ export const company = {
     country: "Nepal",
   },
   geo: { lat: 27.6915, lng: 85.3331 },
-  hours: { days: "Sun – Fri", open: "10:00", close: "17:00", label: "Sun – Fri, 10 AM – 5 PM" },
+  hours: { days: "Sun – Fri", open: "7:00", close: "17:00", label: "Sun – Fri, 7 AM – 6 PM" },
   established: 2015,
   registration: {
     authority: "",

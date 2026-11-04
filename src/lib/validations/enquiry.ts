@@ -1,10 +1,10 @@
 import { z } from "zod";
 
 export const PREFERRED_DESTINATIONS = [
-  "Australia",
-  "Canada",
   "United Kingdom",
   "USA",
+  "Canada",
+  "Australia",
   "New Zealand",
   "Germany",
   "Japan",

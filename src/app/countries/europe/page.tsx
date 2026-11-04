@@ -164,7 +164,7 @@ export default function EuropePage() {
 
       <CtaBand
         title="Ready to choose a European country?"
-        intro="We compare the real costs, language route and visa type for the countries we advise on."
+        intro="We compare the real costs, language route and visa type for the countries we advise on. We can't guarantee a visa or an offer."
       />
     </div>
   );

@@ -370,7 +370,7 @@ export default function CountryPageTemplate({ data }: { data: CountryPageData })
             </h2>
             <p className="mt-4 max-w-2xl text-on-dark">
               We&apos;ll check your results against current requirements and tell you what&apos;s
-              realistic.
+              realistic. We can&apos;t guarantee a visa or an offer.
             </p>
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
               <Link href="/contact" className="btn-on-dark justify-center">
