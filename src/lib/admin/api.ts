@@ -126,6 +126,24 @@ export interface Analytics {
   dueNow: Enquiry[];
 }
 
+export interface StaffUser {
+  id: string;
+  email: string;
+  name: string;
+  role: Role;
+  active: boolean;
+  createdAt: string;
+  lastLoginAt: string | null;
+}
+
+export interface StaffUserInput {
+  name: string;
+  role: Role;
+  active?: boolean;
+  email?: string;
+  password?: string;
+}
+
 export class ApiError extends Error {
   status: number;
   constructor(message: string, status: number) {
@@ -144,12 +162,12 @@ export function clearCsrfToken() {
 }
 
 export function goToLogin() {
-  if (typeof window !== "undefined") window.location.replace("/portal/admin_access/login");
+  if (typeof window !== "undefined") window.location.replace("/admin/login");
 }
 
 export async function api<T>(
   path: string,
-  init: { method?: string; body?: unknown; redirectOn401?: boolean } = {}
+  init: { method?: string; body?: unknown; redirectOn401?: boolean; csrf?: boolean } = {}
 ): Promise<T> {
   const method = (init.method ?? "GET").toUpperCase();
 
@@ -159,11 +177,8 @@ export async function api<T>(
     headers["Content-Type"] = "application/json";
   }
 
-  // The server exempts these from CSRF (they run before requireCsrf); the token
-  // cannot exist yet at login time.
-  const csrfExempt = path === "/auth/login" || path === "/auth/logout";
-
-  if (!["GET", "HEAD", "OPTIONS"].includes(method) && !csrfExempt) {
+  // Login and logout are exempt from CSRF on the server, and no token exists yet while signing in.
+  if (init.csrf !== false && !["GET", "HEAD", "OPTIONS"].includes(method)) {
     if (!csrfToken) {
       throw new ApiError(
         "Security token is missing. Please refresh the page and sign in again.",

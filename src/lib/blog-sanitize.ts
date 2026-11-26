@@ -25,6 +25,14 @@ export function sanitizeBlogContent(html: string): string {
     },
     allowedSchemes: ["http", "https", "mailto"],
     allowProtocolRelative: false,
+    transformTags: {
+      a: (tagName, attribs) => {
+        if (attribs.target === "_blank") {
+          attribs.rel = "noopener noreferrer";
+        }
+        return { tagName, attribs };
+      },
+    },
     parser: {
       decodeEntities: true,
     },

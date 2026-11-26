@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { company } from "./company";
 
-export const DEFAULT_OG_IMAGE = "/og-image.png";
+export const DEFAULT_OG_IMAGE = "/og/home.png";
 
 type Opts = {
   title: string;
@@ -9,6 +9,7 @@ type Opts = {
   path: string;
   image?: string;
   absoluteTitle?: boolean;
+  noindex?: boolean;
 };
 
 export function buildMetadata({
@@ -17,12 +18,18 @@ export function buildMetadata({
   path,
   image = DEFAULT_OG_IMAGE,
   absoluteTitle,
+  noindex,
 }: Opts): Metadata {
   const url = `${company.url}${path}`;
+  const brandedTitle = `${title} | ${company.displayName}`;
+  const useAbsoluteTitle =
+    absoluteTitle ?? (title.includes(company.displayName) || brandedTitle.length > 60);
+
   return {
-    title: absoluteTitle ? { absolute: title } : title,
+    title: useAbsoluteTitle ? { absolute: title } : title,
     description,
     alternates: { canonical: url },
+    ...(noindex ? { robots: { index: false, follow: false } } : {}),
     openGraph: {
       type: "website",
       locale: "en_US",

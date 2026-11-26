@@ -13,11 +13,11 @@ const BlogPreview = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-10 lg:mb-12 gap-6">
           <SectionHeader
             eyebrow="Resources & insights"
-            title={<>Guides and advice <em>straight from our team.</em></>}
+            title={<>Guides and advice straight from our team.</>}
             intro="The processes, rules and deadlines change every intake. We publish what we're currently seeing in the office."
             id="blog-heading"
           />
-          <Link href="/blog" className="link-arrow hidden md:inline-flex self-center md:self-auto">
+          <Link href="/blog" className="link-arrow hidden min-h-11 items-center md:inline-flex self-center md:self-auto">
             All articles
             <ArrowRight size={16} />
           </Link>
@@ -27,7 +27,7 @@ const BlogPreview = () => {
           {latestPosts.map((post, i) => (
             <article
               key={post.slug}
-              className={`group card card-hover overflow-hidden flex flex-col h-full reveal`}
+              className={`group bg-white rounded-2xl border border-line overflow-hidden card-hover flex flex-col h-full reveal`}
               style={{ animationDelay: `${i * 50}ms` }}
             >
               <Link
@@ -44,14 +44,14 @@ const BlogPreview = () => {
                 />
                 <span
                   aria-hidden="true"
-                  className="absolute top-4 left-4 rounded-lg bg-white px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary border border-line"
+                  className="absolute top-4 left-4 rounded-md bg-white px-2.5 py-1 text-[0.6875rem] font-bold uppercase tracking-[0.14em] text-primary border border-line"
                 >
                   {post.category}
                 </span>
               </Link>
 
               <div className="p-6 sm:p-7 flex flex-col flex-grow">
-                <div className="flex items-center gap-4 text-sm text-muted font-medium mb-4">
+                <div className="flex items-center gap-4 text-xs text-muted font-medium mb-4">
                   <div className="flex items-center gap-1.5">
                     <Calendar size={14} className="text-crimson" aria-hidden="true" />
                     <time dateTime={post.dateISO}>{post.date}</time>
@@ -75,7 +75,7 @@ const BlogPreview = () => {
                 <div className="mt-auto pt-4 border-t border-line flex items-center justify-between">
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="link-arrow text-sm"
+                    className="link-arrow inline-flex min-h-11 items-center text-sm"
                     aria-label={`Read full article: ${post.title}`}
                   >
                     Read article

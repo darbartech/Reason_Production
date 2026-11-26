@@ -2,9 +2,11 @@ import B2bClient from "./B2bClient";
 import { buildMetadata } from "@/lib/seo";
 
 export const metadata = buildMetadata({
-  title: "Partnerships for Colleges & Universities",
-  description: "B2B partnerships for international colleges, test centres and Nepali educational organisations. Agent agreements, articulation pathways and recruitment events.",
+  title: "Partner with Reasons Education | Institutions & Local Agents",
+  description:
+    "Work with Reasons Education: institutions seeking student recruitment in Nepal and local counsellors who want document and application support.",
   path: "/b2b",
+  image: "/og/b2b.png",
 });
 
 export default function B2bPage() {

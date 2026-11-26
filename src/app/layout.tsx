@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Newsreader, Hanken_Grotesk } from "next/font/google";
 import "@/styles/globals.css";
 import Navbar from "@/components/Navbar";
@@ -16,7 +16,6 @@ const heading = Newsreader({
   variable: "--font-heading",
   style: ["normal", "italic"],
   axes: ["opsz"],
-  adjustFontFallback: false,
 });
 
 const body = Hanken_Grotesk({
@@ -57,16 +56,28 @@ export const metadata: Metadata = {
   },
 
   icons: {
-    icon: "/logo/favicon.png",
+    icon: [
+      { url: "/logo/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/logo/favicon-192.png", sizes: "192x192", type: "image/png" },
+    ],
     apple: "/logo/apple-touch-icon.png",
   },
+
+  manifest: "/manifest.webmanifest",
+};
+
+export const viewport: Viewport = {
+  themeColor: "#071A33",
+  colorScheme: "light",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${heading.variable} ${body.variable}`}>
+    // Third-party extensions write properties like crxlauncher onto <html> before React
+    // hydrates. This silences attribute mismatches on this element only, not its children.
+    <html lang="en" className={`${heading.variable} ${body.variable}`} suppressHydrationWarning>
       <body className="font-sans antialiased text-primary selection:bg-brand-blue/20 overflow-x-hidden">
         <a href="#main-content" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">Skip to content</a>
         <PublicOnly>

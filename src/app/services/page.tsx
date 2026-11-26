@@ -3,9 +3,11 @@ import { buildMetadata } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/Schema";
 
 export const metadata = buildMetadata({
-  title: "Counselling, Visa & Document Services",
-  description: "Study abroad counselling services at Reasons Education: university applications, SOP/LOR writing, visa documentation, IELTS/PTE and pre-departure briefings.",
+  title: "Study Abroad Services in Kathmandu: Counselling, Visa, IELTS",
+  description:
+    "Counselling, applications, document checks, visa support and IELTS & PTE classes in New Baneshwor, Kathmandu. See what's included and what you bring.",
   path: "/services",
+  image: "/og/services.png",
 });
 
 const ServicesPage = () => {

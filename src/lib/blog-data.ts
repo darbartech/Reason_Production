@@ -3,137 +3,165 @@ export interface BlogPostImage {
   alt: string;
 }
 
+export type BlogCategory = "Visas & money" | "IELTS & PTE" | "Applications" | "Countries";
+
 export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
+  quickAnswer: string;
   content: string;
-  category: "Study Guides" | "Visa Tips" | "IELTS";
+  category: BlogCategory;
   date: string;
   dateISO: string;
+  /** The date the figures and links were last checked. */
+  checkedDate: string;
+  checkedISO: string;
   author: string;
+  reviewedBy: string;
   image: BlogPostImage;
 }
 
 export const blogPosts: BlogPost[] = [
   {
-    slug: "how-to-study-in-canada-from-nepal-2026",
-    title: "How to Study in Canada from Nepal in 2026: A Step-by-Step Guide",
-    excerpt: "Plan your Canadian journey: admission requirements, English proficiency, and up-to-date study-permit guidance.",
-    category: "Study Guides",
-    date: "April 10, 2026",
+    slug: "study-in-canada-from-nepal-2026",
+    title: "Study in Canada from Nepal in 2026: Steps, Proof of Funds and PAL",
+    excerpt:
+      "The 2026 steps to a Canadian study permit from Nepal: proof of funds (CAD 23,448 from 1 Sep 2026), PAL, English tests and common mistakes.",
+    quickAnswer:
+      "Choose a Designated Learning Institution, get a Letter of Acceptance, obtain a PAL/TAL if required, show proof of funds (CAD 23,448 for a single applicant outside Québec from 1 Sep 2026, plus tuition and travel) and apply to IRCC online.",
+    category: "Visas & money",
+    date: "10 April 2026",
     dateISO: "2026-04-10",
-    author: "Suman Thapa",
+    checkedDate: "2 Nov 2026",
+    checkedISO: "2026-11-02",
+    author: "Rajesh Poudel",
+    reviewedBy: "Rajesh Poudel",
     image: {
-      src: "/images/countries/canada-toronto-skyline.webp",
-      alt: "Toronto skyline and Lake Ontario at sunset, Canada",
+      src: "/images/photos/blog-canada-1200.webp",
+      alt: "Aerial view of Toronto's waterfront and skyline at sunset",
     },
     content: `
-      <h2>Introduction to Studying in Canada</h2>
-      <p>Canada remains one of the most sought-after destinations for students from Nepal. With its high-quality education system, multicultural environment, and excellent post-study work opportunities, it's no wonder that thousands of Nepalese students choose Canada every year. In 2026, the landscape has evolved with new regulations and increased financial requirements, making it more important than ever to have a clear, step-by-step plan.</p>
-      
-      <h3>1. Choose Your Course and Institution</h3>
-      <p>The first step is to research and select a course that aligns with your career goals and academic background. Ensure that you choose a Designated Learning Institution (DLI) in Canada. DLIs are the only institutions authorized to host international students. When selecting a course, consider the labor market demands in Canada; fields like Healthcare, STEM, and Skilled Trades often offer better prospects for post-study work permits (PGWP).</p>
-      
-      <h3>2. English Proficiency Test</h3>
-      <p>Most Canadian institutions require an English proficiency test like IELTS or PTE. Required English scores vary by institution and intake; the IRCC sets minimum language requirements for your study-permit application. Preparing early is key; we recommend starting your preparation at least 3-6 months before your intended application date.</p>
-      
-      <h3>3. Financial Planning</h3>
-      <p>The Government of Canada requires international students to show they have enough money to support themselves and any family members in Canada. Currently the 12-month living-costs figure is updated annually by IRCC — confirm the current figure at canada.ca before applying. Common options include bank savings, sanctioned education loans, and official scholarship or sponsorship letters.</p>
-      
-      <h3>4. Apply for Admission</h3>
-      <p>Once you've chosen your institution and met the requirements, submit your application for admission. You'll need to provide your academic transcripts, English test results, a Statement of Purpose (SOP), and recommendation letters. If successful, you'll receive a Letter of Acceptance (LOA). Pay close attention to the deadlines for different intakes: September (Major), January, and May.</p>
-      
-      <h3>5. Provincial Attestation Letter (PAL)</h3>
-      <p>Most study permit applications require a Provincial Attestation Letter (PAL) from the province or territory where you plan to study — a rule in place since January 2024. Your chosen DLI will typically apply for this on your behalf once you've accepted your offer and paid your tuition deposit. Ensure you have this document before proceeding to the visa application.</p>
-      
-      <h3>6. Visa Application</h3>
-      <p>Submit your student permit application via the IRCC portal. Your application should include your Letter of Acceptance, proof of language ability, a clear SOP explaining your study plan and ties to Nepal, proof of tuition payment where applicable, and the required financial support documents as set out in the current IRCC guidance.</p>
-      
-      <h3>7. Biometrics and Medicals</h3>
-      <p>After submitting your application, you'll receive a request for biometrics (fingerprints and photo). You'll need to book an appointment at the VFS Global center in Kathmandu. Additionally, you must undergo a medical examination by an IRCC-authorized panel physician in Nepal.</p>
-      
-      <h3>8. Pre-Departure Planning</h3>
-      <p>Once your visa is approved, it's time to prepare for your journey. This includes booking your flights, arranging accommodation (on-campus or off-campus), and attending a pre-departure briefing at Reasons Education. We'll cover everything from what to pack to opening a Canadian phone line and bank account.</p>
+      <h2>Step 1 – Choose a DLI and a programme</h2>
+      <p>Only Designated Learning Institutions (DLIs) can host international students. Pick programmes with a clear link to your past study and plans, and check the institution is on the current <a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/prepare/designated-learning-institutions-list.html" target="_blank" rel="noopener noreferrer">DLI list</a>. The course should make sense to a visa officer reading your file for the first time.</p>
 
-      <h2>Why Choose Canada in 2026?</h2>
-      <p>Despite changes in regulations, Canada continues to offer a world-class education and a path to global career success. The focus has shifted towards quality over quantity, ensuring that international students have a better experience and better outcomes. By following this guide and working with experts, you can make your Canadian dream a reality.</p>
+      <h2>Step 2 – Take your English test</h2>
+      <p>The institution sets the score — often IELTS 6.0–6.5 overall. Book early, because results take time and you need the result before you apply for admission. PTE is accepted by many institutions, but check each course page rather than assuming.</p>
+
+      <h2>Step 3 – Apply and get your Letter of Acceptance</h2>
+      <p>Submit transcripts, certificates, your English result and a statement of purpose. Keep the deadlines for the September, January and May intakes in view. Once you meet the conditions and pay the deposit, the institution issues your Letter of Acceptance.</p>
+
+      <h2>Step 4 – Get your PAL/TAL if you need one</h2>
+      <p>Most applicants need a Provincial or Territorial Attestation Letter. Master's and PhD students at public institutions are exempt from 1 Jan 2026. Your institution usually requests the letter after you accept the offer; confirm your own case on IRCC.</p>
+
+      <h2>Step 5 – Show your money</h2>
+      <p>Show CAD 23,448 for living costs if you are a single applicant outside Québec applying on or after 1 Sep 2026. Add first-year tuition and travel. Each extra family member needs CAD 6,318. Use documents IRCC accepts: bank statements, a GIC, a loan sanction or sponsor documents. If the programme is longer than a year, explain how you will pay the rest.</p>
+
+      <h2>Step 6 – Apply, biometrics and medical</h2>
+      <p>Apply online through IRCC. Book biometrics at VFS Kathmandu and use an IRCC panel physician if a medical is requested. The Student Direct Stream closed on 8 Nov 2024, so ignore older guides that still mention it.</p>
+
+      <h2>Three mistakes that cause refusals</h2>
+      <ul>
+        <li><strong>Unclear funds.</strong> Amounts that don't match the documents, or money that appeared recently without an explanation.</li>
+        <li><strong>A study plan that doesn't fit.</strong> A course that has no connection to your past study or your plans.</li>
+        <li><strong>Inconsistent documents.</strong> Different dates, names or amounts across your forms, transcripts and bank papers.</li>
+      </ul>
+
+      <p>Rules change often. Last checked 2 Nov 2026. <a href="/countries/canada">Read the full Canada guide</a> for the current snapshot, or <a href="/contact">book a free session</a> and we will check your plan against today's rules. We can't guarantee a study permit.</p>
+
+      <h2>Sources</h2>
+      <ul>
+        <li><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada.html" target="_blank" rel="noopener noreferrer">IRCC – Study in Canada</a></li>
+        <li><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/study-permit/prepare/financial-support.html" target="_blank" rel="noopener noreferrer">IRCC – Proof of financial support</a></li>
+        <li><a href="https://www.canada.ca/en/immigration-refugees-citizenship/services/study-canada/work/work-off-campus.html" target="_blank" rel="noopener noreferrer">IRCC – Work off campus</a></li>
+      </ul>
     `,
   },
   {
-    slug: "top-5-ielts-tips-for-high-score",
-    title: "Top 5 IELTS Tips for a High Band Score in the First Attempt",
-    excerpt: "Achieve your target IELTS score with these proven strategies from our expert trainers in Kathmandu.",
-    category: "IELTS",
-    date: "April 05, 2026",
+    slug: "ielts-tips-for-a-higher-band-score",
+    title: "5 IELTS Tips for a Higher Band Score",
+    excerpt:
+      "Five practical IELTS tips from Reasons Education's lead trainer in Kathmandu: know the format, practise daily, build vocabulary, manage time and get feedback.",
+    quickAnswer:
+      "Learn the format, practise a little every day, use timed mock tests, build vocabulary in context and get feedback on writing and speaking.",
+    category: "IELTS & PTE",
+    date: "5 April 2026",
     dateISO: "2026-04-05",
+    checkedDate: "2 Nov 2026",
+    checkedISO: "2026-11-02",
     author: "Anita Shrestha",
+    reviewedBy: "Anita Shrestha",
     image: {
-      src: "/images/blog/ielts-writing-practice.webp",
-      alt: "Hand writing practice notes with a pen at a study desk",
+      src: "/images/photos/blog-ielts-1200.webp",
+      alt: "Hand writing IELTS practice notes at a study desk",
     },
     content: `
-      <h2>Achieving Your Target IELTS Score</h2>
-      <p>IELTS is a crucial step in your study abroad journey. A high band score not only improves your admission chances but also your visa success rate. However, achieving that high band score (7.0 or above) is often easier said than done. It requires a combination of language proficiency and test-taking strategies. Here are our top 5 tips for success, straight from our expert trainers in Kathmandu.</p>
-      
-      <h3>1. Understand the Test Format in Detail</h3>
-      <p>Familiarize yourself with the four sections: Listening, Reading, Writing, and Speaking. Each section has its own set of rules and challenges. For example, in the Listening section, you'll hear the recording only once, so multitasking is essential. In the Writing section, you need to understand the difference between Task 1 (describing a graph/chart) and Task 2 (writing an essay). Knowing what each task expects from you is half the battle won.</p>
-      
-      <h3>2. Practice Daily with a Structured Plan</h3>
-      <p>Consistency is key. Spend at least 2-3 hours every day practicing different sections. Don't just focus on your strongest sections; identify your weaknesses and dedicate more time to them. Use official IELTS practice materials from the British Council or IDP, and take full-length mock tests to simulate the actual exam environment. This will help you build stamina and manage your time effectively.</p>
-      
-      <h3>3. Expand Your Vocabulary and Grammar</h3>
-      <p>A wide range of vocabulary and accurate grammar are essential for high band scores. Read diverse materials like news articles, journals, and essays to learn new words in context. Don't just memorize word lists; learn how to use them naturally. Similarly, practice complex sentence structures. In the Speaking and Writing sections, the ability to use a variety of grammatical structures will significantly boost your score.</p>
-      
-      <h3>4. Master Time Management</h3>
-      <p>Many students fail to finish their IELTS test on time. Practice under timed conditions to build your speed and accuracy. For the Reading section, learn techniques like skimming (getting the main idea) and scanning (looking for specific information) to find answers quickly. In the Writing section, allocate 20 minutes for Task 1 and 40 minutes for Task 2, and always leave a few minutes at the end for proofreading.</p>
-      
-      <h3>5. Get Professional Feedback and Guidance</h3>
-      <p>While self-study is important, professional guidance can make a significant difference. Join an expert-led IELTS class like ours at Reasons Education. Our certified trainers can provide personalized feedback on your writing and speaking, identifying your mistakes and suggesting ways to improve. Mock speaking tests with a trainer will help you build confidence and reduce anxiety on the test day.</p>
+      <h2>1. Know the format</h2>
+      <p>There are four modules: Listening, Reading, Writing and Speaking. Writing has Task 1, where you describe data, and Task 2, where you write an essay. Listening is played once. Knowing what each section asks of you removes surprises on test day.</p>
 
-      <h2>The Importance of the "Speaking" Section</h2>
-      <p>Many Nepalese students find the Speaking section particularly challenging. The key is to be natural and confident. Don't try to memorize answers; instead, focus on communicating your ideas clearly. Use fillers appropriately, and don't be afraid to ask the examiner to repeat a question if you didn't understand it. Practice speaking English as much as possible in your daily life to become more fluent.</p>
+      <h2>2. Practise daily with a plan</h2>
+      <p>A little every day beats a long session once a week. Work on your weakest module first, and use official practice material rather than random online tests. Keep a simple record of what you did and what you got wrong.</p>
 
-      <h2>Conclusion</h2>
-      <p>Success in IELTS is a combination of hard work, smart strategies, and the right guidance. By following these tips and practicing consistently, you can achieve your target band score and open doors to global education. Remember, your study abroad journey starts with a strong IELTS result.</p>
+      <h2>3. Build vocabulary in context</h2>
+      <p>Read news, reports and essays and note how words are used in a sentence. Learn phrases, not isolated lists. In Writing and Speaking, accurate use of a smaller range of words scores better than a memorised list used badly.</p>
+
+      <h2>4. Manage your time</h2>
+      <p>In Writing, try about 20 minutes for Task 1 and 40 for Task 2, leaving a few minutes to check. In Reading, practise skimming for the main idea and scanning for specific details. Use timed mock tests so the clock is not new on the day.</p>
+
+      <h2>5. Get feedback</h2>
+      <p>You cannot hear your own writing the way an examiner reads it. A trainer can spot repeated grammar patterns, weak task response and speaking habits you have stopped noticing. Our classes include written feedback and a timed mock test.</p>
+
+      <h2>A note on Speaking</h2>
+      <p>Speak naturally. You can ask the examiner to repeat a question if you did not understand it. Memorised answers usually sound memorised, so practise talking about your own study, work and plans instead.</p>
+
+      <p>Class details and fees are on the <a href="/ielts">IELTS &amp; PTE page</a>. The exam fee is paid to the test provider and is separate from the class fee. Last checked 2 Nov 2026.</p>
     `,
   },
   {
     slug: "visa-sop-writing-guide-nepal",
-    title: "The Ultimate Visa SOP Writing Guide for Nepalese Students",
-    excerpt: "Your Statement of Purpose (SOP) is critical for visa success. Learn how to write a compelling SOP that gets results.",
-    category: "Visa Tips",
-    date: "March 28, 2026",
+    title: "How to Write a Statement of Purpose for a Student Visa (Nepal)",
+    excerpt:
+      "A clear structure for your SOP: your background, why this course and country, how you'll pay, and your plans in Nepal. Written in your own words.",
+    quickAnswer:
+      "A good SOP explains your past study, why this course and country, how you'll pay, and what you'll do next. It is written in your own voice and matches the rest of your file.",
+    category: "Applications",
+    date: "28 March 2026",
     dateISO: "2026-03-28",
+    checkedDate: "2 Nov 2026",
+    checkedISO: "2026-11-02",
     author: "Rajesh Poudel",
+    reviewedBy: "Rajesh Poudel",
     image: {
-      src: "/images/blog/visa-sop-writing.webp",
-      alt: "Hand writing a formal application document with a pen",
+      src: "/images/photos/blog-sop-1200.webp",
+      alt: "Writing a statement of purpose at a desk",
     },
     content: `
-      <h2>The Importance of a Strong SOP</h2>
-      <p>Your Statement of Purpose (SOP) is your opportunity to tell your story to the visa officer. It's a critical document that explains your motivations, goals, and why you've chosen a particular course and country. In many cases, it's the only chance you have to present your case before a final decision is made. A well-crafted SOP can be the difference between a visa approval and a refusal, especially for highly competitive destinations like Canada, Australia, and the UK.</p>
-      
-      <h3>1. Be Authentic and Honest</h3>
-      <p>Write your SOP in your own words. Avoid using templates or copying from others. Authenticity is highly valued by visa officers. They are trained to spot generic or plagiarized content. Your SOP should reflect your unique personality, experiences, and aspirations. Don't be afraid to share personal anecdotes or specific reasons that motivated your decision to study abroad.</p>
-      
-      <h3>2. Define Clear Academic and Career Goals</h3>
-      <p>Explain how your chosen course aligns with your previous academic background and your future career plans in Nepal. Clearly articulate what you hope to achieve through this education and how it will benefit you professionally. Avoid vague statements like "I want to gain global exposure." Instead, be specific about the skills you want to acquire and the career paths you plan to pursue in Nepal after graduation.</p>
-      
-      <h3>3. Why This Specific Country and Institution?</h3>
-      <p>Provide specific reasons for choosing a particular country and institution. Mention research facilities, course curriculum, and any unique features that attracted you. Show that you've done your research. For example, if you're choosing a university in Canada, explain why that specific program is better for you than a similar one in Australia or even in Nepal. This demonstrates that you are a serious and committed student.</p>
-      
-      <h3>4. Address Any Gaps or Weaknesses</h3>
-      <p>If you have academic gaps, low scores, or previous visa refusals, address them honestly and explain how you've overcome those challenges. Don't try to hide them. Providing a logical and truthful explanation can help build trust with the visa officer. For example, if you had a gap year, explain what you did during that time—whether it was working, volunteering, or learning a new skill.</p>
-      
-      <h3>5. Proofread Carefully and Get Feedback</h3>
-      <p>Ensure your SOP is free from grammatical errors and typos. A poorly written SOP can give the impression that you are not serious about your studies. Proofread your work multiple times, and get it reviewed by an expert. At Reasons Education, our team of experienced counsellors can provide constructive feedback on your SOP, ensuring it's professional, compelling, and meets the requirements of the visa office.</p>
+      <h2>1. Be yourself</h2>
+      <p>Write in your own words. Templates are easy to spot, and a statement that could belong to anyone says nothing about you. You do not need dramatic language; you need clear, specific reasons.</p>
 
-      <h2>The "Why Return to Nepal?" Section</h2>
-      <p>One of the most critical aspects of a visa SOP is proving your intention to return to Nepal. Visa officers need to be convinced that you are a "genuine temporary entrant." Explain your strong ties to Nepal, such as family, property, or career opportunities. Be specific about your plans after graduation. For example, you could mention a specific company you'd like to work for in Nepal or a business you plan to start.</p>
+      <h2>2. Connect the dots</h2>
+      <p>Show how this course follows from your past study or work. If you are changing field, explain what led to the change and what you have already done to prepare. A reader should be able to follow the line from then to now to next.</p>
 
-      <h2>Conclusion</h2>
-      <p>Your SOP is more than just a document; it's your voice in the visa application process. By being authentic, specific, and well-prepared, you can create a compelling SOP that significantly increases your chances of visa success. Don't leave it until the last minute—start working on your SOP early and seek professional guidance to make it truly stand out.</p>
+      <h2>3. Be specific about the course and the place</h2>
+      <p>Name modules, facilities or teaching approaches you will use, and say why that country is the right place for this subject. Avoid generic lines about “global exposure” that could be copied into any application.</p>
+
+      <h2>4. Explain gaps or weak points honestly</h2>
+      <p>If you have an academic gap, a low semester or a previous refusal, address it briefly and factually. Say what happened and what you did next. Hiding it does not make it disappear from your documents.</p>
+
+      <h2>5. Show your plan, including your future in Nepal</h2>
+      <p>Name realistic roles, sectors or further study you are aiming for, and how this qualification connects to them. Be careful not to promise a job you cannot know you will get.</p>
+
+      <h2>6. Check consistency</h2>
+      <p>Dates, amounts, course names and institution names must match your transcripts, offer letter and financial documents. Read the whole file together before you submit, not each document on its own.</p>
+
+      <p><strong>Our role:</strong> we review and coach. We do not write the statement for you — it has to be yours. If you want help with the rest of the application, see our <a href="/services">application support</a>. Last checked 2 Nov 2026.</p>
     `,
   },
+];
+
+export const blogCategories: BlogCategory[] = [
+  "Visas & money",
+  "IELTS & PTE",
+  "Applications",
+  "Countries",
 ];
