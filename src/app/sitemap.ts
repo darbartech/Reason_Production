@@ -3,6 +3,8 @@ import { blogPosts } from "@/lib/blog-data";
 import { countries } from "@/content/countries";
 import { company } from "@/lib/company";
 
+export const dynamic = "force-static";
+
 const staticPaths = [
   "",
   "/about",

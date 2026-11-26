@@ -19,7 +19,9 @@ type CountryCardProps =
     };
 
 export default function CountryCard(props: CountryCardProps) {
-  if (props.notSure) {
+  // Truthiness of the boolean discriminant doesn't narrow under this repo's
+  // strict:false tsconfig, so the presence of `image` is the runtime check.
+  if (!("image" in props)) {
     const { name, href, description } = props;
     return (
       <Link
